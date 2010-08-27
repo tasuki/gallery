@@ -65,8 +65,7 @@ function recursivelyProcessDir($directory, $config = array()) {
 				} else echo '<p class="fail">failed to create directory ' . $storage . $item . '</p>';
 			}
 			recursivelyProcessDir($directory . $item . '/');
-		}
-		else {
+		} else {
 			if ((! is_file($storage . $item)) || (filectime($storage . $item) < filectime($updir . $item))) {
 				$resizer->loadImage($updir . $item);
 				$resizer->setOutputImage($storage . $item);
@@ -89,37 +88,38 @@ function recursivelyProcessDir($directory, $config = array()) {
 $get = explode('/', $_GET['q']);
 if (end($get) != '') $get[] = '';
 
-if ($get[0] == 'reload') {
-	recursivelyProcessDir('');
-	echo "<p>---FINISHED---</p>";
-	die();
+switch ($get[0]) {
+	case 'reload':
+		recursivelyProcessDir('');
+		echo "<p>---FINISHED---</p>";
+		die;
 
-} elseif ($get[0] == 'update') {
-	include('update-gallery.php');
+	case 'update':
+		include('update-gallery.php');
+		break;
 
-} else {
-	$tmp = $conf['basedir'];
-	$breadcrumb = '<a href="' . $tmp . '">' . $conf['name'] . '</a>';
+	default:
+		$tmp = $conf['basedir'];
+		$breadcrumb = '<a href="' . $tmp . '">' . $conf['name'] . '</a>';
 
-	$directory = implode('/', $get);
-	try {
-		$dir = getDir($directory);
-		$directories = $dir['directories'];
-		$images = $dir['files'];
+		$directory = implode('/', $get);
+		try {
+			$dir = getDir($directory);
+			$directories = $dir['directories'];
+			$images = $dir['files'];
 
-		foreach ($get as $part) {
-			if ($part) {
-				$tmp .= $part;
-				$breadcrumb .= ' &raquo; <a href="' . $tmp . '">' . displayify($part) . '</a>';
-				$tmp .= '/';
+			foreach ($get as $part) {
+				if ($part) {
+					$tmp .= $part;
+					$breadcrumb .= ' &raquo; <a href="' . $tmp . '">' . displayify($part) . '</a>';
+					$tmp .= '/';
+				}
 			}
+		} catch(Exception $e) {
+			$directories = array();
 		}
-	} catch(Exception $e) {
-		$directories = array();
-	}
 
-	include('layout.php');
-
+		include('layout.php');
 }
 
 ?>
