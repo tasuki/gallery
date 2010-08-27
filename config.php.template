@@ -1,6 +1,7 @@
 <?php
 
 // path to your base directory on the web server (such as '/~user/gallery/')
+// you also need to change this in .htaccess
 $conf['basedir'] = '/';
 
 // title of the gallery
