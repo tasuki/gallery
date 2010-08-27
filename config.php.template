@@ -1,0 +1,32 @@
+<?php
+
+// path to your base directory on the web server (such as '/~user/gallery/')
+$conf['basedir'] = '/';
+
+// title of the gallery
+$conf['name']             = 'my gallery';
+
+// directory to search for uploaded pictures
+$conf['updir']            = 'upload';
+
+// directory to put processed pictures, make sure apache can access it:
+// chmod 777 gallery
+$conf['storage']          = 'gallery';
+
+// prefix for thumbnails, put something that will not
+// collide with your usual file names
+$conf['thumbnail_prefix'] = '__';
+
+// thumbnail parameters
+$conf['thumbnail'] = array(
+	'method'    => 'scale', // scale, crop, deform
+	'maxheight' => 200,
+	'maxwidth'  => 200,
+);
+
+// image parameters
+$conf['full_image'] = array(
+	'method'    => 'scale', // scale, crop, deform
+	'maxheight' => 1024,
+	'maxwidth'  => 1024,
+);

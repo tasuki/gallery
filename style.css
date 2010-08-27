@@ -1,0 +1,64 @@
+@font-face {
+	font-family: 'LeagueGothic';
+	src: url('fonts/League_Gothic-webfont.eot');
+	src: local('☺'), url('fonts/League_Gothic-webfont.woff') format('woff'), url('fonts/League_Gothic-webfont.ttf') format('truetype'), url('fonts/League_Gothic-webfont.svg#webfonth8J5BRG2') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+* { margin: 0; padding: 0; }
+.clear { clear: both; }
+a { color: #000; }
+
+/* background image thanks to: http://knitetgantt.deviantart.com/art/Tiled-Wallpaper-Green-Texture-131657984 */
+body { background: url("knitetgantt.png") #CCC; color: #FFF; font-family: LeagueGothic, Georgia, serif; font-size: 25px; padding: 20px; }
+
+#breadcrumb { font-size: 70px; padding: 10px; }
+#breadcrumb a { text-decoration: none; }
+#breadcrumb a:hover { color: #FFF; text-decoration: underline; }
+
+#directories { font-size: 40px; }
+
+a.box { background: #000; color: #FFF; float: left; margin: 10px; padding: 10px 20px; text-decoration: none; }
+a.box:hover { background: #FFF; color: #000; }
+
+div.pic { height: 220px; float: left; margin: 10px; }
+a img { border: 10px solid #FFF; }
+a:visited img { border-color: #EEE; }
+a:hover img { border-color: #000; }
+
+#fancybox-title { font-family: inherit; font-size: 40px; text-shadow: #000 2px 2px 1px; }
+
+#bottom { margin-top: 30px; }
+
+#byncsa { color: #000; float: left; margin: 10px; }
+/* #byncsa img { vertical-align: text-bottom; } */
+
+#calibration { border: 1px solid #808080; float: right; height: 15px; margin: 10px; }
+#calibration div { float: left; height: 15px; width: 15px; text-align: center; }
+.cal01 { background: #FFFFFF; }
+.cal02 { background: #F5F5F5; }
+.cal03 { background: #EBEBEB; }
+.cal04 { background: #E0E0E0; }
+.cal05 { background: #D6D6D6; }
+.cal06 { background: #CCCCCC; }
+.cal07 { background: #C2C2C2; }
+.cal08 { background: #B8B8B8; }
+.cal09 { background: #ADADAD; }
+.cal10 { background: #A3A3A3; }
+.cal11 { background: #999999; }
+.cal12 { background: #8F8F8F; }
+.cal13 { background: #858585; }
+.cal14 { background: #7A7A7A; }
+.cal15 { background: #707070; }
+.cal16 { background: #666666; }
+.cal17 { background: #5C5C5C; }
+.cal18 { background: #525252; }
+.cal19 { background: #474747; }
+.cal20 { background: #3D3D3D; }
+.cal21 { background: #333333; }
+.cal22 { background: #292929; }
+.cal23 { background: #1F1F1F; }
+.cal24 { background: #141414; }
+.cal25 { background: #0A0A0A; }
+.cal26 { background: #000000; }
