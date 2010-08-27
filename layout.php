@@ -44,15 +44,19 @@
 
 <div id="images">
 <?php
-	foreach ($images as $image) {
-		$pi = pathinfo($image);
-		$pi['filename'] = substr($pi['basename'], 0, strrpos($pi['basename'], '.')); 
-		echo '
-			<div class="pic"><a title="' . displayify($pi['filename']) . '" class="fancybox" rel="x" href="' . $conf['basedir'] . $conf['storage'] . '/' .
-					$directory . $image . '">
-				<img src="' . $conf['basedir'] . $conf['storage'] . '/' .
-					$directory . $conf['thumbnail_prefix'] . $image . '" alt=""/>
-			</a></div>';
+	if (isset($images)) {
+		foreach ($images as $image) {
+			$pi = pathinfo($image);
+			$pi['filename'] = substr($pi['basename'], 0, strrpos($pi['basename'], '.')); 
+			echo '
+				<div class="pic"><a title="' . displayify($pi['filename']) . '" class="fancybox" rel="x" href="' . $conf['basedir'] . $conf['storage'] . '/' .
+						$directory . $image . '">
+					<img src="' . $conf['basedir'] . $conf['storage'] . '/' .
+						$directory . $conf['thumbnail_prefix'] . $image . '" alt=""/>
+				</a></div>';
+		}
+	} else {
+		echo "<p>Sorry, you are looking for something that isn't here.</p>";
 	}
 ?>
 <div class="clear"></div>

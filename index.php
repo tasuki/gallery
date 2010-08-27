@@ -15,6 +15,7 @@ $resizer->setMaxWidth($conf['full_image']['maxwidth']);
 
 
 function displayify($text) {
+	// remove undescores and dashes from file names, replace with spaces
 	return preg_replace('/[_-]/', ' ', $text);
 }
 
@@ -22,7 +23,11 @@ function getDir($directory) {
 	global $conf;
 
 	$dir = './' . $conf['storage'] . '/' . preg_replace('/\.\./', '.', $directory);
-	$list = scandir($dir);
+	$list = @scandir($dir);
+
+	if ($list === false)
+		throw new Exception("can't open that");
+
 	$files = array('directories' => array(), 'files' => array());
 	foreach ($list as $item) {
 		if ($item == '.' || $item == '..') continue;
@@ -88,22 +93,29 @@ if ($get[0] == 'reload') {
 	recursivelyProcessDir('');
 	echo "<p>---FINISHED---</p>";
 	die();
+
 } elseif ($get[0] == 'update') {
 	include('update-gallery.php');
-} else {
-	$directory = implode('/', $get);
-	$dir = getDir($directory);
-	$directories = $dir['directories'];
-	$images = $dir['files'];
 
+} else {
 	$tmp = $conf['basedir'];
 	$breadcrumb = '<a href="' . $tmp . '">' . $conf['name'] . '</a>';
-	foreach ($get as $part) {
-		if ($part) {
-			$tmp .= $part;
-			$breadcrumb .= ' &raquo; <a href="' . $tmp . '">' . displayify($part) . '</a>';
-			$tmp .= '/';
+
+	$directory = implode('/', $get);
+	try {
+		$dir = getDir($directory);
+		$directories = $dir['directories'];
+		$images = $dir['files'];
+
+		foreach ($get as $part) {
+			if ($part) {
+				$tmp .= $part;
+				$breadcrumb .= ' &raquo; <a href="' . $tmp . '">' . displayify($part) . '</a>';
+				$tmp .= '/';
+			}
 		}
+	} catch(Exception $e) {
+		$directories = array();
 	}
 
 	include('layout.php');
