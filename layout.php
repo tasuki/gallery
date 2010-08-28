@@ -34,6 +34,7 @@
 
 <div id="directories">
 <?php
+	// show all subdirectories of the current directory
 	foreach ($directories as $dir) {
 		echo '<a class="box" href="' . $conf['basedir'] . $directory . $dir . '">' . displayify($dir) . '</a>';
 	}
@@ -45,6 +46,7 @@
 <div id="images">
 <?php
 	if (isset($images)) {
+		// show all images in the current directory
 		foreach ($images as $image) {
 			$pi = pathinfo($image);
 			$pi['filename'] = substr($pi['basename'], 0, strrpos($pi['basename'], '.')); 
@@ -56,6 +58,7 @@
 				</a></div>';
 		}
 	} else {
+		// 404
 		echo "<p>Sorry, you are looking for something that isn't here.</p>";
 	}
 ?>
