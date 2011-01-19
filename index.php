@@ -5,13 +5,13 @@ include('tasumbnail.php');
 
 $thumbnailer = new tasumbnail();
 $thumbnailer->setMethod($conf['thumbnail']['method']);
-$thumbnailer->setMaxHeight($conf['thumbnail']['maxheight']);
-$thumbnailer->setMaxWidth($conf['thumbnail']['maxwidth']);
+$thumbnailer->maxHeight = $conf['thumbnail']['maxheight'];
+$thumbnailer->maxWidth = $conf['thumbnail']['maxwidth'];
 
 $resizer = new tasumbnail();
 $resizer->setMethod($conf['full_image']['method']);
-$resizer->setMaxHeight($conf['full_image']['maxheight']);
-$resizer->setMaxWidth($conf['full_image']['maxwidth']);
+$resizer->maxHeight = $conf['full_image']['maxheight'];
+$resizer->maxWidth = $conf['full_image']['maxwidth'];
 
 
 // remove undescores and dashes from text, replace with spaces
@@ -74,7 +74,7 @@ function recursivelyProcessDir($directory) {
 			// create the downsized image
 			if ((! is_file($storage . $item)) || (filectime($storage . $item) < filectime($updir . $item))) {
 				$resizer->loadImage($updir . $item);
-				$resizer->setOutputImage($storage . $item);
+				$resizer->outputImage = $storage . $item;
 				$resizer->rescale();
 				chmod($storage . $item, 0666);
 				echo '<p>creating image ' . $storage . $item . '</p>';
@@ -84,7 +84,7 @@ function recursivelyProcessDir($directory) {
 			if ((! is_file($storage . $conf['thumbnail_prefix'] . $item))
 					|| (filectime($storage . $conf['thumbnail_prefix'] . $item) < filectime($updir . $item))) {
 				$thumbnailer->loadImage($updir . $item);
-				$thumbnailer->setOutputImage($storage . $conf['thumbnail_prefix'] . $item);
+				$thumbnailer->outputImage = $storage . $conf['thumbnail_prefix'] . $item;
 				$thumbnailer->rescale();
 				chmod($storage . $conf['thumbnail_prefix'] . $item, 0666);
 				echo '<p>creating thumbnail ' . $storage . $conf['thumbnail_prefix'] . $item . '</p>';

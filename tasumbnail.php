@@ -12,12 +12,12 @@ class tasumbnail
 	private $origImage = null;
 	private $origFormat;
 
-	private $outputImage = null;
+	public $outputImage = null;
+	public $maxWidth = null;
+	public $maxHeight = null;
+	public $doNotEnlarge = true;
 	private $outputFormat = null;
 	private $jpegQuality = 85;
-	private $position = null;
-	private $maxWidth = null;
-	private $maxHeight = null;
 	private $allowedFormats = array(
 		'gif' => array('gif'),
 		'jpeg' => array('jpg', 'jpeg'),
@@ -32,31 +32,11 @@ class tasumbnail
 		'crop',
 	);
 	private $method = 'scale';
-	private $positionLeft = 'center';
-	private $positionTop = 'center';
-
-	public function setMaxWidth($width)
-	{
-		$this->maxWidth = $width;
-	}
-
-	public function setMaxHeight($height)
-	{
-		$this->maxHeight = $height;
-	}
-
-	public function setOutputImage($output) {
-		$this->outputImage = $output;
-	}
 
 	public function setMethod($method) {
 		if (in_array($method, $this->allowedMethods))
 			$this->method = $method;
 		else throw new Exception("Unknown method '$method'");
-	}
-
-	public function setPosition($position) {
-		$this->position = $position;
 	}
 
 	public function setOutputFormat($fileFormat) {
@@ -137,7 +117,15 @@ class tasumbnail
 		eval('$src = imagecreatefrom' . $this->origFormat . '("' . $this->origImage . '");');
 
 		list($width, $height) = getimagesize($this->origImage);
-		
+
+		if ($this->doNotEnlarge
+			&& $width  < $this->maxWidth
+			&& $height < $this->maxHeight) {
+
+			$this->output($src);
+			return;
+		}
+
 		$x_ratio = $this->maxWidth / $width;
 		$y_ratio = $this->maxHeight / $height;
 
@@ -208,22 +196,24 @@ class tasumbnail
 		$dst = imagecreatetruecolor($new_width, $new_height);
 		imagecopyresampled($dst, $src, 0, 0, $src_x, $src_y, $new_width, $new_height, $src_width, $src_height);
 
+		$this->output($dst);
+	}
+
+	private function output($dst)
+	{
 		if ($this->outputImage == null) {
 			header('Content-type: image/' . $this->outputFormat);
 			if ($this->outputFormat == 'jpeg')
 				eval('image' . $this->outputFormat . '($dst, NULL, ' . $this->jpegQuality . ');');
 			else
 				eval('image' . $this->outputFormat . '($dst);');
-		}
-		else {
+		} else {
 			if ($this->outputFormat == 'jpeg')
 				eval('image' . $this->outputFormat . '($dst, "' . $this->outputImage . '", ' . $this->jpegQuality . ');');
 			else
 				eval('image' . $this->outputFormat . '($dst, "' . $this->outputImage . '");');
 		}
-
 	}
-
 }
 
 ?>
