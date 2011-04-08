@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title><?php echo strip_tags($breadcrumb); ?></title>
+	<title><?php echo $title; ?></title>
 	<link rel="icon" type="image/png" href="<?php echo $conf['basedir']; ?>favicon.png"/>
 
 	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>fancybox/jquery-1.4.2.min.js"></script>

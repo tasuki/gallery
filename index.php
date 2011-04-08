@@ -119,9 +119,13 @@ switch ($get[0]) {
 
 			foreach ($get as $part) {
 				if ($part) {
+					$title = displayify($part);
+
 					$tmp .= $part;
-					$breadcrumb .= ' &raquo; <a href="' . $tmp . '">' . displayify($part) . '</a>';
+					$breadcrumb .= ' &raquo; <a href="' . $tmp . '">' . $title . '</a>';
 					$tmp .= '/';
+
+					$title .= " &ndash; {$conf['name']}";
 				}
 			}
 		} catch(Exception $e) {
