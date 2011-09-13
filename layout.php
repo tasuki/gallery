@@ -7,26 +7,13 @@
 	<link rel="icon" type="image/png" href="<?php echo $conf['basedir']; ?>favicon.png"/>
 
 	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>fancybox/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>fancybox/jquery-ui-1.8.16.custom.min.js"></script>
 	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>fancybox/jquery.fancybox-1.3.1.pack.js"></script>
 	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>fancybox/jquery.easing-1.3.pack.js"></script>
 	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>fancybox/jquery.mousewheel-3.0.2.pack.js"></script>
+	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>fancybox/gallery.js"></script>
 	<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $conf['basedir']; ?>fancybox/jquery.fancybox-1.3.1.css" />
 	<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $conf['basedir']; ?>style.css"/>
-
-	<script>
-		$(document).ready(function(){
-			$("#images a").fancybox({
-				'margin'         : 0,
-				'padding'        : 0,
-				'changeSpeed'    : 100,
-				'overlayShow'    : true,
-				'overlayOpacity' : 0.95,
-				'titlePosition'  : 'over',
-				'transitionIn'   : 'elastic',
-				'transitionOut'  : 'elastic'
-			});
-		});
-	</script>
 </head>
 <body>
 

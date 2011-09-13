@@ -15,17 +15,17 @@ body { background: url("knitetgantt.png") #CCC; color: #FFF; font-family: League
 
 #breadcrumb { font-size: 70px; padding: 10px; }
 #breadcrumb a { text-decoration: none; }
-#breadcrumb a:hover { color: #FFF; text-decoration: underline; }
+#breadcrumb a.hover { color: #FFF; }
 
 #directories { font-size: 40px; }
 
 a.box { background: #000; color: #FFF; float: left; margin: 10px; padding: 10px 20px; text-decoration: none; }
-a.box:hover { background: #FFF; color: #000; }
+a.box.hover { background: #FFF; color: #000; }
 
 div.pic { height: 220px; float: left; margin: 10px; }
 a img { border: 10px solid #FFF; }
 a:visited img { border-color: #EEE; }
-a:hover img { border-color: #000; }
+a img.hover { border-color: #000; }
 
 #fancybox-outer { background-color: #000; }
 #fancybox-title { font-family: inherit; font-size: 40px; text-shadow: #000 2px 2px 1px; }
