@@ -27,6 +27,7 @@ a img { border: 10px solid #FFF; }
 a:visited img { border-color: #EEE; }
 a:hover img { border-color: #000; }
 
+#fancybox-outer { background-color: #000; }
 #fancybox-title { font-family: inherit; font-size: 40px; text-shadow: #000 2px 2px 1px; }
 
 #bottom { margin-top: 30px; }

@@ -18,10 +18,12 @@
 			$("#images a").fancybox({
 				'margin'         : 0,
 				'padding'        : 0,
-				'changeSpeed'    : 0,
+				'changeSpeed'    : 100,
 				'overlayShow'    : true,
 				'overlayOpacity' : 0.95,
 				'titlePosition'  : 'over',
+				'transitionIn'   : 'elastic',
+				'transitionOut'  : 'elastic'
 			});
 		});
 	</script>
