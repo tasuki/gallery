@@ -16,6 +16,7 @@ body { background: url("knitetgantt.png") #CCC; color: #FFF; font-family: League
 #breadcrumb { font-size: 70px; padding: 10px; }
 #breadcrumb a { text-decoration: none; }
 #breadcrumb a.hover { color: #FFF; }
+#breadcrumb .crumb { color: #000; }
 
 #directories { font-size: 40px; }
 

@@ -94,8 +94,7 @@ function recursivelyProcessDir($directory) {
 }
 
 // create array with get path
-$get = explode('/', $_GET['q']);
-if (end($get) != '') $get[] = '';
+$get = explode('/', trim($_GET['q'], '/'));
 
 switch ($get[0]) {
 	case 'reload': // load batch of unprocessed images from upload directory
@@ -111,23 +110,26 @@ switch ($get[0]) {
 		$tmp = $conf['basedir'];
 		$breadcrumb = '<a href="' . $tmp . '">' . $conf['name'] . '</a>';
 
-		$directory = implode('/', $get);
+		$directory = implode('/', $get) . '/';
 		try {
 			$dir = getDir($directory);
 			$directories = $dir['directories'];
 			$images = $dir['files'];
 
+			$last = array_pop($get);
 			foreach ($get as $part) {
-				if ($part) {
-					$title = displayify($part);
+				$title = displayify($part);
 
-					$tmp .= $part;
-					$breadcrumb .= ' &raquo; <a href="' . $tmp . '">' . $title . '</a>';
-					$tmp .= '/';
+				$tmp .= $part;
+				$breadcrumb .= ' &raquo; <a href="' . $tmp . '">' . $title . '</a>';
+				$tmp .= '/';
 
-					$title .= " &ndash; {$conf['name']}";
-				}
+				$title .= " &ndash; {$conf['name']}";
 			}
+			$title = displayify($last);
+			$breadcrumb .= " &raquo; <span class='crumb'>$title</span>";
+			$title .= " &ndash; {$conf['name']}";
+
 		} catch(Exception $e) {
 			$directories = array();
 		}
