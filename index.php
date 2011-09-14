@@ -107,8 +107,6 @@ switch ($get[0]) {
 		break;
 
 	default: // display gallery
-		$tmp = $conf['basedir'];
-		$breadcrumb = '<a href="' . $tmp . '">' . $conf['name'] . '</a>';
 
 		$directory = implode('/', $get) . '/';
 		try {
@@ -116,19 +114,34 @@ switch ($get[0]) {
 			$directories = $dir['directories'];
 			$images = $dir['files'];
 
-			$last = array_pop($get);
+			$tmp = $conf['basedir'] . '/';
+			$crumbs = array(array($tmp, $conf['name']));
 			foreach ($get as $part) {
-				$title = displayify($part);
-
 				$tmp .= $part;
-				$breadcrumb .= ' &raquo; <a href="' . $tmp . '">' . $title . '</a>';
+				$crumbs[] = array($tmp, $part);
 				$tmp .= '/';
+			}
 
+			$last = array_pop($crumbs);
+			$breadcrumbs = array();
+			foreach ($crumbs as $crumb) {
+				list($url, $title) = $crumb;
+				$title = displayify($title);
+
+				$breadcrumbs[] = '<a href="' . $url . '">' . $title . '</a>';
 				$title .= " &ndash; {$conf['name']}";
 			}
-			$title = displayify($last);
-			$breadcrumb .= " &raquo; <span class='crumb'>$title</span>";
-			$title .= " &ndash; {$conf['name']}";
+			list($url, $title) = $last;
+			$title = displayify($title);
+			if ($title) {
+				$breadcrumbs[] = "<span class='crumb'>$title</span>";
+				$title .= " &ndash; {$conf['name']}";
+			} else {
+				$title = $conf['name'];
+			}
+
+			$breadcrumb = implode(' &raquo; ', $breadcrumbs);
+			if ($directory === '/') $directory = '';
 
 		} catch(Exception $e) {
 			$directories = array();

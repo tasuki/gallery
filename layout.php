@@ -4,16 +4,16 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title><?php echo $title; ?></title>
-	<link rel="icon" type="image/png" href="<?php echo $conf['basedir']; ?>favicon.png"/>
+	<link rel="icon" type="image/png" href="<?php echo $conf['basedir']; ?>/favicon.png"/>
 
-	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>fancybox/jquery-1.4.2.min.js"></script>
-	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>fancybox/jquery-ui-1.8.16.custom.min.js"></script>
-	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>fancybox/jquery.fancybox-1.3.1.pack.js"></script>
-	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>fancybox/jquery.easing-1.3.pack.js"></script>
-	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>fancybox/jquery.mousewheel-3.0.2.pack.js"></script>
-	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>fancybox/gallery.js"></script>
-	<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $conf['basedir']; ?>fancybox/jquery.fancybox-1.3.1.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $conf['basedir']; ?>style.css"/>
+	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>/fancybox/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>/fancybox/jquery-ui-1.8.16.custom.min.js"></script>
+	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>/fancybox/jquery.fancybox-1.3.1.pack.js"></script>
+	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>/fancybox/jquery.easing-1.3.pack.js"></script>
+	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>/fancybox/jquery.mousewheel-3.0.2.pack.js"></script>
+	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>/fancybox/gallery.js"></script>
+	<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $conf['basedir']; ?>/fancybox/jquery.fancybox-1.3.1.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $conf['basedir']; ?>/style.css"/>
 </head>
 <body>
 
@@ -25,7 +25,7 @@
 <?php
 	// show all subdirectories of the current directory
 	foreach ($directories as $dir) {
-		echo '<a class="box" href="' . $conf['basedir'] . $directory . $dir . '">' . displayify($dir) . '</a>';
+		echo '<a class="box" href="' . $conf['basedir'] . '/' . $directory . $dir . '">' . displayify($dir) . '</a>';
 	}
 ?>
 </div>
@@ -40,9 +40,9 @@
 			$pi = pathinfo($image);
 			$pi['filename'] = substr($pi['basename'], 0, strrpos($pi['basename'], '.')); 
 			echo '
-				<div class="pic"><a title="' . displayify($pi['filename']) . '" class="fancybox" rel="x" href="' . $conf['basedir'] . $conf['storage'] . '/' .
+				<div class="pic"><a title="' . displayify($pi['filename']) . '" class="fancybox" rel="x" href="' . $conf['basedir'] . '/' . $conf['storage'] . '/' .
 						$directory . $image . '">
-					<img src="' . $conf['basedir'] . $conf['storage'] . '/' .
+					<img src="' . $conf['basedir'] . '/' . $conf['storage'] . '/' .
 						$directory . $conf['thumbnail_prefix'] . $image . '" alt=""/>
 				</a></div>';
 		}
