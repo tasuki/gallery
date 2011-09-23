@@ -14,7 +14,7 @@
 a { color: #000; }
 
 /* background image thanks to: http://knitetgantt.deviantart.com/art/Tiled-Wallpaper-Green-Texture-131657984 */
-body { background: url("knitetgantt.png") #CCC; color: #FFF; font-family: UbuntuBold, sans-serif; font-size: 20px; font-weight: bold; letter-spacing: -1px; padding: 20px; }
+body { background: url("knitetgantt.png") #CCC; color: #FFF; font-family: Ubuntu, UbuntuBold, sans-serif; font-size: 20px; font-weight: bold; letter-spacing: -1px; padding: 20px; }
 
 #breadcrumb { font-size: 50px; letter-spacing: -3px; padding: 10px; }
 #breadcrumb a { text-decoration: none; }
