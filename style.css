@@ -1,8 +1,11 @@
 @font-face {
-	font-family: 'LeagueGothic';
-	src: url('fonts/League_Gothic-webfont.eot');
-	src: local('☺'), url('fonts/League_Gothic-webfont.woff') format('woff'), url('fonts/League_Gothic-webfont.ttf') format('truetype'), url('fonts/League_Gothic-webfont.svg#webfonth8J5BRG2') format('svg');
-	font-weight: normal;
+	font-family: 'UbuntuBold';
+	src: url('fonts/Ubuntu-Bold-webfont.eot');
+	src: url('fonts/Ubuntu-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/Ubuntu-Bold-webfont.woff') format('woff'),
+		 url('fonts/Ubuntu-Bold-webfont.ttf') format('truetype'),
+		 url('fonts/Ubuntu-Bold-webfont.svg#UbuntuBold') format('svg');
+	font-weight: bold;
 	font-style: normal;
 }
 
@@ -11,14 +14,14 @@
 a { color: #000; }
 
 /* background image thanks to: http://knitetgantt.deviantart.com/art/Tiled-Wallpaper-Green-Texture-131657984 */
-body { background: url("knitetgantt.png") #CCC; color: #FFF; font-family: LeagueGothic, Georgia, serif; font-size: 25px; padding: 20px; }
+body { background: url("knitetgantt.png") #CCC; color: #FFF; font-family: UbuntuBold, sans-serif; font-size: 20px; font-weight: bold; letter-spacing: -1px; padding: 20px; }
 
-#breadcrumb { font-size: 70px; padding: 10px; }
+#breadcrumb { font-size: 50px; letter-spacing: -3px; padding: 10px; }
 #breadcrumb a { text-decoration: none; }
 #breadcrumb a.hover { color: #FFF; }
 #breadcrumb .crumb { color: #000; }
 
-#directories { font-size: 40px; }
+#directories { font-size: 30px; }
 
 a.box { background: #000; color: #FFF; float: left; margin: 10px; padding: 10px 20px; text-decoration: none; }
 a.box.hover { background: #FFF; color: #000; }
@@ -29,7 +32,7 @@ a:visited img { border-color: #EEE; }
 a img.hover { border-color: #000; }
 
 #fancybox-outer { background-color: #000; }
-#fancybox-title { font-family: inherit; font-size: 40px; text-shadow: #000 2px 2px 1px; }
+#fancybox-title { font-family: inherit; font-size: 30px; text-shadow: #000 2px 2px 1px; }
 
 #bottom { margin-top: 30px; }
 
