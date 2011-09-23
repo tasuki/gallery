@@ -37,7 +37,7 @@ a img.hover { border-color: #000; }
 #bottom { margin-top: 30px; }
 
 #byncsa { color: #000; float: left; margin: 10px; }
-/* #byncsa img { vertical-align: text-bottom; } */
+#byncsa a.hover { text-decoration: none; }
 
 #calibration { border: 1px solid #808080; float: right; height: 15px; margin: 10px; }
 #calibration div { float: left; height: 15px; width: 15px; text-align: center; }
