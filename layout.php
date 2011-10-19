@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title><?php echo $title; ?></title>
-	<link rel="icon" type="image/png" href="<?php echo $conf['basedir']; ?>/favicon.png"/>
+	<link rel="icon" type="image/png" href="<?php echo $conf['basedir']; ?>/favicon.ico"/>
 
 	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>/fancybox/jquery-1.4.2.min.js"></script>
 	<script type="text/javascript" src="<?php echo $conf['basedir']; ?>/fancybox/jquery-ui-1.8.16.custom.min.js"></script>
