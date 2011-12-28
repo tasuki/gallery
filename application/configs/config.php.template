@@ -1,0 +1,35 @@
+<?php defined('SYSPATH') or die('No direct script access.');
+
+return array(
+	// path to your base directory on the web server (such as '/~user/gallery/')
+	// you also need to change this in .htaccess
+	'basedir' => '/',
+
+	// title of the gallery
+	'title'   => 'my gallery',
+
+	'image' => array(
+		// method to create image (scale is good, preserves ratio)
+		'method'    => 'scale',
+		'maxheight' => 1536,
+		'maxwidth'  => 1536,
+	),
+
+	'thumbnail' => array(
+		// prefix for thumbnails, put something that will not
+		// collide with your usual file names
+		'prefix'    => '__',
+		// method to create thumbnail (scale, crop, deform)
+		'method'    => 'scale',
+		'maxheight' => 200,
+		'maxwidth'  => 200,
+	),
+
+	'dir' => array(
+		// directory to search for uploaded pictures
+		'upload'  => 'upload',
+		// directory to put processed pictures, make sure apache can access it:
+		// chmod 777 gallery
+		'gallery' => 'gallery',
+	),
+);

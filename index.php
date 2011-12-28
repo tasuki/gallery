@@ -1,153 +1,100 @@
 <?php
 
-include('config.php');
-include('tasumbnail.php');
+/**
+ * The directory in which your application specific resources are located.
+ * The application directory must contain the bootstrap.php file.
+ *
+ * @see  http://kohanaframework.org/guide/about.install#application
+ */
+$application = 'application';
 
-$thumbnailer = new tasumbnail();
-$thumbnailer->setMethod($conf['thumbnail']['method']);
-$thumbnailer->maxHeight = $conf['thumbnail']['maxheight'];
-$thumbnailer->maxWidth = $conf['thumbnail']['maxwidth'];
+/**
+ * The directory in which your modules are located.
+ *
+ * @see  http://kohanaframework.org/guide/about.install#modules
+ */
+$modules = 'modules';
 
-$resizer = new tasumbnail();
-$resizer->setMethod($conf['full_image']['method']);
-$resizer->maxHeight = $conf['full_image']['maxheight'];
-$resizer->maxWidth = $conf['full_image']['maxwidth'];
+/**
+ * The directory in which the Kohana resources are located. The system
+ * directory must contain the classes/kohana.php file.
+ *
+ * @see  http://kohanaframework.org/guide/about.install#system
+ */
+$system = 'system';
 
+/**
+ * The default extension of resource files. If you change this, all resources
+ * must be renamed to use the new extension.
+ *
+ * @see  http://kohanaframework.org/guide/about.install#ext
+ */
+define('EXT', '.php');
 
-// remove undescores and dashes from text, replace with spaces
-function displayify($text) {
-	return preg_replace('/[_-]/', ' ', $text);
+/**
+ * Set the PHP error reporting level. If you set this in php.ini, you remove this.
+ * @see  http://php.net/error_reporting
+ *
+ * When developing your application, it is highly recommended to enable notices
+ * and strict warnings. Enable them by using: E_ALL | E_STRICT
+ *
+ * In a production environment, it is safe to ignore notices and strict warnings.
+ * Disable them by using: E_ALL ^ E_NOTICE
+ *
+ * When using a legacy application with PHP >= 5.3, it is recommended to disable
+ * deprecated notices. Disable with: E_ALL & ~E_DEPRECATED
+ */
+error_reporting(E_ALL | E_STRICT);
+
+/**
+ * End of standard configuration! Changing any of the code below should only be
+ * attempted by those with a working knowledge of Kohana internals.
+ *
+ * @see  http://kohanaframework.org/guide/using.configuration
+ */
+
+// Set the full path to the docroot
+define('DOCROOT', realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
+
+// Make the application relative to the docroot
+if (! is_dir($application) AND is_dir(DOCROOT . $application))
+	$application = DOCROOT . $application;
+
+// Make the modules relative to the docroot
+if (! is_dir($modules) AND is_dir(DOCROOT . $modules))
+	$modules = DOCROOT . $modules;
+
+// Make the system relative to the docroot
+if ( ! is_dir($system) AND is_dir(DOCROOT . $system))
+	$system = DOCROOT . $system;
+
+// Define the absolute paths for configured directories
+define('APPPATH', realpath($application) . DIRECTORY_SEPARATOR);
+define('MODPATH', realpath($modules) . DIRECTORY_SEPARATOR);
+define('SYSPATH', realpath($system) . DIRECTORY_SEPARATOR);
+
+// Clean up the configuration vars
+unset($application, $modules, $system);
+
+// Load the core Kohana class
+require SYSPATH . 'classes/kohana/core' . EXT;
+
+if (is_file(APPPATH . 'classes/kohana' . EXT)) {
+	// Application extends the core
+	require APPPATH . 'classes/kohana' . EXT;
+} else {
+	// Load empty core extension
+	require SYSPATH . 'classes/kohana' . EXT;
 }
 
-// returns array of files and folders in the passed folder
-function getDir($directory) {
-	global $conf;
+// Bootstrap the application
+require APPPATH . 'bootstrap' . EXT;
 
-	// get rid of extra dots & paranoia
-	$dir = './' . $conf['storage'] . '/' . preg_replace('/\.\./', '.', $directory);
-	$list = @scandir($dir);
-
-	if ($list === false) // can't list the directory
-		throw new Exception("can't open that");
-
-	$files = array('directories' => array(), 'files' => array());
-	foreach ($list as $item) {
-		// skip current and parent directory
-		if ($item == '.' || $item == '..') continue;
-
-		if (is_dir($dir . $item)) // our item is directory
-			$files['directories'][] = $item;
-		else { // our item is regular file
-			if (! preg_match('/' . $conf['thumbnail_prefix'] . '/', $item))
-				$files['files'][] = $item;
-		}
-	}
-	return $files;
-}
-
-// processes directory and all its subdirectories
-function recursivelyProcessDir($directory) {
-	global $conf, $resizer, $thumbnailer;
-
-	$updir = "./{$conf['updir']}/{$directory}";
-	$storage = "./{$conf['storage']}/{$directory}";
-
-	$list = scandir($updir);
-	$files = array('directories' => array(), 'files' => array());
-
-	// loop through items in the directory
-	foreach ($list as $item) {
-		if ($item == '.' || $item == '..') continue;
-
-		if (is_dir($updir . $item)) { // if it's a directory, check if exists and create it if it doesn't
-			if (! is_dir($storage . $item)) {
-				if (mkdir($storage . $item)) {
-					if (chmod($storage . $item, 0777))
-						echo '<p>created directory ' . $storage . $item . '</p>';
-					else
-						echo '<p class="fail">failed to chmod directory ' . $storage . $item . '</p>';
-				} else echo '<p class="fail">failed to create directory ' . $storage . $item . '</p>';
-			}
-			recursivelyProcessDir($directory . $item . '/');
-
-		} else {
-			// create the downsized image
-			if ((! is_file($storage . $item)) || (filectime($storage . $item) < filectime($updir . $item))) {
-				$resizer->loadImage($updir . $item);
-				$resizer->outputImage = $storage . $item;
-				$resizer->rescale();
-				chmod($storage . $item, 0666);
-				echo '<p>creating image ' . $storage . $item . '</p>';
-			}
-
-			// create the thumbnail
-			if ((! is_file($storage . $conf['thumbnail_prefix'] . $item))
-					|| (filectime($storage . $conf['thumbnail_prefix'] . $item) < filectime($updir . $item))) {
-				$thumbnailer->loadImage($updir . $item);
-				$thumbnailer->outputImage = $storage . $conf['thumbnail_prefix'] . $item;
-				$thumbnailer->rescale();
-				chmod($storage . $conf['thumbnail_prefix'] . $item, 0666);
-				echo '<p>creating thumbnail ' . $storage . $conf['thumbnail_prefix'] . $item . '</p>';
-			}
-		}
-	}
-}
-
-// create array with get path
-$get = explode('/', trim($_GET['q'], '/'));
-
-switch ($get[0]) {
-	case 'reload': // load batch of unprocessed images from upload directory
-		recursivelyProcessDir('');
-		echo "<p>---FINISHED---</p>";
-		die;
-
-	case 'update': // update the whole gallery
-		include('update-gallery.php');
-		break;
-
-	default: // display gallery
-
-		$directory = implode('/', $get) . '/';
-		try {
-			$dir = getDir($directory);
-			$directories = $dir['directories'];
-			$images = $dir['files'];
-
-			$tmp = $conf['basedir'] . '/';
-			$crumbs = array(array($tmp, $conf['name']));
-			foreach ($get as $part) {
-				$tmp .= $part;
-				$crumbs[] = array($tmp, $part);
-				$tmp .= '/';
-			}
-
-			$last = array_pop($crumbs);
-			$breadcrumbs = array();
-			foreach ($crumbs as $crumb) {
-				list($url, $title) = $crumb;
-				$title = displayify($title);
-
-				$breadcrumbs[] = '<a href="' . $url . '">' . $title . '</a>';
-				$title .= " &ndash; {$conf['name']}";
-			}
-			list($url, $title) = $last;
-			$title = displayify($title);
-			if ($title) {
-				$breadcrumbs[] = "<span class='crumb'>$title</span>";
-				$title .= " &ndash; {$conf['name']}";
-			} else {
-				$title = $conf['name'];
-			}
-
-			$breadcrumb = implode(' &raquo; ', $breadcrumbs);
-			if ($directory === '/') $directory = '';
-
-		} catch(Exception $e) {
-			$directories = array();
-		}
-
-		include('layout.php');
-}
-
-?>
+/**
+ * Execute the main request. A source of the URI can be passed, eg: $_SERVER['PATH_INFO'].
+ * If no source is specified, the URI will be automatically detected.
+ */
+echo Request::factory()
+	->execute()
+	->send_headers()
+	->body();

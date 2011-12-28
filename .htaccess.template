@@ -1,11 +1,20 @@
+# Turn on URL rewriting
 RewriteEngine On
 
-# base url, you also need to change this in config.php!
+# Installation directory
 RewriteBase /
 
-# index.php should be the only php file accessible
-RewriteRule ^(.*php)$ index.php [L]
+# Protect hidden files from being viewed
+<Files .*>
+	Order Deny,Allow
+	Deny From All
+</Files>
 
-# anything that isn't a file gets redirected to index.php
+# Protect application and system files from being viewed
+RewriteRule ^(?:application|modules|system)\b - [F,L]
+
+# Allow any files that exist to be displayed directly
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ index.php?q=$1 [L]
+
+# Rewrite all other URLs to index.php/URL
+RewriteRule .* index.php/$0 [PT]
