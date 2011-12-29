@@ -1,0 +1,15 @@
+<?php defined('SYSPATH') or die('No direct script access.');
+
+return array(
+	// path to your base directory on the web server (such as '/~user/')
+	// you also need to change this in .htaccess
+	'base_url' => '/',
+
+	'dir' => array(
+		// directory to search for uploaded pictures
+		'upload'  => 'upload',
+		// directory to put processed pictures, make sure apache can access it:
+		// chmod 777 gallery
+		'gallery' => 'gallery',
+	),
+);
