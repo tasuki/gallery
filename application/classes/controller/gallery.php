@@ -26,7 +26,7 @@ class Controller_Gallery extends Controller_Template
 		$view = View::factory('gallery');
 		$view->dirs   = $dir->get_dirs();
 		$view->files  = $dir->get_files();
-		$view->crumbs = $this->get_crumbs($url_parts);
+		$view->crumbs = self::get_crumbs($url_parts);
 
 		$this->template->body = $view;
 	}
@@ -37,7 +37,7 @@ class Controller_Gallery extends Controller_Template
 	 * @param   array  url parts
 	 * @return  array  link => title
 	 */
-	protected function get_crumbs(array $url_parts)
+	protected static function get_crumbs(array $url_parts)
 	{
 		// trim last slash so we can add it again
 		$url = rtrim(Url::base(), '/');
