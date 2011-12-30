@@ -72,7 +72,6 @@ Kohana::init(array(
  * Attach a file reader to config. Multiple readers are supported.
  */
 Kohana::$config->attach(new Config_File);
-
 Kohana::$base_url = Kohana::$config->load('application')->get('base_url');
 
 /**
@@ -92,6 +91,7 @@ Kohana::modules(array(
 	// 'unittest'   => MODPATH.'unittest',   // Unit testing
 	'image'      => MODPATH . 'image',      // Image manipulation
 	'userguide'  => MODPATH . 'userguide',  // User guide and API documentation
+	'template'   => MODPATH . Kohana::$config->load('settings.template'),
 ));
 
 /**

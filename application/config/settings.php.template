@@ -1,6 +1,9 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 return array(
+	// module containing frontend template
+	'template' => 'gallery_v1',
+
 	'image' => array(
 		// method to create image (scale is good, preserves ratio)
 		'method'    => 'scale',
