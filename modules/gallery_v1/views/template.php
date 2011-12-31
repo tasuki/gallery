@@ -3,6 +3,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title><?php echo $title; ?></title>
+	<link rel="icon" type="image/ico" href="<?php echo URL::base() ?>media/img/favicon.ico"/>
+
 	<?php echo HTML::style('media/css/jquery.fancybox-1.3.1.css', array('media' => 'screen')) ?>
 	<?php echo HTML::style('media/css/style.css', array('media' => 'screen')) ?>
 
