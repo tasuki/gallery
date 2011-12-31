@@ -1,0 +1,4 @@
+.htaccess
+deploy.ini
+application/config/application.php
+application/config/settings.php
