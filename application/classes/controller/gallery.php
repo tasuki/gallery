@@ -17,16 +17,37 @@ class Controller_Gallery extends Controller_Template
 		View::set_global('title', Kohana::message('global', 'title'));
 	}
 
-	public function action_display()
+	/**
+	 * Show gallery folder
+	 */
+	public function action_show()
 	{
-		$url_parts = $this->request->param('url_parts');
-
-		$dir = new Model_Directory($url_parts);
-
 		$view = View::factory('gallery');
-		$view->dirs   = $dir->get_dirs();
-		$view->files  = $dir->get_files();
-		$view->crumbs = self::get_crumbs($url_parts);
+		$dir = $this->request->param('dir');
+
+		// load directory model
+		$gallery_dir = Kohana::$config->load('application.dir.gallery');
+		$directory = new Model_Directory(DOCROOT . "$gallery_dir/$dir");
+
+		// get sub-galleries
+		$view->galleries = array();
+		foreach ($directory->get_dirs() as $subdir) {
+			$view->galleries["$dir/$subdir"] = self::displayify($subdir);
+		}
+
+		// get images
+		$thumb = Kohana::$config->load('settings.thumbnail.prefix');
+		$view->images = array();
+		foreach ($directory->get_files() as $file) {
+			$view->images[] = array(
+				'link'  => "$gallery_dir/$dir/$file",
+				'url'   => "$gallery_dir/$dir/$thumb$file",
+				'title' => self::displayify($file),
+			);
+		}
+
+		// get breadcrumbs
+		$view->crumbs = self::get_crumbs($dir);
 
 		$this->template->body = $view;
 	}
@@ -34,26 +55,35 @@ class Controller_Gallery extends Controller_Template
 	/**
 	 * Assemble breadcrumbs
 	 *
-	 * @param   array  url parts
-	 * @return  array  link => title
+	 * @param   string  url to get the crumbs from
+	 * @return  array   link => title
 	 */
-	protected static function get_crumbs(array $url_parts)
+	protected static function get_crumbs($dir)
 	{
-		// trim last slash so we can add it again
-		$url = rtrim(Url::base(), '/');
-
 		// set home crumb
+		$url = '/';
 		$crumbs = array($url => Kohana::message('global', 'title'));
 
 		// set crumbs based on directories
-		foreach ($url_parts as $title) {
+		foreach (array_filter(explode('/', $dir)) as $title) {
 			$url .= '/' . $title;
-			$crumbs[$url] = $title;
+			$crumbs[$url] = self::displayify($title);
 		}
 
 		// unset link of last crumb
 		$crumbs[''] = array_pop($crumbs);
 
 		return $crumbs;
+	}
+
+	/**
+	 * Remove undescores and dashes from text, replace with spaces
+	 *
+	 * @param   string  original text
+	 * @return  string  text for displaying
+	 */
+	protected static function displayify($text)
+	{
+		return preg_replace('/[_-]/', ' ', $text);
 	}
 }

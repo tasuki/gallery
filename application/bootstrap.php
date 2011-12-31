@@ -98,10 +98,15 @@ Kohana::modules(array(
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
  */
-Route::set('gallery', function($uri) {
-	return array(
-		'controller' => 'gallery',
+Route::set('media', 'media(/<file>)', array('file' => '.+'))
+	->defaults(array(
+		'controller' => 'media',
 		'action'     => 'display',
-		'url_parts'  => array_filter(explode('/', $uri)),
-	);
-});
+	));
+
+Route::set('gallery', '(<dir>)', array('dir' => '.+'))
+	->defaults(array(
+		'controller' => 'gallery',
+		'action'     => 'show',
+		'dir'        => '',
+	));

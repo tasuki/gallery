@@ -13,13 +13,11 @@ class Model_Directory
 	/**
 	 * Create directory model
 	 *
-	 * @param  array  parts of url that lead to directory
+	 * @param  string  path to directory
 	 */
-	public function __construct(array $url_parts)
+	public function __construct($directory)
 	{
-		$gallery_dir = Kohana::$config->load('application.dir.gallery');
-		$base = DOCROOT . $gallery_dir . '/';
-		$this->dir = new DirectoryIterator($base . implode('/', $url_parts));
+		$this->dir = new DirectoryIterator($directory);
 	}
 
 	/**
