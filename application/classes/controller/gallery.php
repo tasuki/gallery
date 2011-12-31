@@ -10,13 +10,6 @@
  */
 class Controller_Gallery extends Controller_Template
 {
-	public function before()
-	{
-		parent::before();
-
-		View::set_global('title', Kohana::message('global', 'title'));
-	}
-
 	/**
 	 * Show gallery folder
 	 */
@@ -24,6 +17,7 @@ class Controller_Gallery extends Controller_Template
 	{
 		$view = View::factory('gallery');
 		$dir = $this->request->param('dir');
+		$this->set_title($dir);
 
 		// load directory model
 		$gallery_dir = Kohana::$config->load('application.dir.gallery');
@@ -51,6 +45,23 @@ class Controller_Gallery extends Controller_Template
 
 		$this->template->body = $view;
 	}
+
+	/**
+	 * Set title to template
+	 *
+	 * @param   string  url
+	 */
+	protected function set_title($dir)
+	{
+		$title = '';
+		if ($dir) {
+			$exploded = explode('/', $dir);
+			$title = self::displayify(array_pop($exploded)) . " &ndash; ";
+		}
+
+		$this->template->title = $title . Kohana::message('global', 'title');
+	}
+
 
 	/**
 	 * Assemble breadcrumbs
