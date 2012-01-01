@@ -13,7 +13,7 @@ class Controller_Gallery extends Controller_Template
 	/**
 	 * Show gallery folder
 	 */
-	public function action_show()
+	public function action_index()
 	{
 		$view = View::factory('gallery');
 		$dir = $this->request->param('dir');
@@ -47,23 +47,6 @@ class Controller_Gallery extends Controller_Template
 	}
 
 	/**
-	 * Set title to template
-	 *
-	 * @param   string  url
-	 */
-	protected function set_title($dir)
-	{
-		$title = '';
-		if ($dir) {
-			$exploded = explode('/', $dir);
-			$title = self::displayify(array_pop($exploded)) . " &ndash; ";
-		}
-
-		$this->template->title = $title . Kohana::message('global', 'title');
-	}
-
-
-	/**
 	 * Assemble breadcrumbs
 	 *
 	 * @param   string  url to get the crumbs from
@@ -85,16 +68,5 @@ class Controller_Gallery extends Controller_Template
 		$crumbs[''] = array_pop($crumbs);
 
 		return $crumbs;
-	}
-
-	/**
-	 * Remove undescores and dashes from text, replace with spaces
-	 *
-	 * @param   string  original text
-	 * @return  string  text for displaying
-	 */
-	protected static function displayify($text)
-	{
-		return preg_replace('/[_-]/', ' ', $text);
 	}
 }

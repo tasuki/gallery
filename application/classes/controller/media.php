@@ -14,7 +14,7 @@ class Controller_Media extends Controller
 	/**
 	 * Display static media files
 	 */
-	public function action_display()
+	public function action_index()
 	{
 		$path = $this->request->param('file');
 		$ext  = pathinfo($path, PATHINFO_EXTENSION);

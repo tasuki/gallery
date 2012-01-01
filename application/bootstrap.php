@@ -99,14 +99,10 @@ Kohana::modules(array(
  * defaults for the URI.
  */
 Route::set('media', 'media(/<file>)', array('file' => '.+'))
-	->defaults(array(
-		'controller' => 'media',
-		'action'     => 'display',
-	));
+	->defaults(array('controller' => 'media'));
+
+Route::set('admin', 'admin(/<action>)')
+	->defaults(array('controller' => 'admin'));
 
 Route::set('gallery', '(<dir>)', array('dir' => '.+'))
-	->defaults(array(
-		'controller' => 'gallery',
-		'action'     => 'show',
-		'dir'        => '',
-	));
+	->defaults(array('controller' => 'gallery'));
