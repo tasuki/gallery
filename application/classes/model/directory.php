@@ -65,7 +65,8 @@ class Model_Directory
 			$match = preg_quote(Arr::get(Kohana::$config->load('settings')
 				->get('thumbnail'), 'prefix'), '/');
 
-			return (! $item->isFile() || preg_match("/^$match/", $item));
+			// skip if not file, begins with thumb prefix, or hidden
+			return (! $item->isFile() || preg_match("/^($match|\.)/", $item));
 		});
 	}
 }
