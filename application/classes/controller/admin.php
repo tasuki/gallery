@@ -21,6 +21,16 @@ class Controller_Admin extends Controller_Template
 
 	public function action_update()
 	{
+		$dir = Kohana::$config->load('application.dir');
+		$settings = Kohana::$config->load('settings');
+
+		$updater = new Model_Updater($settings);
+		$updater->update_dir(
+			DOCROOT . $dir['upload'],
+			DOCROOT . $dir['gallery']);
+
+		// TODO cache $updater->updates and update one per request
+
 		$this->template->body = "hi there";
 	}
 }

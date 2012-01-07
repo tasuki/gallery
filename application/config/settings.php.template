@@ -20,4 +20,10 @@ return array(
 		'maxheight' => 200,
 		'maxwidth'  => 200,
 	),
+
+	// access rights for generated dirs/files
+	'chmod' => array(
+		'dir'  => 0777,
+		'file' => 0666,
+	),
 );

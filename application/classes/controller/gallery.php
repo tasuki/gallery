@@ -30,12 +30,13 @@ class Controller_Gallery extends Controller_Template
 		}
 
 		// get images
-		$thumb = Kohana::$config->load('settings.thumbnail.prefix');
+		$prefix = Kohana::$config->load('settings.thumbnail.prefix');
 		$view->images = array();
-		foreach ($directory->get_files() as $file) {
+
+		foreach ($directory->get_files(array($prefix)) as $file) {
 			$view->images[] = array(
 				'link'  => "$gallery_dir/$dir/$file",
-				'url'   => "$gallery_dir/$dir/$thumb$file",
+				'url'   => "$gallery_dir/$dir/$prefix$file",
 				'title' => self::displayify($file),
 			);
 		}
