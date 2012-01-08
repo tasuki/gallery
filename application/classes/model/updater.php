@@ -11,30 +11,67 @@
 class Model_Updater
 {
 	public $updates;
+	public $key;
+
+	protected $cache;
 
 	protected $prefix;
 	protected $dir_chmod;
-	protected $file_chmod;
 
 	/**
-	 * Preload configs
+	 * Garbage-collect cache and make sure we're unique
 	 *
-	 * @param  Config_Group  thumbnail and chmod settings
+	 * @param  string  key
 	 */
-	public function __construct(Config_Group $settings)
+	public function __construct($key = null)
 	{
-		$this->prefix     = Arr::get($settings->get('thumbnail'), 'prefix');
-		$this->dir_chmod  = Arr::get($settings->get('chmod'), 'dir');
-		$this->file_chmod = Arr::get($settings->get('chmod'), 'file');
+		$this->key = $key;
+
+		// delete expired cache entries
+		$this->cache = Cache::instance();
+		if ($this->cache instanceof Cache_GarbageCollect) {
+			$this->cache->garbage_collect();
+		}
+
+		// check lock
+		$update = $this->cache->get('update_underway');
+
+		if ($update === null) {
+			// if first update, set lock
+			$this->key = md5(time());
+			$this->cache->set('update_underway', $this->key);
+		} else if ($update !== $key) {
+			// locks don't match
+			throw new Exception('Another update is underway!');
+		}
 	}
 
 	/**
-	 * Recursively create missing directories and save changed files
+	 * Create missing directories and cache unprocessed files
+	 *
+	 * @param  Config_Group  settings
+	 * @param  string        source directory
+	 * @param  string        destination directory
+	 */
+	public function update_dirs(Config_Group $settings, $source, $destination)
+	{
+		// code...
+		$this->prefix    = Arr::get($settings->get('thumbnail'), 'prefix');
+		$this->dir_chmod = Arr::get($settings->get('chmod'), 'dir');
+		//$file_chmod = Arr::get($settings->get('chmod'), 'file');
+
+		$this->recursively_update_dir($source, $destination);
+
+		$this->cache->set('updates', $this->updates);
+	}
+
+	/**
+	 * Recursively create missing directories and save unprocessed files
 	 *
 	 * @param  string  source directory
 	 * @param  string  destination directory
 	 */
-	public function update_dir($source, $destination)
+	protected function recursively_update_dir($source, $destination)
 	{
 		$src = new Model_Directory($source);
 		$dst = new Model_Directory($destination);
@@ -48,7 +85,7 @@ class Model_Updater
 
 		// process subdirectories
 		foreach ($src->get_dirs() as $dir) {
-			$this->update_dir("$source/$dir", "$destination/$dir");
+			$this->recursively_update_dir("$source/$dir", "$destination/$dir");
 		}
 
 		// check directories for missing images and thumbnails
@@ -78,8 +115,15 @@ class Model_Updater
 	/**
 	 * Update a file
 	 */
-	protected function update_file($src, $type, $dst)
+	public function update_file()
 	{
-		// TODO
+		// get list of files to update
+		$updates = $this->cache->get('updates');
+		$file = array_shift($updates);
+
+		// TODO process image and thumbnail
+
+		// if all has gone well, remove file from list
+		$this->cache->set('updates', $updates);
 	}
 }

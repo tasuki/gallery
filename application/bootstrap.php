@@ -84,11 +84,11 @@ Kohana::$log->attach(new Log_File(APPPATH.'logs'));
  */
 Kohana::modules(array(
 	// 'auth'       => MODPATH.'auth',       // Basic authentication
-	// 'cache'      => MODPATH.'cache',      // Caching with multiple backends
 	// 'codebench'  => MODPATH.'codebench',  // Benchmarking tool
 	// 'database'   => MODPATH.'database',   // Database access
 	// 'orm'        => MODPATH.'orm',        // Object Relationship Mapping
 	// 'unittest'   => MODPATH.'unittest',   // Unit testing
+	'cache'      => MODPATH . 'cache',      // Caching with multiple backends
 	'image'      => MODPATH . 'image',      // Image manipulation
 	'userguide'  => MODPATH . 'userguide',  // User guide and API documentation
 	'template'   => MODPATH . Kohana::$config->load('settings.template'),
@@ -101,7 +101,7 @@ Kohana::modules(array(
 Route::set('media', 'media(/<file>)', array('file' => '.+'))
 	->defaults(array('controller' => 'media'));
 
-Route::set('admin', 'admin(/<action>)')
+Route::set('admin', 'admin(/<action>(/<key>))')
 	->defaults(array('controller' => 'admin'));
 
 Route::set('gallery', '(<dir>)', array('dir' => '.+'))

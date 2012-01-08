@@ -24,13 +24,18 @@ class Controller_Admin extends Controller_Template
 		$dir = Kohana::$config->load('application.dir');
 		$settings = Kohana::$config->load('settings');
 
-		$updater = new Model_Updater($settings);
-		$updater->update_dir(
+		$updater = new Model_Updater();
+		$updater->update_dirs($settings,
 			DOCROOT . $dir['upload'],
 			DOCROOT . $dir['gallery']);
 
-		// TODO cache $updater->updates and update one per request
+		// TODO pass key to javascript to call action_update_file
+		$this->template->body = $updater->key;
+	}
 
-		$this->template->body = "hi there";
+	public function action_update_file()
+	{
+		$updater = new Model_Updater($this->request->param('key'));
+		$updater->update_file();
 	}
 }
