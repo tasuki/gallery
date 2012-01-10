@@ -3,7 +3,7 @@
 	url = https://github.com/kohana/core.git
 [submodule "modules/cache"]
 	path = modules/cache
-	url = https://github.com/tasuk/cache.git
+	url = https://github.com/kohana/cache.git
 [submodule "modules/image"]
 	path = modules/image
 	url = https://github.com/kohana/image.git

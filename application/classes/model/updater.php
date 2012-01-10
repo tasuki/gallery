@@ -19,19 +19,13 @@ class Model_Updater
 	protected $dir_chmod;
 
 	/**
-	 * Garbage-collect cache and make sure we're unique
+	 * Make sure we're unique
 	 *
 	 * @param  string  key
 	 */
 	public function __construct($key = null)
 	{
 		$this->key = $key;
-
-		// delete expired cache entries
-		$this->cache = Cache::instance();
-		if ($this->cache instanceof Cache_GarbageCollect) {
-			$this->cache->garbage_collect();
-		}
 
 		// check lock
 		$update = $this->cache->get('update_underway');
