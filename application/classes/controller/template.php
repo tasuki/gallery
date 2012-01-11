@@ -5,6 +5,21 @@
  */
 class Controller_Template extends Kohana_Controller_Template
 {
+	protected $data;
+
+	/**
+	 * Take care of ajax requests
+	 */
+	public function after()
+	{
+		if ($this->request->is_ajax()) {
+			// use json_encoded data as the response
+			$this->response->body(json_encode($this->data));
+		} else {
+			parent::after();
+		}
+	}
+
 	/**
 	 * Set title to template
 	 *

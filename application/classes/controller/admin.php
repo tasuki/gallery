@@ -17,6 +17,15 @@ class Controller_Admin extends Controller_Template
 	{
 		parent::before();
 		$this->set_title('admin');
+
+		$this->template->styles = array(
+			'media/css/style.css',
+		);
+
+		$this->template->scripts = array(
+			'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js',
+			'media/js/admin.js',
+		);
 	}
 
 	public function action_update()
@@ -29,13 +38,25 @@ class Controller_Admin extends Controller_Template
 			DOCROOT . $dir['upload'],
 			DOCROOT . $dir['gallery']);
 
-		// TODO pass key to javascript to call action_update_file
-		$this->template->body = $updater->key;
+		$view = View::factory('admin/update');
+		$view->fetch_url = Route::url('admin', array(
+			'action' => 'update_file',
+			'key'    => $updater->key,
+		));
+
+		$this->template->body = $view;
 	}
 
 	public function action_update_file()
 	{
 		$updater = new Model_Updater($this->request->param('key'));
-		$updater->update_file();
+
+		$files = $updater->update_file();
+		$view = View::factory('admin/update_file')->set('files', $files)->render();
+
+		$this->data = array(
+			'reload' => (bool) count($files),
+			'view'   => $view,
+		);
 	}
 }

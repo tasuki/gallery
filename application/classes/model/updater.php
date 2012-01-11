@@ -10,6 +10,8 @@
  */
 class Model_Updater
 {
+	const UPDATE_TIMEOUT = 10;
+
 	public $updates;
 	public $key;
 
@@ -26,6 +28,7 @@ class Model_Updater
 	public function __construct($key = null)
 	{
 		$this->key = $key;
+		$this->cache = Cache::instance();
 
 		// check lock
 		$update = $this->cache->get('update_underway');
@@ -33,11 +36,13 @@ class Model_Updater
 		if ($update === null) {
 			// if first update, set lock
 			$this->key = md5(time());
-			$this->cache->set('update_underway', $this->key);
 		} else if ($update !== $key) {
 			// locks don't match
 			throw new Exception('Another update is underway!');
 		}
+
+		// set or refresh lock timeout
+		$this->cache->set('update_underway', $this->key, self::UPDATE_TIMEOUT);
 	}
 
 	/**
@@ -114,10 +119,15 @@ class Model_Updater
 		// get list of files to update
 		$updates = $this->cache->get('updates');
 		$file = array_shift($updates);
+		if (! $file) {
+			$this->cache->delete('update_underway');
+		}
 
 		// TODO process image and thumbnail
 
 		// if all has gone well, remove file from list
 		$this->cache->set('updates', $updates);
+
+		return $file;
 	}
 }
