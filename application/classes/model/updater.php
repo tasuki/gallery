@@ -114,16 +114,26 @@ class Model_Updater
 	/**
 	 * Update a file
 	 */
-	public function update_file()
+	public function update_file(Config_Group $settings)
 	{
 		// get list of files to update
 		$updates = $this->cache->get('updates');
+		$orig = key($updates);
+
 		$file = array_shift($updates);
 		if (! $file) {
 			$this->cache->delete('update_underway');
+			return array();
 		}
 
-		// TODO process image and thumbnail
+		$thumb = Image::factory($orig);
+		$image = clone($thumb);
+
+		Model_Resizer::fit_into_box($thumb, $settings['thumbnail']['size']);
+		$thumb->save($file['thumb'], 85);
+
+		Model_Resizer::fit_into_box($image, $settings['image']['size']);
+		$image->save($file['image'], 85);
 
 		// if all has gone well, remove file from list
 		$this->cache->set('updates', $updates);

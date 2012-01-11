@@ -51,8 +51,12 @@ class Controller_Admin extends Controller_Template
 	{
 		$updater = new Model_Updater($this->request->param('key'));
 
-		$files = $updater->update_file();
-		$view = View::factory('admin/update_file')->set('files', $files)->render();
+		$settings = Kohana::$config->load('settings');
+
+		$files = $updater->update_file($settings);
+		$view = View::factory('admin/update_file')
+			->set('files', $files)
+			->render();
 
 		$this->data = array(
 			'reload' => (bool) count($files),

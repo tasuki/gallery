@@ -6,19 +6,19 @@ return array(
 
 	'image' => array(
 		// method to create image (scale is good, preserves ratio)
-		'method'    => 'scale',
-		'maxheight' => 1536,
-		'maxwidth'  => 1536,
+		'method'  => 'scale',
+		'size'    => 1536,
+		'quality' => 85,
 	),
 
 	'thumbnail' => array(
 		// prefix for thumbnails, put something that will not
 		// collide with your usual file names
-		'prefix'    => '__',
+		'prefix'   => '__',
 		// method to create thumbnail (scale, crop, deform)
-		'method'    => 'scale',
-		'maxheight' => 200,
-		'maxwidth'  => 200,
+		'method'   => 'scale',
+		'size'     => 200,
+		'quallity' => 85,
 	),
 
 	// access rights for generated dirs/files
