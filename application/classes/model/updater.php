@@ -129,13 +129,14 @@ class Model_Updater
 		$thumb = Image::factory($orig);
 		$image = clone($thumb);
 
-		$t_s = $settings['thumb'];
-		Model_Resizer::$t_s['method']($thumb, $t_s['size']);
-		$thumb->save($file['thumb'], $t_s['quality']);
+		foreach (array('thumb', 'image') as $type) {
+			if (array_key_exists($type, $file)) {
+				$conf = $settings[$type];
 
-		$i_s = $settings['image'];
-		Model_Resizer::$i_s['method']($image, $i_s['size']);
-		$image->save($file['image'], $i_s['quality']);
+				Model_Resizer::$conf['method']($$type, $conf['size']);
+				$$type->save($file[$type], $conf['quality']);
+			}
+		}
 
 		// if all has gone well, remove file from list
 		$this->cache->set('updates', $updates);
