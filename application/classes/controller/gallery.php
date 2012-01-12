@@ -49,7 +49,7 @@ class Controller_Gallery extends Controller_Template
 		}
 
 		// get images
-		$prefix = Kohana::$config->load('settings.thumbnail.prefix');
+		$prefix = Kohana::$config->load('settings.thumb.prefix');
 		$view->images = array();
 
 		foreach ($directory->get_files(array($prefix)) as $file) {

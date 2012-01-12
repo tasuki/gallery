@@ -8,13 +8,13 @@ return array(
 		'quality' => 85,
 	),
 
-	'thumbnail' => array(
+	'thumb' => array(
 		// prefix for thumbnails, put something that will not
 		// collide with your usual file names
-		'prefix'   => '__',
+		'prefix'  => '__',
 		// method to create thumbnail (one of Resizer methods)
-		'method'   => 'scale',
-		'size'     => 200,
-		'quallity' => 85,
+		'method'  => 'fit_into_box',
+		'size'    => 200,
+		'quality' => 85,
 	),
 );

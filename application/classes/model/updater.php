@@ -55,7 +55,7 @@ class Model_Updater
 	public function update_dirs(Config_Group $settings, $source, $destination)
 	{
 		// code...
-		$this->prefix    = Arr::get($settings->get('thumbnail'), 'prefix');
+		$this->prefix    = Arr::get($settings->get('thumb'), 'prefix');
 		$this->dir_chmod = Arr::get($settings->get('chmod'), 'dir');
 		//$file_chmod = Arr::get($settings->get('chmod'), 'file');
 
@@ -129,11 +129,13 @@ class Model_Updater
 		$thumb = Image::factory($orig);
 		$image = clone($thumb);
 
-		Model_Resizer::fit_into_box($thumb, $settings['thumbnail']['size']);
-		$thumb->save($file['thumb'], 85);
+		$t_s = $settings['thumb'];
+		Model_Resizer::$t_s['method']($thumb, $t_s['size']);
+		$thumb->save($file['thumb'], $t_s['quality']);
 
-		Model_Resizer::fit_into_box($image, $settings['image']['size']);
-		$image->save($file['image'], 85);
+		$i_s = $settings['image'];
+		Model_Resizer::$i_s['method']($image, $i_s['size']);
+		$image->save($file['image'], $i_s['quality']);
 
 		// if all has gone well, remove file from list
 		$this->cache->set('updates', $updates);
