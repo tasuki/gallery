@@ -5,6 +5,11 @@ return array(
 	// you also need to change this in .htaccess
 	'base_url' => '/',
 
+	// frontend templates to load - order matters!
+	'templates' => array(
+		'gallery_v1',
+	),
+
 	'dir' => array(
 		// directory to search for uploaded pictures
 		'upload'  => 'upload',

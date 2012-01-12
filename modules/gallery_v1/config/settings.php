@@ -1,12 +1,9 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 return array(
-	// module containing frontend template
-	'template' => 'gallery_v1',
-
 	'image' => array(
-		// method to create image (scale is good, preserves ratio)
-		'method'  => 'scale',
+		// method to create image (one of Resizer methods)
+		'method'  => 'fit_into_box',
 		'size'    => 1536,
 		'quality' => 85,
 	),
@@ -15,15 +12,9 @@ return array(
 		// prefix for thumbnails, put something that will not
 		// collide with your usual file names
 		'prefix'   => '__',
-		// method to create thumbnail (scale, crop, deform)
+		// method to create thumbnail (one of Resizer methods)
 		'method'   => 'scale',
 		'size'     => 200,
 		'quallity' => 85,
-	),
-
-	// access rights for generated dirs/files
-	'chmod' => array(
-		'dir'  => 0777,
-		'file' => 0666,
 	),
 );

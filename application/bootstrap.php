@@ -82,17 +82,16 @@ Kohana::$log->attach(new Log_File(APPPATH.'logs'));
 /**
  * Enable modules. Modules are referenced by a relative or absolute path.
  */
-Kohana::modules(array(
-	// 'auth'       => MODPATH.'auth',       // Basic authentication
-	// 'codebench'  => MODPATH.'codebench',  // Benchmarking tool
-	// 'database'   => MODPATH.'database',   // Database access
-	// 'orm'        => MODPATH.'orm',        // Object Relationship Mapping
-	// 'unittest'   => MODPATH.'unittest',   // Unit testing
+$modules = array(
 	'cache'      => MODPATH . 'cache',      // Caching with multiple backends
 	'image'      => MODPATH . 'image',      // Image manipulation
 	'userguide'  => MODPATH . 'userguide',  // User guide and API documentation
-	'template'   => MODPATH . Kohana::$config->load('settings.template'),
-));
+);
+// Load current templates from application config
+foreach (Kohana::$config->load('application.templates') as $template) {
+	$modules[$template] = MODPATH . $template;
+}
+Kohana::modules($modules);
 
 /**
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
