@@ -33,12 +33,12 @@ class Model_Resizer
 	/**
 	 * Scale image so that it fits into a grid
 	 */
-	public static function fit_into_grid(Image $image, $base_size)
+	public static function fit_into_grid(Image $image, $base_size, $gap)
 	{
-		if ($image->height > $image->width || true) {
+		if ($image->height * 1.61 > $image->width) {
 			$image->resize($base_size);
 		} else {
-			$image->resize($base_size * 2);
+			$image->resize($base_size * 2 + $gap);
 		}
 	}
 }

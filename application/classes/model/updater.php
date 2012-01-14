@@ -57,10 +57,8 @@ class Model_Updater
 		// code...
 		$this->prefix    = Arr::get($settings->get('thumb'), 'prefix');
 		$this->dir_chmod = Arr::get($settings->get('chmod'), 'dir');
-		//$file_chmod = Arr::get($settings->get('chmod'), 'file');
 
 		$this->recursively_update_dir($source, $destination);
-
 		$this->cache->set('updates', $this->updates);
 	}
 
@@ -116,6 +114,8 @@ class Model_Updater
 	 */
 	public function update_file(Config_Group $settings)
 	{
+		$file_chmod = Arr::get($settings->get('chmod'), 'file');
+
 		// get list of files to update
 		$updates = $this->cache->get('updates');
 		$orig = key($updates);
@@ -126,15 +126,16 @@ class Model_Updater
 			return array();
 		}
 
-		$thumb = Image::factory($orig);
-		$image = clone($thumb);
-
-		foreach (array('thumb', 'image') as $type) {
+		$img = Image::factory($orig);
+		foreach (array('image', 'thumb') as $type) {
 			if (array_key_exists($type, $file)) {
 				$conf = $settings[$type];
 
-				Model_Resizer::$conf['method']($$type, $conf['size']);
-				$$type->save($file[$type], $conf['quality']);
+				Model_Resizer::$conf['method']($img, $conf['size'],
+					Arr::get($conf, 'gap', null));
+
+				$img->save($file[$type], $conf['quality']);
+				chmod($file[$type], $file_chmod);
 			}
 		}
 

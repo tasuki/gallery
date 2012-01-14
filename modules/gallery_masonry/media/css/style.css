@@ -1,0 +1,69 @@
+@font-face {
+	font-family: 'UbuntuBold';
+	src: url('fonts/Ubuntu-Bold-webfont.eot');
+	src: url('fonts/Ubuntu-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/Ubuntu-Bold-webfont.woff') format('woff'),
+		 url('fonts/Ubuntu-Bold-webfont.ttf') format('truetype'),
+		 url('fonts/Ubuntu-Bold-webfont.svg#UbuntuBold') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}
+
+* { margin: 0; padding: 0; }
+.clear { clear: both; }
+a { color: #000; }
+
+/* background image thanks to: http://knitetgantt.deviantart.com/art/Tiled-Wallpaper-Green-Texture-131657984 */
+body { background: url("../img/knitetgantt.png") #CCC; color: #FFF; font-family: Ubuntu, UbuntuBold, sans-serif; font-size: 20px; font-weight: bold; letter-spacing: -1px; padding: 20px; }
+
+#breadcrumbs { font-size: 50px; letter-spacing: -3px; padding: 10px; }
+#breadcrumbs a { text-decoration: none; }
+#breadcrumbs a.hover { color: #FFF; }
+#breadcrumbs .crumb { color: #000; }
+
+#galleries { font-size: 30px; }
+
+a.box { background: #000; color: #FFF; float: left; margin: 10px; padding: 10px 20px; text-decoration: none; }
+a.box.hover { background: #FFF; color: #000; }
+
+div.pic { float: left; margin: 1px; }
+a img { border: 2px solid #FFF; }
+a:visited img { border-color: #EEE; }
+a img.hover { border-color: #000; }
+
+#fancybox-outer { background-color: #000; }
+#fancybox-title { font-family: inherit; font-size: 30px; text-shadow: #000 2px 2px 1px; }
+
+#bottom { margin-top: 30px; }
+
+#byncsa { color: #000; float: left; margin: 10px; }
+#byncsa a.hover { text-decoration: none; }
+
+#calibration { border: 1px solid #808080; float: right; height: 15px; margin: 10px; }
+#calibration div { float: left; height: 15px; width: 15px; text-align: center; }
+.cal1 { background: #FFFFFF; }
+.cal2 { background: #F5F5F5; }
+.cal3 { background: #EBEBEB; }
+.cal4 { background: #E0E0E0; }
+.cal5 { background: #D6D6D6; }
+.cal6 { background: #CCCCCC; }
+.cal7 { background: #C2C2C2; }
+.cal8 { background: #B8B8B8; }
+.cal9 { background: #ADADAD; }
+.cal10 { background: #A3A3A3; }
+.cal11 { background: #999999; }
+.cal12 { background: #8F8F8F; }
+.cal13 { background: #858585; }
+.cal14 { background: #7A7A7A; }
+.cal15 { background: #707070; }
+.cal16 { background: #666666; }
+.cal17 { background: #5C5C5C; }
+.cal18 { background: #525252; }
+.cal19 { background: #474747; }
+.cal20 { background: #3D3D3D; }
+.cal21 { background: #333333; }
+.cal22 { background: #292929; }
+.cal23 { background: #1F1F1F; }
+.cal24 { background: #141414; }
+.cal25 { background: #0A0A0A; }
+.cal26 { background: #000000; }
