@@ -54,7 +54,6 @@ class Model_Updater
 	 */
 	public function update_dirs(Config_Group $settings, $source, $destination)
 	{
-		// code...
 		$this->prefix    = Arr::get($settings->get('thumb'), 'prefix');
 		$this->dir_chmod = Arr::get($settings->get('chmod'), 'dir');
 
@@ -110,7 +109,10 @@ class Model_Updater
 	}
 
 	/**
-	 * Update a file
+	 * Update a file; relies on cache from update_dirs()
+	 *
+	 * @param   Config_Group  settings
+	 * @return  array         updated files
 	 */
 	public function update_file(Config_Group $settings)
 	{
@@ -122,18 +124,22 @@ class Model_Updater
 
 		$file = array_shift($updates);
 		if (! $file) {
+			// no more file, finish!
 			$this->cache->delete('update_underway');
 			return array();
 		}
 
+		// create image from original
 		$img = Image::factory($orig);
 		foreach (array('image', 'thumb') as $type) {
 			if (array_key_exists($type, $file)) {
 				$conf = $settings[$type];
 
+				// resize using current method
 				Model_Resizer::$conf['method']($img, $conf['size'],
 					Arr::get($conf, 'gap', null));
 
+				// save file and set appropriate access rights
 				$img->save($file[$type], $conf['quality']);
 				chmod($file[$type], $file_chmod);
 			}

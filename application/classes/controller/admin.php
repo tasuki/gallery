@@ -28,16 +28,21 @@ class Controller_Admin extends Controller_Template
 		);
 	}
 
+	/**
+	 * Start update of the whole gallery
+	 */
 	public function action_update()
 	{
 		$dir = Kohana::$config->load('application.dir');
 		$settings = Kohana::$config->load('settings');
 
+		// recursively update directories
 		$updater = new Model_Updater();
 		$updater->update_dirs($settings,
 			DOCROOT . $dir['upload'],
 			DOCROOT . $dir['gallery']);
 
+		// update view, with url to call to update files
 		$view = View::factory('admin/update');
 		$view->fetch_url = Route::url('admin', array(
 			'action' => 'update_file',
@@ -47,6 +52,11 @@ class Controller_Admin extends Controller_Template
 		$this->template->body = $view;
 	}
 
+	/**
+	 * Update single file
+	 *
+	 * Relies on file list being cached from action_update call.
+	 */
 	public function action_update_file()
 	{
 		$updater = new Model_Updater($this->request->param('key'));

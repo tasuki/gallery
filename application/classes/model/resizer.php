@@ -32,6 +32,10 @@ class Model_Resizer
 
 	/**
 	 * Scale image so that it fits into a grid
+	 *
+	 * @param  Image  image
+	 * @param  int    base width of the grid
+	 * @param  int    gap between items
 	 */
 	public static function fit_into_grid(Image $image, $base_size, $gap)
 	{
