@@ -50,6 +50,7 @@ class Controller_Gallery extends Controller_Template
 				'link'  => "$gallery_dir/$dir/$file",
 				'url'   => "$gallery_dir/$dir/$prefix$file",
 				'title' => self::displayify($file),
+				'file'  => $file,
 			);
 		}
 

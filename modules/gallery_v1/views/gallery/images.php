@@ -4,6 +4,7 @@
 	foreach ($images as $image) {
 		$link = HTML::anchor($image['link'], HTML::image($image['url']), array(
 			'title' => $image['title'],
+			'file'  => $image['file'],
 			'class' => 'fancybox',
 			'rel'   => 'x',
 		));
