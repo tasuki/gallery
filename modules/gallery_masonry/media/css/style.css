@@ -28,7 +28,6 @@ a.box.hover { background: #FFF; color: #000; }
 
 .pic { float: left; padding: 5px; }
 .pic a img { border: 5px solid #FFF; display: block; }
-.pic a:visited img { border-color: #EEE; }
 .pic a img.hover { border-color: #000; }
 
 #fancybox-outer { background-color: #000; }
