@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'UbuntuBold';
-	src: url('fonts/Ubuntu-Bold-webfont.eot');
-	src: url('fonts/Ubuntu-Bold-webfont.eot?#iefix') format('embedded-opentype'),
-		 url('fonts/Ubuntu-Bold-webfont.woff') format('woff'),
-		 url('fonts/Ubuntu-Bold-webfont.ttf') format('truetype'),
-		 url('fonts/Ubuntu-Bold-webfont.svg#UbuntuBold') format('svg');
+	src: url('../fonts/Ubuntu-Bold-webfont.eot');
+	src: url('../fonts/Ubuntu-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('../fonts/Ubuntu-Bold-webfont.woff') format('woff'),
+		 url('../fonts/Ubuntu-Bold-webfont.ttf') format('truetype'),
+		 url('../fonts/Ubuntu-Bold-webfont.svg#UbuntuBold') format('svg');
 	font-weight: bold;
 	font-style: normal;
 }
