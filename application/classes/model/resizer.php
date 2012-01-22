@@ -45,4 +45,19 @@ class Model_Resizer
 			$image->resize($base_size * 2 + $gap);
 		}
 	}
+
+	/**
+	 * Scale image so that its area is size^2
+	 *
+	 * @param  Image  image
+	 * @param  int    side of square with same area
+	 */
+	public static function fit_area(Image $image, $size)
+	{
+		$area = $size * $size;
+		$aspect = $image->height / $image->width;
+		$new_width = sqrt($area / $aspect);
+
+		$image->resize($new_width);
+	}
 }
