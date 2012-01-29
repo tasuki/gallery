@@ -27,31 +27,5 @@ a.box.hover { background: #FFF; color: #000; }
 #byncsa { color: #000; float: left; font-weight: 400; margin: 10px; }
 #byncsa a.hover { text-decoration: none; }
 
-#calibration { border: 1px solid #808080; float: right; height: 15px; margin: 10px; }
+#calibration { border: 1px solid #808080; float: right; height: 15px; margin: 15px; }
 #calibration div { float: left; height: 15px; width: 15px; text-align: center; }
-.cal1 { background: #FFFFFF; }
-.cal2 { background: #F5F5F5; }
-.cal3 { background: #EBEBEB; }
-.cal4 { background: #E0E0E0; }
-.cal5 { background: #D6D6D6; }
-.cal6 { background: #CCCCCC; }
-.cal7 { background: #C2C2C2; }
-.cal8 { background: #B8B8B8; }
-.cal9 { background: #ADADAD; }
-.cal10 { background: #A3A3A3; }
-.cal11 { background: #999999; }
-.cal12 { background: #8F8F8F; }
-.cal13 { background: #858585; }
-.cal14 { background: #7A7A7A; }
-.cal15 { background: #707070; }
-.cal16 { background: #666666; }
-.cal17 { background: #5C5C5C; }
-.cal18 { background: #525252; }
-.cal19 { background: #474747; }
-.cal20 { background: #3D3D3D; }
-.cal21 { background: #333333; }
-.cal22 { background: #292929; }
-.cal23 { background: #1F1F1F; }
-.cal24 { background: #141414; }
-.cal25 { background: #0A0A0A; }
-.cal26 { background: #000000; }

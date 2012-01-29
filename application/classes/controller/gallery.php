@@ -54,8 +54,9 @@ class Controller_Gallery extends Controller_Template
 			);
 		}
 
-		// get breadcrumbs
+		// get breadcrumbs and calibration
 		$view->crumbs = self::get_crumbs($dir);
+		$view->calibration = self::get_calibration();
 
 		$this->template->body = $view;
 	}
@@ -82,5 +83,24 @@ class Controller_Gallery extends Controller_Template
 		$crumbs[''] = array_pop($crumbs);
 
 		return $crumbs;
+	}
+
+	/**
+	 * Get steps for calibration
+	 */
+	protected static function get_calibration($min = 0, $max = 255, $items = 24)
+	{
+		$colors = array();
+		$step = ($max - $min) / $items;
+
+		for ($i = $min; $i <= $max; $i += $step) {
+			$x = dechex($i);
+			if (strlen($x) == 1)
+				$x = "0$x";
+
+			$colors[] = "#$x$x$x";
+		}
+
+		return $colors;
 	}
 }

@@ -5,11 +5,9 @@
 	</div>
 
 	<div id="calibration">
-		<?php
-			for ($i = 26; $i > 0; $i--) {
-				echo "<div class='cal$i'></div>";
-			}
-		?>
+		<?php foreach ($calibration as $color): ?>
+		<div style='background:<?php echo $color ?>'></div>
+		<?php endforeach; ?>
 		<div class="clear"></div>
 	</div>
 
