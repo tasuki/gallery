@@ -19,6 +19,7 @@ return array(
 	),
 
 	'styles' => array(
+		'http://fonts.googleapis.com/css?family=Ubuntu:400,700&subset=latin,latin-ext',
 		'media/css/jquery.fancybox-1.3.1.css',
 		'media/css/style.css',
 	),

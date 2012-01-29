@@ -1,20 +1,9 @@
-@font-face {
-	font-family: 'UbuntuBold';
-	src: url('../fonts/Ubuntu-Bold-webfont.eot');
-	src: url('../fonts/Ubuntu-Bold-webfont.eot?#iefix') format('embedded-opentype'),
-		 url('../fonts/Ubuntu-Bold-webfont.woff') format('woff'),
-		 url('../fonts/Ubuntu-Bold-webfont.ttf') format('truetype'),
-		 url('../fonts/Ubuntu-Bold-webfont.svg#UbuntuBold') format('svg');
-	font-weight: bold;
-	font-style: normal;
-}
-
 * { margin: 0; padding: 0; }
 .clear { clear: both; }
 a { color: #000; }
 
 /* background image thanks to: http://knitetgantt.deviantart.com/art/Tiled-Wallpaper-Green-Texture-131657984 */
-body { background: url("../img/knitetgantt.png") #CCC; color: #FFF; font-family: Ubuntu, UbuntuBold, sans-serif; font-size: 20px; font-weight: bold; letter-spacing: -1px; padding: 20px; }
+body { background: url("../img/knitetgantt.png") #CCC; color: #FFF; font-family: Ubuntu, sans-serif; font-size: 20px; font-weight: bold; letter-spacing: -1px; padding: 20px; }
 
 #breadcrumbs { font-size: 50px; letter-spacing: -3px; padding: 10px; }
 #breadcrumbs a { text-decoration: none; }
