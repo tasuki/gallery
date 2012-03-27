@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function() {
 	var base = location.href.replace(/#.*/, '');
 
 	$("#images a").fancybox({
@@ -22,15 +22,15 @@ $(document).ready(function(){
 	// load image, if linked
 	$('#images a[file="' + location.hash.substr(1) + '"]').click();
 
-	var anim = function(ancestor, action) {
-		var el = ancestor.find('img');
-		if (el.length == 0) { el = ancestor; }
-		el[action]('hover', 'fast');
+	var anim = function(element, action) {
+		var img = element.find('img');
+		if (img.length > 0) { element = img; }
+		element[action]('hover', 'fast');
 	}
 
-	$("a").hover(function(){
+	$("a").hover(function() {
 		anim($(this), "addClass");
-	}, function(){
+	}, function() {
 		anim($(this), "removeClass");
 	});
 
