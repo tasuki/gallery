@@ -17,17 +17,15 @@ class Controller_Media extends Controller
 	public function action_index()
 	{
 		$path = $this->request->param('file');
-		$ext  = pathinfo($path, PATHINFO_EXTENSION);
-		// remove extension from filename
-		$base = substr($path, 0, -(strlen($ext) + 1));
 
-		if ($file = Kohana::find_file('media', $base, $ext)) {
+		if ($file = Kohana::find_file('media', $path, '')) {
 			// send file content as the response
 			$this->auto_render = false;
 			$this->response->body(file_get_contents($file));
 
 			// set headers to allow caching
-			$this->response->headers('content-type',  File::mime_by_ext($ext));
+			$content_type = File::mime_by_ext(pathinfo($path, PATHINFO_EXTENSION));
+			$this->response->headers('content-type', $content_type);
 			$this->response->headers('last-modified', date('r', filemtime($file)));
 		} else {
 			$this->response->status(404);
