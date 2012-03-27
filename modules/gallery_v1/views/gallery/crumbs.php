@@ -3,7 +3,8 @@
 	// show breadcrumbs
 	foreach ($crumbs as $url => $title)
 		if ($url)
-			echo HTML::anchor($url, $title) . " &raquo; ";
+			// empty class to fix jQuery UI addclass() on first hover
+			echo HTML::anchor($url, $title, array('class' => '')) . " &raquo; ";
 		else
 			echo "<span class='crumb'>$title</span>";
 	?>
