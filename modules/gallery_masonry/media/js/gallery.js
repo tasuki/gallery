@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	var base = location.href.replace(/#.*/, '');
+
 	$("#images a").fancybox({
 		'margin'         : 0,
 		'padding'        : 0,
@@ -9,10 +11,11 @@ $(document).ready(function(){
 		'transitionIn'   : 'elastic',
 		'transitionOut'  : 'elastic',
 		'onComplete'     : function() {
-			location.hash = $(this.orig.context).attr('file');
+			var hash = '#' + $(this.orig.context).attr('file');
+			history.replaceState('', '', base + hash);
 		},
 		'onClosed'       : function() {
-			location.hash = '';
+			history.replaceState('', '', base);
 		}
 	});
 
