@@ -22,16 +22,10 @@ $(document).ready(function() {
 	// load image, if linked
 	$('#images a[file="' + location.hash.substr(1) + '"]').click();
 
-	var anim = function(element, action) {
-		var img = element.find('img');
-		if (img.length > 0) { element = img; }
-		element[action]('hover', 'fast');
-	}
-
 	$("a").hover(function() {
-		anim($(this), "addClass");
+		$(this).addClass('hover', 'fast');
 	}, function() {
-		anim($(this), "removeClass");
+		$(this).removeClass('hover', 'fast');
 	});
 
 	$('#images').imagesLoaded(function() {

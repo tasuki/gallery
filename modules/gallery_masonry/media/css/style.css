@@ -16,8 +16,9 @@ a.box { background: #000; color: #FFF; float: left; margin: 10px; padding: 10px 
 a.box.hover { background: #FFF; color: #000; }
 
 .pic { float: left; padding: 5px; }
-.pic a img { border: 5px solid #FFF; display: block; }
-.pic a img.hover { border-color: #000; }
+.pic a { border: 5px solid #FFF; display: block; }
+.pic a.hover { border-color: #000; }
+.pic a img { display: block; }
 
 #fancybox-outer { background-color: #000; }
 #fancybox-title { font-family: inherit; font-size: 30px; text-shadow: #000 2px 2px 1px; }
