@@ -3,7 +3,7 @@
 a { color: #000; }
 
 /* background image thanks to: http://knitetgantt.deviantart.com/art/Tiled-Wallpaper-Green-Texture-131657984 */
-body { background: url("../img/knitetgantt.png") #CCC; color: #FFF; font-family: Ubuntu, sans-serif; font-size: 20px; font-weight: bold; letter-spacing: -1px; padding: 20px; }
+body { background: url("../img/knitetgantt.png") #CCC; color: #FFF; font-family: Ubuntu, sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -1px; padding: 20px; }
 
 #breadcrumbs { font-size: 50px; letter-spacing: -3px; padding: 10px; }
 #breadcrumbs a { text-decoration: none; }
@@ -15,18 +15,18 @@ body { background: url("../img/knitetgantt.png") #CCC; color: #FFF; font-family:
 a.box { background: #000; color: #FFF; float: left; margin: 10px; padding: 10px 20px; text-decoration: none; }
 a.box.hover { background: #FFF; color: #000; }
 
-div.pic { height: 220px; float: left; margin: 10px; }
-a img { border: 10px solid #FFF; }
-a:visited img { border-color: #EEE; }
-a img.hover { border-color: #000; }
+.pic { float: left; height: 210px; margin: 5px; }
+.pic a { border: 5px solid #FFF; display: block; }
+.pic a.hover { border-color: #000; }
+.pic a img { display: block; }
 
 #fancybox-outer { background-color: #000; }
 #fancybox-title { font-family: inherit; font-size: 30px; text-shadow: #000 2px 2px 1px; }
 
 #bottom { margin-top: 30px; }
 
-#byncsa { color: #000; float: left; margin: 10px; }
+#byncsa { color: #000; float: left; font-weight: 400; margin: 10px; }
 #byncsa a.hover { text-decoration: none; }
 
-#calibration { border: 1px solid #808080; float: right; height: 15px; margin: 10px; }
+#calibration { border: 1px solid #808080; float: right; height: 15px; margin: 15px; }
 #calibration div { float: left; height: 15px; width: 15px; text-align: center; }
