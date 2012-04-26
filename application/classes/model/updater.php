@@ -136,7 +136,7 @@ class Model_Updater
 				$conf = $settings[$type];
 
 				// resize using current method
-				Model_Resizer::$conf['method']($img, $conf['size'],
+				$img->$conf['method']($conf['size'],
 					Arr::get($conf, 'gap', null));
 
 				// save file and set appropriate access rights
