@@ -37,13 +37,14 @@ class Controller_Template extends Kohana_Controller_Template
 	}
 
 	/**
-	 * Remove undescores and dashes from text, replace with spaces
+	 * Remove three letter suffix, replace undescores and dashes with spaces
 	 *
 	 * @param   string  original text
 	 * @return  string  text for displaying
 	 */
 	protected static function displayify($text)
 	{
-		return preg_replace('/[_-]/', ' ', $text);
+		return preg_replace('/\....$/', '',
+			preg_replace('/[_-]/', ' ', $text));
 	}
 }
