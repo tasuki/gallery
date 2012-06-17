@@ -26,7 +26,15 @@ return array(
 
 	'scripts' => array(
 		'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js',
+		array(
+			'test'     => 'window.jQuery',
+			'fallback' => 'media/js/jquery-1.7.1.min.js',
+		),
 		'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js',
+		array(
+			'test'     => 'window.jQuery.ui',
+			'fallback' => 'media/js/jquery-ui-1.8.16.min.js',
+		),
 		'media/js/jquery.fancybox-1.3.1.pack.js',
 		'media/js/jquery.easing-1.3.pack.js',
 		'media/js/jquery.mousewheel-3.0.2.pack.js',

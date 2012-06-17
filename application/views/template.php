@@ -7,11 +7,20 @@
 
 	<?php
 	foreach ($styles as $style) {
-		echo HTML::style($style, array('media' => 'screen'));
+		echo HTML::style($style, array('media' => 'screen')) . "\n";
 	}
 
 	foreach ($scripts as $script) {
-		echo HTML::script($script);
+		if (is_array($script)) {
+			// includes a fallback file if the test fails
+			$alt = '%3Cscript type="text/javascript" src="'
+				. URL::base() . $script['fallback'] . '"%3E%3C/script%3E';
+			echo '<script type="text/javascript">' . $script['test']
+				. " || document.write(unescape('$alt'));</script>\n";
+		} else {
+			// regular javascript file
+			echo HTML::script($script) . "\n";
+		}
 	}
 	?>
 </head>
