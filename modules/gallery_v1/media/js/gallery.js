@@ -11,7 +11,7 @@ $(document).ready(function() {
 		'transitionIn'   : 'elastic',
 		'transitionOut'  : 'elastic',
 		'onComplete'     : function() {
-			var hash = '#' + $(this.orig.context).attr('file');
+			var hash = '#' + $(this.orig.context).attr('data-file');
 			history.replaceState('', '', base + hash);
 		},
 		'onClosed'       : function() {
@@ -20,7 +20,7 @@ $(document).ready(function() {
 	});
 
 	// load image, if linked
-	$('#images a[file="' + location.hash.substr(1) + '"]').click();
+	$('#images a[data-file="' + location.hash.substr(1) + '"]').click();
 
 	$("a").hover(function() {
 		$(this).addClass('hover', 'fast');
