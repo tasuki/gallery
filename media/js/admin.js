@@ -5,5 +5,7 @@ function update(url) {
 		if (data['status'] !== 'finished') {
 			update(url);
 		}
+	}).error(function() {
+		$('body').append('<p class="fatal">fatal: ajax call failed</p>');
 	});
 }
