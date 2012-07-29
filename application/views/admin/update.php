@@ -4,5 +4,5 @@ $(document).ready(function(){
 });
 </script>
 
-<?php echo $fetch_url ?>
+Updating your gallery. Lock: <?php echo $key ?>
 <br/>

@@ -47,13 +47,12 @@ class Controller_Admin extends Controller_Template
 			DOCROOT . $dir['gallery']);
 
 		// update view, with url to call to update files
-		$view = View::factory('admin/update');
-		$view->fetch_url = Route::url('admin', array(
-			'action' => 'update_file',
-			'key'    => $updater->key,
-		));
-
-		$this->template->body = $view;
+		$this->template->body = View::factory('admin/update')
+			->set('key', $updater->key)
+			->set('fetch_url', Route::url('admin', array(
+				'action' => 'update_file',
+				'key'    => $updater->key,
+			)));
 	}
 
 	/**
@@ -70,7 +69,6 @@ class Controller_Admin extends Controller_Template
 			$results  = $updater->update_file($settings);
 
 			if (count($results) === 0) {
-				$results = array('finished' => 'success');
 				$reload  = false;
 			}
 		} catch (Kohana_Exception $e) {
@@ -80,13 +78,9 @@ class Controller_Admin extends Controller_Template
 			$reload  = false;
 		}
 
-		$view = View::factory('admin/update_file')
-			->set('results', $results)
-			->render();
-
 		$this->data = array(
-			'reload' => $reload,
-			'view'   => $view,
+			'reload'  => $reload,
+			'results' => $results,
 		);
 	}
 }
