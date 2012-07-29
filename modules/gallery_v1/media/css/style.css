@@ -1,6 +1,7 @@
 * { margin: 0; padding: 0; }
 .clear { clear: both; }
-a { color: #000; }
+a, p { color: #000; }
+.error, .fatal { color: #900; }
 
 /* background image thanks to: http://knitetgantt.deviantart.com/art/Tiled-Wallpaper-Green-Texture-131657984 */
 body { background: url("../img/knitetgantt.png") #CCC; color: #FFF; font-family: Ubuntu, sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -1px; padding: 20px; }
@@ -25,7 +26,7 @@ a.box.hover { background: #FFF; color: #000; }
 
 #bottom { margin-top: 30px; }
 
-#byncsa { color: #000; float: left; font-weight: 400; margin: 10px; }
+#byncsa { float: left; font-weight: 400; margin: 10px; }
 #byncsa a.hover { text-decoration: none; }
 
 #calibration { border: 1px solid #808080; float: right; height: 15px; margin: 15px; }

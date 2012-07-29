@@ -1,5 +1,5 @@
 <?php
 
-foreach ($files as $type => $file) {
-	echo "<p>Updated: $file</p>";
+foreach ($results as $type => $msg) {
+	echo "<p class='$type'>$type: $msg</p>";
 }

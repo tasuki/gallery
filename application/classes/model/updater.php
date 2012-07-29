@@ -10,9 +10,9 @@
  */
 class Model_Updater
 {
-	const UPDATE_TIMEOUT = 10;
+	const UPDATE_TIMEOUT = 30;
 
-	public $updates;
+	public $updates = array();
 	public $key;
 
 	protected $cache;
@@ -123,8 +123,11 @@ class Model_Updater
 		$orig = key($updates);
 
 		$file = array_shift($updates);
+		$this->cache->set('updates', $updates);
+
 		if (! $file) {
 			// no more file, finish!
+			$this->cache->delete('updates');
 			$this->cache->delete('update_underway');
 			return array();
 		}
@@ -145,9 +148,6 @@ class Model_Updater
 			}
 		}
 
-		// if all has gone well, remove file from list
-		$this->cache->set('updates', $updates);
-
-		return $file;
+		return array_map(array('Debug', 'path'), $file);
 	}
 }

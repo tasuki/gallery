@@ -63,17 +63,31 @@ class Controller_Admin extends Controller_Template
 	 */
 	public function action_update_file()
 	{
-		$updater = new Model_Updater($this->request->param('key'));
+		try {
+			$updater  = new Model_Updater($this->request->param('key'));
+			$settings = Kohana::$config->load('settings');
+			$results  = $updater->update_file($settings);
 
-		$settings = Kohana::$config->load('settings');
+			if (count($results)) {
+				$status = 'ok';
+			} else {
+				$results = array('finished' => 'success');
+				$status  = 'finished';
+			}
+		} catch (Kohana_Exception $e) {
+			$results = array('error' => $e->getMessage());
+			$status  = 'error';
+		} catch (Exception $e) {
+			$results = array('fatal' => $e->getMessage());
+			$status  = 'finished';
+		}
 
-		$files = $updater->update_file($settings);
 		$view = View::factory('admin/update_file')
-			->set('files', $files)
+			->set('results', $results)
 			->render();
 
 		$this->data = array(
-			'reload' => (bool) count($files),
+			'status' => $status,
 			'view'   => $view,
 		);
 	}
