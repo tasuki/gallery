@@ -2,7 +2,7 @@ function update(url) {
 	$.getJSON(url, function(data) {
 		$('body').append(data['view']);
 
-		if (data['status'] !== 'finished') {
+		if (data['reload']) {
 			update(url);
 		}
 	}).error(function() {

@@ -63,23 +63,21 @@ class Controller_Admin extends Controller_Template
 	 */
 	public function action_update_file()
 	{
+		$reload = true;
 		try {
 			$updater  = new Model_Updater($this->request->param('key'));
 			$settings = Kohana::$config->load('settings');
 			$results  = $updater->update_file($settings);
 
-			if (count($results)) {
-				$status = 'ok';
-			} else {
+			if (count($results) === 0) {
 				$results = array('finished' => 'success');
-				$status  = 'finished';
+				$reload  = false;
 			}
 		} catch (Kohana_Exception $e) {
 			$results = array('error' => $e->getMessage());
-			$status  = 'error';
 		} catch (Exception $e) {
 			$results = array('fatal' => $e->getMessage());
-			$status  = 'finished';
+			$reload  = false;
 		}
 
 		$view = View::factory('admin/update_file')
@@ -87,7 +85,7 @@ class Controller_Admin extends Controller_Template
 			->render();
 
 		$this->data = array(
-			'status' => $status,
+			'reload' => $reload,
 			'view'   => $view,
 		);
 	}
