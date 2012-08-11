@@ -6,10 +6,12 @@ a, p { color: #000; }
 /* background image thanks to: http://knitetgantt.deviantart.com/art/Tiled-Wallpaper-Green-Texture-131657984 */
 body { background: url("../img/knitetgantt.png") #CCC; color: #FFF; font-family: Ubuntu, sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -1px; padding: 20px; }
 
-#breadcrumbs { font-size: 50px; letter-spacing: -3px; padding: 10px; }
-#breadcrumbs a { text-decoration: none; }
-#breadcrumbs a.hover { color: #FFF; }
-#breadcrumbs .crumb { color: #000; }
+.navigation { font-size: 50px; letter-spacing: -3px; padding: 10px; }
+.navigation a { text-decoration: none; }
+.navigation a.hover { color: #FFF; }
+.navigation .crumb { color: #000; }
+.navigation #prev { display: block; float: left; }
+.navigation #next { display: block; float: right; }
 
 #galleries { font-size: 30px; }
 

@@ -54,6 +54,18 @@ class Controller_Gallery extends Controller_Template
 			);
 		}
 
+		// if not in root, get previous/next galleries
+		$view->neighbors = array();
+		if ($dir) {
+			$parent = dirname($dir);
+			foreach ($directory->get_neighbors() as $rel => $name) {
+				$view->neighbors[$rel] = array(
+					'link'  => "$parent/$name",
+					'title' => self::displayify($name),
+				);
+			}
+		}
+
 		// get breadcrumbs and calibration
 		$view->crumbs = self::get_crumbs($dir);
 		$view->calibration = self::get_calibration();

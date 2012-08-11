@@ -1,4 +1,4 @@
-<div id="breadcrumbs">
+<div class="navigation">
 	<?php
 	// show breadcrumbs
 	foreach ($crumbs as $url => $title)

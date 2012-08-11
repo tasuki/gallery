@@ -89,6 +89,31 @@ class Model_Directory
 	}
 
 	/**
+	 * Get neighboring directories of the current directory
+	 *
+	 * @return  array   neighbors of the current directory
+	 */
+	public function get_neighbors()
+	{
+		// get parent Model_Directory and its children
+		$path = $this->dir->getPath();
+		$parent = new self(dirname($path));
+		$dirs = $parent->get_dirs();
+
+		// find position of current dir
+		$key = array_search(basename($path), $dirs);
+
+		// check if previous/next directories exist
+		$neighbors = array();
+		if (array_key_exists($key - 1, $dirs))
+			$neighbors['prev'] = $dirs[$key - 1];
+		if (array_key_exists($key + 1, $dirs))
+			$neighbors['next'] = $dirs[$key + 1];
+
+		return $neighbors;
+	}
+
+	/**
 	 * Get items missing from current directory compared to another
 	 *
 	 * @param   Model_Directory  directory to compare against
