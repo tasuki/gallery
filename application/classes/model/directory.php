@@ -18,7 +18,7 @@ class Model_Directory
 	/**
 	 * @var  DirectoryIterator  The current directory
 	 */
-	public $dir;
+	protected $dir;
 
 	/**
 	 * Create directory model
