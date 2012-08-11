@@ -76,8 +76,8 @@ class Model_Directory
 			// (want directories and is a directory
 			//     OR want files and is a file)
 			// AND doesn't match filters
-			if (($type & Model_Directory::DIRS && $item->isDir()
-				|| $type & Model_Directory::FILES && $item->isFile())
+			if (($type & self::DIRS && $item->isDir()
+				|| $type & self::FILES && $item->isFile())
 				&& ! preg_match("/^(" . join('|', $filters) . ")/", $item)) {
 
 				$items[] = (string) $item;
@@ -95,7 +95,7 @@ class Model_Directory
 	 * @param   int              Model_Directory::FILES/DIRS/ALL
 	 * @return  array            missing items
 	 */
-	public function missing(Model_Directory $dir, $type)
+	public function missing(self $dir, $type)
 	{
 		return array_diff($dir->get_items($type), $this->get_items($type));
 	}
