@@ -7,7 +7,10 @@ foreach ($neighbors as $type => $neighbor) {
 		$title = "{$neighbor['title']} &rsaquo;";
 	}
 
-	echo HTML::anchor($neighbor['link'], $title, array('id' => $type));
+	echo HTML::anchor($neighbor['link'], $title, array(
+		'id'    => $type,
+		'class' => '',
+	));
 }
 ?>
 	<div class="clear"></div>
