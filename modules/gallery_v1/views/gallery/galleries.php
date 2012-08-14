@@ -5,5 +5,4 @@
 		echo HTML::anchor($url, $title, array('class' => 'box'));
 	}
 	?>
-	<div class="clear"></div>
 </div>

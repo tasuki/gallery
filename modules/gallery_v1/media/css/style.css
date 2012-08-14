@@ -15,10 +15,10 @@ body { background: url("../img/knitetgantt.png") #CCC; color: #FFF; font-family:
 
 #galleries { font-size: 30px; }
 
-a.box { background: #000; color: #FFF; float: left; margin: 10px; padding: 10px 20px; text-decoration: none; }
+a.box { background: #000; color: #FFF; display: inline-block; margin: 10px; padding: 10px 20px; text-decoration: none; }
 a.box.hover { background: #FFF; color: #000; }
 
-.pic { float: left; height: 210px; margin: 5px; }
+.pic { display: inline-block; margin: 5px; vertical-align: middle; }
 .pic a { border: 5px solid #FFF; display: block; }
 .pic a.hover { border-color: #000; }
 .pic a img { display: block; }

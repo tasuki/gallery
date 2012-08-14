@@ -17,5 +17,4 @@
 		echo "<div class='pic'>$link</div>";
 	}
 	?>
-	<div class="clear"></div>
 </div>
