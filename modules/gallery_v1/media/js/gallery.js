@@ -21,10 +21,4 @@ $(document).ready(function() {
 
 	// load image, if linked
 	$('#images a[data-file="' + location.hash.substr(1) + '"]').click();
-
-	$("a").hover(function() {
-		$(this).addClass('hover', 'fast');
-	}, function() {
-		$(this).removeClass('hover', 'fast');
-	});
 });
