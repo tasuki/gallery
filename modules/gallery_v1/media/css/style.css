@@ -22,7 +22,7 @@ a.box:hover { background: #FFF; color: #000; }
 
 .pic { display: inline-block; margin: 5px; vertical-align: middle; }
 .pic a { border: 5px solid #FFF; display: block; }
-.pic a:hover { border-color: #000; }
+.pic a:hover { border-color: #000; -o-transform: scale(1.1); -webkit-transform: scale(1.1); -moz-transform: scale(1.1); -ms-transform: scale(1.1); transform: scale(1.1); }
 .pic a img { display: block; }
 
 #fancybox-outer { background-color: #000; }
