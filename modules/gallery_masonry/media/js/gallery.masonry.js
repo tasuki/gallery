@@ -1,9 +1,12 @@
 $(document).ready(function() {
 	$('#images').imagesLoaded(function() {
-		$('#images').masonry({
+		this.masonry({
 			itemSelector : '.pic',
 			columnWidth : 10,
-			isAnimated : true
+			isAnimated : true,
+			layoutPriorities : {
+				shelfOrder : 2
+			}
 		});
 	});
 });
