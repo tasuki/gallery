@@ -26,7 +26,8 @@ I created this gallery because all the other galleries seem way too complicated.
 * Visit admin/update url (currently everyone can do that, but it's harmless)
 * Verify the gallery shows up as expected.
 * Optionally, delete the original pics (which could take up a lot of space)
-  from `upload/` - if you want to delete pictures, delete them from `gallery/`
+  from `upload/` - if you want to delete the photos from the gallery, delete
+  them from `gallery/`
 
 ### How to customize:
 Gallery uses Kohana's [cascading filesystem] with a series of modules. These are
@@ -37,18 +38,13 @@ gallery_v1 style, which is loaded like so:
 		'gallery_v1',
 	),
 
-This is the original style I used to use in my gallery till late 2011.
-
-If you'd like to align the thumbnails using [JQuery Masonry], then use the
+If you'd like to align the thumbnails using [jQuery Masonry], then use the
 following:
 
 	'templates' => array(
 		'gallery_masonry',
 		'gallery_v1',
 	),
-
-Apart from aligning images with masonry, the gallery_masonry module offers a few
-extra features, such as linking to the page with current image open.
 
 It's likely you'll want to make some customizations, eg. set your own title. In
 that case, please create your own module. Let's call it my_style:
@@ -69,4 +65,4 @@ If you have any questions/remarks, feel free to contact me or create an issue on
 github!
 
 [cascading filesystem]: http://kohanaframework.org/3.2/guide/kohana/files
-[JQuery Masonry]: http://masonry.desandro.com/
+[jQuery Masonry]: http://masonry.desandro.com/
