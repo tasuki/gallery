@@ -9,9 +9,8 @@ a, a:hover { -o-transition: .2s ease; -webkit-transition: .2s ease; -moz-transit
 body { background: url("../img/knitetgantt.png") #CCC; color: #FFF; font-family: Ubuntu, sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -1px; padding: 20px; }
 
 .navigation { font-size: 50px; letter-spacing: -3px; padding: 10px; }
-.navigation a { text-decoration: none; }
-.navigation a:hover { color: #FFF; }
-.navigation .crumb { color: #000; }
+.navigation a, .navigation .crumb { color: #000; text-decoration: none; text-shadow: 2px 2px 2px #FFF; }
+.navigation a:hover { color: #FFF; text-shadow: 2px 2px 2px #000; }
 .navigation #prev { display: block; float: left; }
 .navigation #next { display: block; float: right; }
 
