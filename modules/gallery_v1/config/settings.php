@@ -6,6 +6,7 @@ return array(
 		'method'  => 'fit_into_box',
 		'size'    => 1536,
 		'quality' => 85,
+		'upscale' => false,
 	),
 
 	'thumb' => array(
@@ -16,6 +17,7 @@ return array(
 		'method'  => 'fit_into_box',
 		'size'    => 200,
 		'quality' => 85,
+		'upscale' => false,
 	),
 
 	'styles' => array(

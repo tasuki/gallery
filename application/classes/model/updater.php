@@ -134,6 +134,7 @@ class Model_Updater
 
 		// create image from original
 		$img = Image::factory($orig);
+		$img->upscale = Arr::get($settings->get('image'), 'upscale');
 		foreach (array('image', 'thumb') as $type) {
 			if (array_key_exists($type, $file)) {
 				$conf = $settings[$type];

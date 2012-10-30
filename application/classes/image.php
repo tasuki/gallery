@@ -10,6 +10,31 @@
 abstract class Image extends Kohana_Image
 {
 	/**
+	 * @var  bool  if false, do not increase image size
+	 */
+	public $upscale = false;
+
+	/**
+	 * Disable scaling up
+	 *
+	 * If disable_scaling_up is true, only downscale the images.
+	 *
+	 * @param   integer  new width
+	 * @param   integer  new height
+	 * @param   integer  master dimension
+	 * @return  $this
+	 */
+	public function resize($width = null, $height = null, $master = null)
+	{
+		if ($this->upscale === false &&
+				($width > $this->width || $height > $this->height)) {
+			return $this;
+		}
+
+		return parent::resize($width, $height, $master);
+	}
+
+	/**
 	 * Fit image into a square box of a specified size
 	 *
 	 * Preserves the aspect ratio and fits the image into a box,
