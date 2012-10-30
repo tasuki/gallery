@@ -85,6 +85,7 @@ Kohana::$log->attach(new Log_File(APPPATH.'logs'));
 $modules = array(
 	'cache'      => MODPATH . 'cache',      // Caching with multiple backends
 	'image'      => MODPATH . 'image',      // Image manipulation
+	'unittest'   => MODPATH . 'unittest',   // PHPUnit unit testing
 	'userguide'  => MODPATH . 'userguide',  // User guide and API documentation
 );
 // Load current templates from application config

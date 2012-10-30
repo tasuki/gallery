@@ -79,22 +79,18 @@ unset($application, $modules, $system);
 // Load the core Kohana class
 require SYSPATH . 'classes/kohana/core' . EXT;
 
-if (is_file(APPPATH . 'classes/kohana' . EXT)) {
-	// Application extends the core
-	require APPPATH . 'classes/kohana' . EXT;
-} else {
-	// Load empty core extension
-	require SYSPATH . 'classes/kohana' . EXT;
-}
+// Load empty core extension
+require SYSPATH . 'classes/kohana' . EXT;
 
 // Bootstrap the application
 require APPPATH . 'bootstrap' . EXT;
 
-/**
- * Execute the main request. A source of the URI can be passed, eg: $_SERVER['PATH_INFO'].
- * If no source is specified, the URI will be automatically detected.
- */
-echo Request::factory()
-	->execute()
-	->send_headers()
-	->body();
+if (Kohana::$environment !== Kohana::TESTING) {
+	/**
+	 * Execute the main request.
+	 */
+	echo Request::factory()
+		->execute()
+		->send_headers()
+		->body();
+}

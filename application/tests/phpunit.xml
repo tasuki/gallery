@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true" bootstrap="./bootstrap.php">
+	<testsuite name="Kohana_Unittest_Testcase">
+		<directory suffix=".php">./classes</directory>
+	</testsuite>
+</phpunit>
