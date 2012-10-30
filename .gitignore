@@ -1,3 +1,4 @@
 .htaccess
 deploy.ini
 application/config/application.php
+application/tests/report

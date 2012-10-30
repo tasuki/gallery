@@ -3,4 +3,9 @@
 	<testsuite name="Kohana_Unittest_Testcase">
 		<directory suffix=".php">./classes</directory>
 	</testsuite>
+	<filter>
+		<whitelist>
+			<directory>../classes</directory>
+		</whitelist>
+	</filter>
 </phpunit>

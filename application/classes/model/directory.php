@@ -122,6 +122,9 @@ class Model_Directory
 	 */
 	public function missing(self $dir, $type)
 	{
-		return array_diff($dir->get_items($type), $this->get_items($type));
+		return array_values(array_diff(
+			$dir->get_items($type),
+			$this->get_items($type)
+		));
 	}
 }
