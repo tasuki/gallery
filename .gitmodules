@@ -10,3 +10,6 @@
 [submodule "modules/userguide"]
 	path = modules/userguide
 	url = https://github.com/kohana/userguide.git
+[submodule "modules/unittest"]
+	path = modules/unittest
+	url = https://github.com/kohana/unittest.git
