@@ -88,9 +88,12 @@ $modules = array(
 	'unittest'   => MODPATH . 'unittest',   // PHPUnit unit testing
 	'userguide'  => MODPATH . 'userguide',  // User guide and API documentation
 );
-// Load current templates from application config
-foreach (Kohana::$config->load('application.templates') as $template) {
-	$modules[$template] = MODPATH . $template;
+
+if (Kohana::$environment !== Kohana::TESTING) {
+	// Load current templates from application config
+	foreach (Kohana::$config->load('application.templates') as $template) {
+		$modules[$template] = MODPATH . $template;
+	}
 }
 Kohana::modules($modules);
 
