@@ -116,4 +116,15 @@ class Model_DirectoryTest extends Kohana_UnitTest_TestCase
 			$second->missing($first, Model_Directory::FILES)
 		);
 	}
+
+	/**
+	 * UTF is healthy for your skin
+	 */
+	public function test_utf_named_files()
+	{
+		$expected = array('bříza.jpg', 'jehličnaté');
+		$dir = new Model_Directory('test_data/plants/trees');
+
+		$this->assertEquals($expected, $dir->get_items(Model_Directory::ALL));
+	}
 }
