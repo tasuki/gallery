@@ -8,7 +8,7 @@
  * @author   Vit 'tasuki' Brunner
  * @license  GPL
  */
-class Model_ImageTest extends Kohana_UnitTest_TestCase
+class ImageTest extends Kohana_UnitTest_TestCase
 {
 	/**
 	 * Get test image, 100px wide 50px tall
