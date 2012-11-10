@@ -44,8 +44,8 @@ class Model_Filemapper
 		// Get missing dirs
 		foreach ($dst->missing($src, Model_Directory::DIRS) as $dir) {
 			$this->dirs[] = array(
-				'src' => "$source/$dir",
-				'dst' => "$destination/$dir",
+				'src' => $src->child($dir),
+				'dst' => $dst->child($dir),
 			);
 		}
 
@@ -53,13 +53,13 @@ class Model_Filemapper
 		$dst_files = $dst->get_files();
 		foreach ($src->get_files() as $src_file) {
 			// Source file
-			$file = array('src' => "$source/$src_file");
+			$file = array('src' => $src->child($src_file));
 			foreach ($mapping as $type => $prefix) {
 				$dst_file = $prefix . $src_file;
 
 				// Is destination file missing?
 				if (! in_array($dst_file, $dst_files)) {
-					$file[$type] = "$destination/$dst_file";
+					$file[$type] = $dst->child($dst_file);
 				}
 			}
 
@@ -72,8 +72,8 @@ class Model_Filemapper
 		// Process subdirectories
 		foreach ($src->get_dirs() as $dir) {
 			$this->recursively_process_dir(
-				"$source/$dir",
-				"$destination/$dir",
+				$src->child($dir),
+				$dst->child($dir),
 				$mapping
 			);
 		}

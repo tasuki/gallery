@@ -31,6 +31,17 @@ class Model_Directory
 	}
 
 	/**
+	 * Get path to a child of the directory
+	 *
+	 * @param   string  child name
+	 * @return  string  path to child
+	 */
+	public function child($name)
+	{
+		return $this->dir->getPath() . DIRECTORY_SEPARATOR . $name;
+	}
+
+	/**
 	 * Get subdirectories of current directory
 	 *
 	 * @param   array  patterns to filter
