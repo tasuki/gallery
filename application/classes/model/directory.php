@@ -27,7 +27,7 @@ class Model_Directory
 	 */
 	public function __construct($directory)
 	{
-		$this->dir = new DirectoryIterator($directory);
+		$this->dir = new RelaxedDirectoryIterator($directory);
 	}
 
 	/**

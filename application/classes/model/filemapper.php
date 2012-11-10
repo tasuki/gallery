@@ -39,20 +39,10 @@ class Model_Filemapper
 	protected function recursively_process_dir($source, $destination, $mapping)
 	{
 		$src = new Model_Directory($source);
+		$dst = new Model_Directory($destination);
 
-		try {
-			// Try to get destination directory, with all files
-			$dst = new Model_Directory($destination);
-			$dst_dirs_missing = $dst->missing($src, Model_Directory::DIRS);
-			$dst_files = $dst->get_files();
-		} catch (UnexpectedValueException $e) {
-			// Destination dir doesn't exist, hence all src dirs
-			// are missing from dst and there are no files there.
-			$dst_dirs_missing = $src->get_dirs();
-			$dst_files = array();
-		}
-
-		foreach ($dst_dirs_missing as $dir) {
+		// Get missing dirs
+		foreach ($dst->missing($src, Model_Directory::DIRS) as $dir) {
 			$this->dirs[] = array(
 				'src' => "$source/$dir",
 				'dst' => "$destination/$dir",
@@ -60,6 +50,7 @@ class Model_Filemapper
 		}
 
 		// Get missing files
+		$dst_files = $dst->get_files();
 		foreach ($src->get_files() as $src_file) {
 			// Source file
 			$file = array('src' => "$source/$src_file");
