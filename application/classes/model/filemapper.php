@@ -101,7 +101,7 @@ class Model_Filemapper
 	/**
 	 * Get next file
 	 *
-	 * @return  array  directory
+	 * @return  array  file
 	 */
 	public function next_file()
 	{
