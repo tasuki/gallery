@@ -38,11 +38,11 @@ class Model_Filemapper
 	 */
 	protected function recursively_process_dir($source, $destination, $mapping)
 	{
-		$src = new Model_Directory($source);
-		$dst = new Model_Directory($destination);
+		$src = new Dir($source);
+		$dst = new Dir($destination);
 
 		// Get missing dirs
-		foreach ($dst->missing($src, Model_Directory::DIRS) as $dir) {
+		foreach ($dst->missing($src, Dir::DIRS) as $dir) {
 			$this->dirs[] = array(
 				'src' => $src->child($dir),
 				'dst' => $dst->child($dir),

@@ -33,7 +33,7 @@ class Controller_Gallery extends Controller_Template
 
 		// load directory model
 		$gallery_dir = Kohana::$config->load('application.dir.gallery');
-		$directory = new Model_Directory(DOCROOT . "$gallery_dir/$dir");
+		$directory = new Dir(DOCROOT . "$gallery_dir/$dir");
 
 		// get sub-galleries
 		$view->galleries = array();

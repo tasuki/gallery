@@ -1,14 +1,13 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 /**
- * Directory model
+ * Directory
  *
  * @package  Gallery
- * @category Model
  * @author   Vit 'tasuki' Brunner
  * @license  GPL
  */
-class Model_Directory
+class Dir
 {
 	// Bitfields for choosing items to get
 	const FILES = 1;
@@ -21,7 +20,7 @@ class Model_Directory
 	protected $dir;
 
 	/**
-	 * Create directory model
+	 * Create directory
 	 *
 	 * @param  string  path to directory
 	 */
@@ -66,7 +65,7 @@ class Model_Directory
 	/**
 	 * Get items from directory that pass check function
 	 *
-	 * @param   int    bitfield Model_Directory::FILES/DIRS/ALL
+	 * @param   int    bitfield Dir::FILES/DIRS/ALL
 	 * @param   array  items to skip when match at beginning
 	 * @return  array  items from directory
 	 */
@@ -102,11 +101,11 @@ class Model_Directory
 	/**
 	 * Get neighboring directories of the current directory
 	 *
-	 * @return  array   neighbors of the current directory
+	 * @return  array  neighbors of the current directory
 	 */
 	public function get_neighbors()
 	{
-		// get parent Model_Directory and its children
+		// get parent Dir and its children
 		$path = $this->dir->getPath();
 		$parent = new self(dirname($path));
 		$dirs = $parent->get_dirs();
@@ -127,9 +126,9 @@ class Model_Directory
 	/**
 	 * Get items missing from current directory compared to another
 	 *
-	 * @param   Model_Directory  directory to compare against
-	 * @param   int              Model_Directory::FILES/DIRS/ALL
-	 * @return  array            missing items
+	 * @param   Dir    directory to compare against
+	 * @param   int    Dir::FILES/DIRS/ALL
+	 * @return  array  missing items
 	 */
 	public function missing(self $dir, $type)
 	{

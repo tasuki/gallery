@@ -69,11 +69,11 @@ class Model_Updater
 	 */
 	protected function recursively_update_dir($source, $destination)
 	{
-		$src = new Model_Directory($source);
-		$dst = new Model_Directory($destination);
+		$src = new Dir($source);
+		$dst = new Dir($destination);
 
 		// create missing subdirectories
-		foreach ($dst->missing($src, Model_Directory::DIRS) as $missing) {
+		foreach ($dst->missing($src, Dir::DIRS) as $missing) {
 			$file = $destination . '/' . $missing;
 			mkdir($file);
 			chmod($file, $this->dir_chmod);

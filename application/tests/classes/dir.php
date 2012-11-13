@@ -1,14 +1,14 @@
 <?php defined('SYSPATH') or die('No direct access allowed!');
 
 /**
- * Directory model test
+ * Directory test
  *
  * @package  Gallery
  * @category Test
  * @author   Vit 'tasuki' Brunner
  * @license  GPL
  */
-class Model_DirectoryTest extends Kohana_UnitTest_TestCase
+class DirTest extends Kohana_UnitTest_TestCase
 {
 	/**
 	 * Test file getting
@@ -17,11 +17,11 @@ class Model_DirectoryTest extends Kohana_UnitTest_TestCase
 	{
 		$filters = array('rose');
 		$expected = array('daisies.jpg', 'lilies.jpg');
-		$directory = new Model_Directory('test_data/plants');
+		$directory = new Dir('test_data/plants');
 
 		$this->assertEquals($expected, $directory->get_files($filters));
 		$this->assertEquals($expected, $directory->get_items(
-			Model_Directory::FILES, $filters
+			Dir::FILES, $filters
 		));
 	}
 
@@ -32,11 +32,11 @@ class Model_DirectoryTest extends Kohana_UnitTest_TestCase
 	{
 		$filters = array('flo');
 		$expected = array('algae', 'mosses', 'trees');
-		$directory = new Model_Directory('test_data/plants');
+		$directory = new Dir('test_data/plants');
 
 		$this->assertEquals($expected, $directory->get_dirs($filters));
 		$this->assertEquals($expected, $directory->get_items(
-			Model_Directory::DIRS, $filters
+			Dir::DIRS, $filters
 		));
 	}
 
@@ -48,10 +48,10 @@ class Model_DirectoryTest extends Kohana_UnitTest_TestCase
 		$filters = array('flo');
 		$expected = array('algae', 'daisies.jpg',
 			'lilies.jpg', 'mosses', 'roses.jpg', 'trees');
-		$directory = new Model_Directory('test_data/plants');
+		$directory = new Dir('test_data/plants');
 
 		$this->assertEquals($expected, $directory->get_items(
-			Model_Directory::ALL, $filters
+			Dir::ALL, $filters
 		));
 	}
 
@@ -65,7 +65,7 @@ class Model_DirectoryTest extends Kohana_UnitTest_TestCase
 	 */
 	public function test_get_neighbors(array $expected, $directory)
 	{
-		$directory = new Model_Directory('test_data/' . $directory);
+		$directory = new Dir('test_data/' . $directory);
 		$this->assertEquals($expected, $directory->get_neighbors());
 	}
 
@@ -103,17 +103,17 @@ class Model_DirectoryTest extends Kohana_UnitTest_TestCase
 	 */
 	public function test_missing()
 	{
-		$first  = new Model_Directory('test_data/plants');
-		$second = new Model_Directory('test_data/plants/flowers');
+		$first  = new Dir('test_data/plants');
+		$second = new Dir('test_data/plants/flowers');
 
 		$this->assertSame(
 			array('lotus.jpg'),
-			$first->missing($second, Model_Directory::FILES)
+			$first->missing($second, Dir::FILES)
 		);
 
 		$this->assertEquals(
 			array('lilies.jpg', 'roses.jpg'),
-			$second->missing($first, Model_Directory::FILES)
+			$second->missing($first, Dir::FILES)
 		);
 	}
 
@@ -123,8 +123,8 @@ class Model_DirectoryTest extends Kohana_UnitTest_TestCase
 	public function test_utf_named_files()
 	{
 		$expected = array('bříza.jpg', 'jehličnaté');
-		$dir = new Model_Directory('test_data/plants/trees');
+		$dir = new Dir('test_data/plants/trees');
 
-		$this->assertEquals($expected, $dir->get_items(Model_Directory::ALL));
+		$this->assertEquals($expected, $dir->get_items(Dir::ALL));
 	}
 }
