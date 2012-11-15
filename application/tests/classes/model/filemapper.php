@@ -37,8 +37,9 @@ class Model_FilemapperTest extends Kohana_UnitTest_TestCase
 				'src' => 'test_data/plants/trees/jehličnaté',
 				'dst' => 'test_data/processed_plants/trees/jehličnaté',
 			),
+			null, // no more dirs
 		);
-		while ($dir = array_shift($dirs)) {
+		foreach ($dirs as $dir) {
 			$this->assertEquals($mapper->next_dir(), $dir);
 		}
 
@@ -57,7 +58,7 @@ class Model_FilemapperTest extends Kohana_UnitTest_TestCase
 				'orig'   => 'test_data/processed_plants/algae/algae.jpg',
 			),
 		);
-		while ($file = array_shift($files)) {
+		foreach ($files as $file) {
 			$this->assertEquals($mapper->next_file(), $file);
 		}
 	}
