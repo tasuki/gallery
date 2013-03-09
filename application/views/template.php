@@ -22,6 +22,9 @@
 			echo HTML::script($script) . "\n";
 		}
 	}
+
+	@include APPPATH . 'config/extra_head.php';
+
 	?>
 </head>
 <body>
