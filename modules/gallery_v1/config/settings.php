@@ -21,7 +21,7 @@ return array(
 	),
 
 	'styles' => array(
-		'http://fonts.googleapis.com/css?family=Ubuntu:400,700&subset=latin,latin-ext',
+		'http://fonts.googleapis.com/css?family=Changa+One',
 		'media/css/jquery.fancybox-1.3.1.css',
 		'media/css/style.css',
 	),

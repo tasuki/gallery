@@ -6,9 +6,9 @@ a, a:hover { -o-transition: .2s ease; -webkit-transition: .2s ease; -moz-transit
 .error, .fatal { color: #900; }
 
 /* background image thanks to: http://knitetgantt.deviantart.com/art/Tiled-Wallpaper-Green-Texture-131657984 */
-body { background: url("../img/knitetgantt.png") #CCC; color: #FFF; font-family: Ubuntu, sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -1px; padding: 20px; }
+body { background: url("../img/knitetgantt.png") #CCC; color: #FFF; font-family: "Changa One", sans-serif; font-size: 20px; letter-spacing: -1px; padding: 20px; }
 
-.navigation { font-size: 50px; letter-spacing: -3px; padding: 10px; }
+.navigation { font-size: 50px; letter-spacing: -2px; padding: 10px; }
 .navigation a, .navigation .crumb { color: #000; text-decoration: none; text-shadow: 2px 2px 2px #FFF; }
 .navigation a:hover { color: #FFF; text-shadow: 2px 2px 2px #000; }
 .navigation #prev { display: block; float: left; }
@@ -29,7 +29,7 @@ a.box:hover { background: #FFF; color: #000; }
 
 #bottom { margin-top: 30px; }
 
-#byncsa { float: left; font-weight: 400; margin: 10px; }
+#byncsa { float: left; margin: 10px; }
 #byncsa a:hover { text-decoration: none; }
 
 #calibration { border: 1px solid #808080; float: right; height: 15px; margin: 15px; }
