@@ -100,7 +100,7 @@ class Controller_Gallery extends Controller_Template
 	/**
 	 * Get steps for calibration
 	 */
-	protected static function get_calibration($min = 0, $max = 255, $items = 24)
+	protected static function get_calibration($min = 0, $max = 255, $items = 30)
 	{
 		$colors = array();
 		$step = ($max - $min) / $items;
