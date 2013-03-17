@@ -27,9 +27,9 @@ a.box:hover { background: #FFF; color: #000; }
 #fancybox-title { font-family: inherit; font-size: 30px; text-shadow: #000 2px 2px 1px; }
 
 #bottom { margin-top: 30px; }
+#bottom a:hover { text-decoration: none; }
 
-#byncsa { float: left; margin: 10px; }
-#byncsa a:hover { text-decoration: none; }
+#byncsa, #calibration { margin: 5px 10px; }
 
-#calibration { border: 1px solid #808080; float: right; height: 15px; margin: 15px; }
+#calibration { border: 1px solid #808080; float: left; height: 15px; }
 #calibration div { float: left; height: 15px; width: 15px; text-align: center; }
