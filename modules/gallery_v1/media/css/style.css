@@ -1,6 +1,6 @@
 * { margin: 0; padding: 0; }
 .clear { clear: both; }
-a, p { color: #000; }
+a, p { color: #222; }
 a, a:hover { -o-transition: .2s ease; -webkit-transition: .2s ease; -moz-transition: .2s ease; -ms-transition: .2s ease; transition: .2s ease; }
 
 .error, .fatal { color: #900; }
@@ -8,23 +8,23 @@ a, a:hover { -o-transition: .2s ease; -webkit-transition: .2s ease; -moz-transit
 body { background-color: #CCC; color: #FFF; font-family: "Changa One", sans-serif; font-size: 20px; letter-spacing: -1px; padding: 0px 20px 20px 20px; }
 
 .navigation { font-size: 50px; letter-spacing: -2px; padding: 10px; }
-.navigation a, .navigation .crumb { color: #000; text-decoration: none; text-shadow: 2px 2px 2px #FFF; }
-.navigation a:hover { color: #FFF; text-shadow: 2px 2px 2px #000; }
+.navigation a, .navigation .crumb { color: #222; text-decoration: none; text-shadow: 2px 2px 2px #FFF; }
+.navigation a:hover { color: #FFF; text-shadow: 2px 2px 2px #222; }
 .navigation #prev { display: block; float: left; }
 .navigation #next { display: block; float: right; }
 
 #galleries { font-size: 30px; }
 
-a.box { background: #000; color: #FFF; display: inline-block; margin: 10px; padding: 10px 20px; text-decoration: none; }
-a.box:hover { background: #FFF; color: #000; }
+a.box { background: #222; color: #FFF; display: inline-block; margin: 10px; padding: 10px 20px; text-decoration: none; }
+a.box:hover { background: #FFF; color: #222; }
 
 .pic { display: inline-block; margin: 5px; vertical-align: top; }
 .pic a { border: 5px solid #FFF; display: block; }
-.pic a:hover { border-color: #000; }
+.pic a:hover { border-color: #222; }
 .pic a img { display: block; }
 
-#fancybox-outer { background-color: #000; }
-#fancybox-title { font-family: inherit; font-size: 30px; text-shadow: #000 2px 2px 1px; }
+#fancybox-outer { background-color: #222; }
+#fancybox-title { font-family: inherit; font-size: 30px; text-shadow: #222 2px 2px 1px; }
 
 #bottom { margin-top: 30px; }
 #bottom a:hover { text-decoration: none; }
