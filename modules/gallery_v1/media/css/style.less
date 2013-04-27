@@ -1,0 +1,41 @@
+@hue: 252; // green
+@hue: 214; // blue/orange
+@colorDark:    hsl(@hue,       30%, 15%);
+@colorLighter: hsl(@hue - 180, 99%, 95%);
+@colorLight:   hsl(@hue - 180, 20%, 70%);
+
+* { margin: 0; padding: 0; }
+.clear { clear: both; }
+a, p { color: @colorDark; }
+a, a:hover { -o-transition: .2s ease; -webkit-transition: .2s ease; -moz-transition: .2s ease; -ms-transition: .2s ease; transition: .2s ease; }
+
+.error, .fatal { color: #900; }
+
+body { background-color: @colorLight; color: @colorLighter; font-family: "Changa One", sans-serif; font-size: 20px; letter-spacing: -1px; padding: 0px 20px 20px 20px; }
+
+.navigation { font-size: 50px; letter-spacing: -2px; padding: 10px; }
+.navigation a, .navigation .crumb { color: @colorDark; text-decoration: none; text-shadow: 2px 2px 2px @colorLighter; }
+.navigation a:hover { color: @colorLighter; text-shadow: 2px 2px 2px @colorDark; }
+.navigation #prev { display: block; float: left; }
+.navigation #next { display: block; float: right; }
+
+#galleries { font-size: 30px; }
+
+a.box { background: @colorDark; color: @colorLighter; display: inline-block; margin: 10px; padding: 10px 20px; text-decoration: none; }
+a.box:hover { background: @colorLighter; color: @colorDark; }
+
+.pic { display: inline-block; margin: 5px; vertical-align: top; }
+.pic a { border: 5px solid @colorLighter; display: block; }
+.pic a:hover { border-color: @colorDark; }
+.pic a img { display: block; }
+
+#fancybox-outer { background-color: @colorDark; }
+#fancybox-title { font-family: inherit; font-size: 30px; text-shadow: @colorDark 2px 2px 1px; }
+
+#bottom { margin-top: 30px; }
+#bottom a:hover { text-decoration: none; }
+
+#byncsa, #calibration { margin: 5px 10px; }
+
+#calibration { border: 1px solid #808080; float: left; height: 15px; }
+#calibration div { float: left; height: 15px; width: 15px; text-align: center; }

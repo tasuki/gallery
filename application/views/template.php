@@ -7,7 +7,11 @@
 
 	<?php
 	foreach ($styles as $style) {
-		echo HTML::style($style, array('media' => 'screen')) . "\n";
+		if (substr($style, strlen($style) - 5) === '.less') {
+			echo '<link rel="stylesheet/less" type="text/css" href="' . URL::base() . $style . '" />';
+		} else {
+			echo HTML::style($style, array('media' => 'screen')) . "\n";
+		}
 	}
 
 	foreach ($scripts as $script) {

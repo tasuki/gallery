@@ -23,10 +23,11 @@ return array(
 	'styles' => array(
 		'http://fonts.googleapis.com/css?family=Changa+One',
 		'media/css/jquery.fancybox-1.3.1.css',
-		'media/css/style.css',
+		'media/css/style.less',
 	),
 
 	'scripts' => array(
+		'http://cdnjs.cloudflare.com/ajax/libs/less.js/1.3.3/less.min.js',
 		'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js',
 		array(
 			'test'     => 'window.jQuery',
