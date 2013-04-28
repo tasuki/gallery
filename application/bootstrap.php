@@ -49,6 +49,8 @@ I18n::lang('en-us');
  */
 if (isset($_SERVER['KOHANA_ENV'])) {
 	Kohana::$environment = constant('Kohana::'.strtoupper($_SERVER['KOHANA_ENV']));
+} else {
+	Kohana::$environment = Kohana::PRODUCTION;
 }
 
 /**
@@ -102,6 +104,11 @@ Route::set('media', 'media(/<file>)', array('file' => '.+'))
 
 Route::set('admin', 'admin(/<action>(/<key>))')
 	->defaults(array('controller' => 'admin'));
+
+Route::set('error', 'error/<code>(/<message>)', array(
+	'code' => '[0-9]+',
+	'message' => '.+',
+))->defaults(array('controller' => 'gallery', 'action' => 'error'));
 
 Route::set('gallery', '(<dir>)', array('dir' => '.+'))
 	->defaults(array('controller' => 'gallery'));

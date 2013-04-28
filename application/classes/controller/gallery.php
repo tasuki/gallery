@@ -33,7 +33,11 @@ class Controller_Gallery extends Controller_Template
 
 		// load directory model
 		$gallery_dir = Kohana::$config->load('application.dir.gallery');
-		$directory = new Model_Directory(DOCROOT . "$gallery_dir/$dir");
+		try {
+			$directory = new Model_Directory(DOCROOT . "$gallery_dir/$dir");
+		} catch (UnexpectedValueException $e) {
+			throw new HTTP_Exception_404("Gallery ':gallery' not found.", array(':gallery' => $dir));
+		}
 
 		// get sub-galleries
 		$view->galleries = array();
@@ -69,6 +73,22 @@ class Controller_Gallery extends Controller_Template
 		// get breadcrumbs and calibration
 		$view->crumbs = self::get_crumbs($dir);
 		$view->calibration = self::get_calibration();
+
+		$this->template->body = $view;
+	}
+
+	public function action_error()
+	{
+		$code = $this->request->param('code');
+		$message = rawurldecode($this->request->param('message'));
+
+		$title = "$code: " . Response::$messages[$code];
+		$this->set_title($title);
+
+		$view = View::factory("error");
+		$view->crumbs = self::get_crumbs($title);
+		$view->calibration = self::get_calibration();
+		$view->message = $message;
 
 		$this->template->body = $view;
 	}
