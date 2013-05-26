@@ -26,7 +26,7 @@ a.box:hover { background: #F9F3EC; color: #21252C; }
 #fancybox-outer { background-color: #21252C; }
 #fancybox-title { font-family: inherit; font-size: 30px; text-shadow: #21252C 2px 2px 1px; }
 
-#bottom { margin-top: 30px; }
+#bottom { font-weight: normal; margin-top: 30px; }
 #bottom a:hover { text-decoration: none; }
 
 #byncsa, #calibration { margin: 5px 10px; }

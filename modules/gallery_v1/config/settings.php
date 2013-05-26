@@ -21,7 +21,7 @@ return array(
 	),
 
 	'styles' => array(
-		'http://fonts.googleapis.com/css?family=Bitter:700',
+		'http://fonts.googleapis.com/css?family=Bitter:400,700',
 		'media/css/jquery.fancybox-1.3.1.css',
 		'media/css/style.css',
 	),
