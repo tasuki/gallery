@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=0.8" />
 	<title><?php echo $title; ?></title>
 	<link rel="icon" type="image/ico" href="<?php echo URL::base() ?>media/img/favicon.ico"/>
 
