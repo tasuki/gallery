@@ -138,10 +138,13 @@ class Model_Updater
 		foreach (array('image', 'thumb') as $type) {
 			if (array_key_exists($type, $file)) {
 				$conf = $settings[$type];
+				$method = $conf['method'];
 
 				// resize using current method
-				$img->$conf['method']($conf['size'],
-					Arr::get($conf, 'gap', null));
+				$img->$method(
+					$conf['size'],
+					Arr::get($conf, 'gap', null)
+				);
 
 				// save file and set appropriate access rights
 				$img->save($file[$type], $conf['quality']);
