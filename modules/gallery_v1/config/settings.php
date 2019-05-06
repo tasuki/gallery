@@ -4,7 +4,7 @@ return array(
 	'image' => array(
 		// method to create image (one of Resizer methods)
 		'method'  => 'fit_into_box',
-		'size'    => 1536,
+		'size'    => 3072,
 		'quality' => 85,
 		'upscale' => false,
 	),
