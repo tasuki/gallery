@@ -21,18 +21,18 @@ return array(
 	),
 
 	'styles' => array(
-		'//fonts.googleapis.com/css?family=Bitter:400,700',
+		'https://fonts.googleapis.com/css?family=Bitter:400,700',
 		'media/css/jquery.fancybox-1.3.1.css',
 		'media/css/style.css',
 	),
 
 	'scripts' => array(
-		'//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js',
+		'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js',
 		array(
 			'test'     => 'window.jQuery',
 			'fallback' => 'media/js/jquery-1.7.1.min.js',
 		),
-		'//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js',
+		'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js',
 		array(
 			'test'     => 'window.jQuery.ui',
 			'fallback' => 'media/js/jquery-ui-1.8.16.min.js',

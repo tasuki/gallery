@@ -23,7 +23,7 @@ class Controller_Admin extends Controller_Template
 		);
 
 		$this->template->scripts = array(
-			'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js',
+			'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js',
 			array(
 				'test'     => 'window.jQuery',
 				'fallback' => 'media/js/jquery-1.7.1.min.js',
