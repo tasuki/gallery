@@ -101,7 +101,7 @@ class Kohana_Arr {
 		}
 		else
 		{
-			if (array_key_exists($path, $array))
+			if (is_object($array) && property_exists($array, $path))
 			{
 				// No need to do extra processing
 				return $array[$path];
