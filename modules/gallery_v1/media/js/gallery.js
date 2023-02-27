@@ -1,24 +1,18 @@
 $(document).ready(function() {
 	var base = location.href.replace(/#.*/, '');
+	var images = $('#images a');
 
-	$("#images a").fancybox({
-		'margin'         : 0,
-		'padding'        : 0,
-		'changeSpeed'    : 100,
-		'overlayShow'    : true,
-		'overlayOpacity' : 0.95,
-		'titlePosition'  : 'over',
-		'transitionIn'   : 'elastic',
-		'transitionOut'  : 'elastic',
-		'onComplete'     : function() {
-			var hash = '#' + $(this.orig.context).attr('data-file');
+	baguetteBox.run("#images", {
+		'overlayBackgroundColor' : 'rgba(100, 100, 100, 0.95)',
+		'onChange' : function(index, count) {
+			var hash = '#' + $(images[index]).attr('data-file');
 			history.replaceState('', '', base + hash);
 		},
-		'onClosed'       : function() {
+		'afterHide' : function() {
 			history.replaceState('', '', base);
-		}
+		},
 	});
 
 	// load image, if linked
-	$('#images a[data-file="' + location.hash.substr(1) + '"]').click();
+	$('#images a[data-file="' + location.hash.substr(1) + '"] img').click();
 });

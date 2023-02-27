@@ -23,8 +23,7 @@ a.box:hover { background: #F9F3EC; color: #21252C; }
 .pic a:hover { border-color: #21252C; }
 .pic a img { display: block; }
 
-#fancybox-outer { background-color: #21252C; }
-#fancybox-title { font-family: inherit; font-size: 30px; text-shadow: #21252C 2px 2px 1px; }
+#baguetteBox-overlay .full-image figcaption { background: transparent; color: #FFF; font-family: inherit; font-size: 30px; left: 10px; text-align: left; text-shadow: #21252C 2px 2px 1px; width: auto; }
 
 #bottom { font-weight: normal; margin-top: 30px; }
 #bottom a:hover { text-decoration: none; }
