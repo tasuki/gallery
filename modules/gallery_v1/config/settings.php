@@ -22,12 +22,14 @@ return array(
 
 	'styles' => array(
 		'https://fonts.googleapis.com/css?family=Bitter:400,700',
+		'media/css/justifiedGallery.css',
 		'media/css/baguetteBox-1.11.css',
 		'media/css/style.css',
 	),
 
 	'scripts' => array(
 		'media/js/jquery-3.3.1.min.js',
+		'media/js/jquery.justifiedGallery.js',
 		'media/js/baguetteBox-1.11.js',
 		'media/js/gallery.js',
 	),

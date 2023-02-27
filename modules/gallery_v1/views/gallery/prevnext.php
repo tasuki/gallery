@@ -1,3 +1,4 @@
+<?php if ($neighbors): ?>
 <div class="navigation">
 <?php
 foreach ($neighbors as $type => $neighbor) {
@@ -15,3 +16,4 @@ foreach ($neighbors as $type => $neighbor) {
 ?>
 	<div class="clear"></div>
 </div>
+<?php endif; ?>

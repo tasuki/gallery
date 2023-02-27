@@ -1,3 +1,4 @@
+<?php if ($galleries): ?>
 <div id="galleries">
 	<?php
 	// show all subgalleries of the current gallery
@@ -6,3 +7,4 @@
 	}
 	?>
 </div>
+<?php endif; ?>

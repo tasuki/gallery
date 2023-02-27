@@ -2,13 +2,18 @@ $(document).ready(function() {
 	var base = location.href.replace(/#.*/, '');
 	var images = $('#images a');
 
+	$("#images").justifiedGallery({
+		rowHeight: 150,
+		margins: 7,
+	});
+
 	baguetteBox.run("#images", {
-		'overlayBackgroundColor' : 'rgba(100, 100, 100, 0.95)',
-		'onChange' : function(index, count) {
+		overlayBackgroundColor: 'rgba(100, 100, 100, 0.95)',
+		onChange: function(index, count) {
 			var hash = '#' + $(images[index]).attr('data-file');
 			history.replaceState('', '', base + hash);
 		},
-		'afterHide' : function() {
+		afterHide: function() {
 			history.replaceState('', '', base);
 		},
 	});

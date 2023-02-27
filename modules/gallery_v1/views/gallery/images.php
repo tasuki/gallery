@@ -5,6 +5,7 @@
 		$img = HTML::image($image['url'], array(
 			'alt' => $image['title'],
 		));
+
 		$link = HTML::anchor($image['link'], $img, array(
 			'title' => $image['title'],
 			'data-file' => $image['file'],

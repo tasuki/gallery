@@ -1,31 +1,32 @@
 * { margin: 0; padding: 0; }
 .clear { clear: both; }
-a, p { color: #21252C; }
-a, a:hover { -o-transition: .2s ease; -webkit-transition: .2s ease; -moz-transition: .2s ease; -ms-transition: .2s ease; transition: .2s ease; }
+a, p { color: #000; }
 
 .error, .fatal { color: #900; }
 
-body { background-color: #C4C0BA; color: #F9F3EC; font-family: "Bitter", sans-serif; font-weight: bold; font-size: 20px; letter-spacing: -1px; padding: 0px 20px 20px 20px; }
+html { height: 100%; }
+body { background: #FFF; color: #141412; display: flex; flex-direction: column; font-family: "Bitter", sans-serif; font-weight: bold; font-size: 20px; height: 100%; letter-spacing: -1px; }
 
-.navigation { font-size: 50px; letter-spacing: -2px; padding: 10px; }
-.navigation a, .navigation .crumb { color: #21252C; text-decoration: none; text-shadow: 2px 2px 2px #F9F3EC; }
-.navigation a:hover { color: #F9F3EC; text-shadow: 2px 2px 2px #21252C; }
+#content { flex: 1 0 auto; }
+
+.navigation { background: #CA3C08; font-size: 50px; padding: 10px; }
+.navigation a, .navigation .crumb { color: #FFF; text-decoration: none; text-shadow: 1px 1px 1px #141412; }
+.navigation a:hover { color: #141412; text-shadow: 1px 1px 1px #FFF; }
 .navigation #prev { display: block; float: left; }
 .navigation #next { display: block; float: right; }
 
-#galleries { font-size: 30px; }
+#galleries { font-size: 30px; padding: 0 7px 7px 0; }
 
-a.box { background: #21252C; color: #F9F3EC; display: inline-block; margin: 10px; padding: 10px 20px; text-decoration: none; }
-a.box:hover { background: #F9F3EC; color: #21252C; }
+a.box { background: #333; color: #FFF; display: inline-block; margin: 7px 0 0 7px; padding: 10px 20px; text-decoration: none; }
+a.box:hover { background: #CA3C08; }
 
-.pic { display: inline-block; margin: 5px; vertical-align: top; }
-.pic a { border: 5px solid #F9F3EC; display: block; }
-.pic a:hover { border-color: #21252C; }
-.pic a img { display: block; }
+.justified-gallery > div > .jg-caption { font-family: inherit; font-weight: normal; font-size: 16px; letter-spacing: 0px; }
 
-#baguetteBox-overlay .full-image figcaption { background: transparent; color: #FFF; font-family: inherit; font-size: 30px; left: 10px; text-align: left; text-shadow: #21252C 2px 2px 1px; width: auto; }
+#baguetteBox-overlay .full-image figcaption { background: transparent; color: #FFF; font-family: inherit; font-size: 30px; left: 10px; text-align: left; text-shadow: #333 2px 2px 1px; width: auto; }
 
-#bottom { font-weight: normal; margin-top: 30px; }
+footer { background: #CA3C08; flex-shrink: 0; }
+footer a, footer p { color: #FFF; }
+#bottom { font-weight: normal; padding: 10px 0px; }
 #bottom a:hover { text-decoration: none; }
 
 #byncsa, #calibration { margin: 5px 10px; }
