@@ -1,0 +1,10 @@
+gallery:
+    path: /{dir}
+    controller: App\Controller\GalleryController::index
+    requirements:
+        dir: .*
+
+when@dev:
+    _errors:
+        resource: '@FrameworkBundle/Resources/config/routing/errors.xml'
+        prefix: /_error
