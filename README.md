@@ -3,23 +3,20 @@
 I created this gallery because all the other galleries seem way too complicated.
 
 ### What you'll need:
-* PHP 5.2+ (with gd or imagemagick)
+* PHP 7.2+ with ImageMagick
+* Composer
 * Apache (or other web server)
 
 ### How to install:
 * Grab a copy:
 	* clone the repo: `git clone git://github.com/tasuk/gallery.git`
-	* update submodules: `git submodule init && git submodule update`
-* Set up with web server; instructions for Apache:
-	* Copy .htaccess.template to .htaccess
-	* Edit .htaccess and change RewriteBase if necessary.
+* Set up with a web server:
+	* Document root to `public/`, show all existing files, redirect nonexistent
+	  to `index.php`.
 	* These directories need to be writable by the server:
-		* `gallery/`
-		* `application/cache/`
-		* `application/logs/`
-* Rename `application/config/application.php.template` to application.php and
-  edit it:
-	* Set base_url same as web server base.
+		* `public/gallery/`
+		* `var/`
+* Create `.env.local` to set the title: `APP_TITLE="your gallery"`
 
 ### How to use:
 * Upload your intended directory structure with picture files to `upload/`
@@ -28,41 +25,3 @@ I created this gallery because all the other galleries seem way too complicated.
 * Optionally, delete the original pics (which could take up a lot of space)
   from `upload/` - if you want to delete the photos from the gallery, delete
   them from `gallery/`
-
-### How to customize:
-Gallery uses Kohana's [cascading filesystem] with a series of modules. These are
-configured in the above mentioned application.php config. The default is the
-gallery_v1 style, which is loaded like so:
-
-	'templates' => array(
-		'gallery_v1',
-	),
-
-If you'd like to align the thumbnails using [jQuery Masonry], then use the
-following:
-
-	'templates' => array(
-		'gallery_masonry',
-		'gallery_v1',
-	),
-
-It's likely you'll want to make some customizations, eg. set your own title. In
-that case, please create your own module. Let's call it my_style:
-
-	'templates' => array(
-		'my_style',
-		'gallery_masonry',
-		'gallery_v1',
-	),
-
-Copy `modules/gallery_v1/messages/global.php` to
-`modules/my_style/messages/global.php` and perform your changes there. If you
-take versioning seriously, you should make the `modules/mystyle/` directory
-a submodule of the original repo. Browse through the `modules/gallery_v1/` and
-`modules/gallery_masonry/` directories to see what can be customized.
-
-If you have any questions/remarks, feel free to contact me or create an issue on
-github!
-
-[cascading filesystem]: http://kohanaframework.org/3.2/guide/kohana/files
-[jQuery Masonry]: http://masonry.desandro.com/
