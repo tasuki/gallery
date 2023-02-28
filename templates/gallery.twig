@@ -33,7 +33,7 @@
 	{% for image in images %}
 		<div class="pic">
 			<a href="{{ image.link }}" title="{{ image.title }}" data-file="{{ image.file }}">
-				<img src="{{ image.url }}" alt="{{ image.title }}" />
+				<img src="{{ image.src }}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.title }}" />
 			</a>
 		</div>
 	{% endfor %}

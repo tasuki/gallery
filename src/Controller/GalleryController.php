@@ -54,11 +54,16 @@ class GalleryController extends AbstractController
 		$images = [];
 
 		foreach ($directory->get_files([$prefix]) as $file) {
+			list($iwidth, $iheight) =
+				getimagesize($this->getParameter('kernel.project_dir') . "/public/gallery/$dir/$prefix$file");
+
 			$images[] = array(
-				'link'  => "/gallery/$dir/$file",
-				'url'   => "/gallery/$dir/$prefix$file",
-				'title' => Helpers::displayify($file),
-				'file'  => $file,
+				'link'   => "/gallery/$dir/$file",
+				'src'    => "/gallery/$dir/$prefix$file",
+				'title'  => Helpers::displayify($file),
+				'file'   => $file,
+				'width'  => $iwidth,
+				'height' => $iheight,
 			);
 		}
 
