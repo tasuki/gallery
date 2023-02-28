@@ -1,4 +1,6 @@
 parameters:
+    title: '%env(APP_TITLE)%'
+    thumb_prefix: '__'
 
 services:
     _defaults:

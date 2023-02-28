@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>{{ title }}</title>
+	<link rel="icon" type="image/ico" href="/media/img/favicon.ico"/>
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700" />
+	<link rel="stylesheet" href="/media/css/justifiedGallery.css" rel="stylesheet" />
+	<link rel="stylesheet" href="/media/css/baguetteBox-1.11.css" rel="stylesheet" />
+	<link rel="stylesheet" href="/media/css/style.css" />
+
+	{% for script in scripts %}
+	<script type="text/javascript" src="{{ script }}"></script>
+	{% endfor %}
+
+</head>
+<body>
+	{% block body %}
+	{% endblock %}
+</body>
+</html>

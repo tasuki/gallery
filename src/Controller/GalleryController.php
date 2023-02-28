@@ -4,32 +4,89 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use App\Model\Directory;
 
 class GalleryController extends AbstractController
 {
 	public function index(string $dir): Response
 	{
-		return new Response(
-			"<html><body>Show dir: '$dir'</body></html>"
-		);
+		$dirs = explode('/', $dir);
+		$directory = new Directory($this->getParameter('kernel.project_dir') . "/public/gallery/$dir");
+
+		return $this->render("gallery.twig", [
+			"title" => Helpers::title($dir) . $this->getParameter("title"),
+			"crumbs" => $this->get_crumbs($dirs),
+			"galleries" => $this->get_galleries($dirs, $directory),
+			"images" => $this->get_images($dir, $directory),
+			"neighbors" => $this->get_neighbors($dir, $directory),
+			"calibration" => self::get_calibration(),
+		]);
+	}
+
+	protected function get_galleries($dirs, $directory)
+	{
+		$galleries = [];
+
+		foreach ($directory->get_dirs() as $subdir) {
+			$key = array_filter(array_merge($dirs, [$subdir]));
+			$galleries["/" . join('/', $key)] = Helpers::displayify($subdir);
+		}
+
+		return $galleries;
+	}
+
+	protected function get_images($dir, $directory)
+	{
+		$prefix = $this->getParameter("thumb_prefix");
+		$images = [];
+
+		foreach ($directory->get_files([$prefix]) as $file) {
+			$images[] = array(
+				'link'  => "/gallery/$dir/$file",
+				'url'   => "/gallery/$dir/$prefix$file",
+				'title' => Helpers::displayify($file),
+				'file'  => $file,
+			);
+		}
+
+		return $images;
+	}
+
+	protected function get_neighbors($dir, $directory)
+	{
+		$neighbors = [];
+
+		if (!$dir) {
+			return $neighbors;
+		}
+
+		$parent = dirname($dir);
+		foreach ($directory->get_neighbors() as $rel => $name) {
+			$neighbors[$rel] = [
+				'link'  => "/$parent/$name",
+				'title' => Helpers::displayify($name),
+			];
+		}
+
+		return $neighbors;
 	}
 
 	/**
 	 * Assemble breadcrumbs
 	 *
-	 * @param   string  url to get the crumbs from
+	 * @param   array string  url to get the crumbs from
 	 * @return  array   link => title
 	 */
-	protected static function get_crumbs($dir)
+	protected function get_crumbs($dirs)
 	{
 		// set home crumb
-		$url = '/';
-		$crumbs = array($url => Kohana::message('global', 'title'));
+		$crumbs = ['/' => $this->getParameter("title")];
 
 		// set crumbs based on directories
-		foreach (array_filter(explode('/', $dir)) as $title) {
+		$url = '';
+		foreach (array_filter($dirs) as $title) {
 			$url .= '/' . $title;
-			$crumbs[$url] = self::displayify($title);
+			$crumbs[$url] = Helpers::displayify($title);
 		}
 
 		// unset link of last crumb
@@ -43,7 +100,7 @@ class GalleryController extends AbstractController
 	 */
 	protected static function get_calibration($min = 0, $max = 255, $items = 30)
 	{
-		$colors = array();
+		$colors = [];
 		$step = ($max - $min) / $items;
 
 		for ($i = $min; $i <= $max; $i += $step) {

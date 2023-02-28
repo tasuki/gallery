@@ -1,0 +1,70 @@
+{% extends 'base.twig' %}
+
+{% set scripts = [
+	"/media/js/jquery-3.3.1.min.js",
+	"/media/js/jquery.justifiedGallery.js",
+	"/media/js/baguetteBox-1.11.js",
+	"/media/js/gallery.js",
+] %}
+
+{% block body %}
+<div id="content">
+	<div class="navigation">
+		{% for url, title in crumbs %}
+			{% if url %}
+				<a href="{{ url }}">{{ title }}</a> &raquo;
+			{% else %}
+				<span class="crumb">{{ title }}</span>
+			{% endif %}
+		{% endfor %}
+		<div class="clear"></div>
+	</div>
+
+	{% if galleries %}
+	<div id="galleries">
+	{% for url, title in galleries %}
+	<a href="{{ url }}" class="box">{{ title }}</a>
+	{% endfor %}
+	</div>
+	{% endif %}
+
+	{% if images %}
+	<div id="images">
+	{% for image in images %}
+		<div class="pic">
+			<a href="{{ image.link }}" title="{{ image.title }}" data-file="{{ image.file }}">
+				<img src="{{ image.url }}" alt="{{ image.title }}" />
+			</a>
+		</div>
+	{% endfor %}
+	</div>
+	{% endif %}
+</div>
+
+<footer>
+	<div class="navigation">
+		{% for type, neighbor in neighbors %}
+			<a href="{{ neighbor.link }}" id="{{ type }}">
+			{% if type == 'prev' %}
+				&lsaquo; {{ neighbor.title }}
+			{% else %}
+				{{ neighbor.title }} &rsaquo;
+			{% endif %}
+			</a>
+		{% endfor %}
+		<div class="clear"></div>
+	</div>
+
+	<div id="bottom">
+		<p id="byncsa">These photos are licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-Noncommercial-Share Alike 3.0 License</a>.</p>
+
+		<div id="calibration">
+			{% for color in calibration %}
+			<div style="background: {{ color }}"></div>
+			{% endfor %}
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</footer>
+{% endblock %}
