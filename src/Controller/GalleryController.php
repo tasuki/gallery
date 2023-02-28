@@ -5,13 +5,26 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use App\Model\Directory;
+use UnexpectedValueException;
 
 class GalleryController extends AbstractController
 {
 	public function index(string $dir): Response
 	{
 		$dirs = explode('/', $dir);
-		$directory = new Directory($this->getParameter('kernel.project_dir') . "/public/gallery/$dir");
+		try {
+			$directory = new Directory($this->getParameter('kernel.project_dir') . "/public/gallery/$dir");
+		} catch (UnexpectedValueException $e) {
+			$title = "404: Not Found";
+			return $this->render("gallery.twig", [
+				"title" => Helpers::title($title) . $this->getParameter("title"),
+				"crumbs" => $this->get_crumbs([$title]),
+				"galleries" => [],
+				"images" => [],
+				"neighbors" => [],
+				"calibration" => self::get_calibration(),
+			]);
+		}
 
 		return $this->render("gallery.twig", [
 			"title" => Helpers::title($dir) . $this->getParameter("title"),
