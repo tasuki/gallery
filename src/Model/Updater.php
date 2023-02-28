@@ -2,57 +2,66 @@
 
 namespace App\Model;
 
+use Exception;
+use InvalidArgumentException;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Contracts\Cache\ItemInterface;
+use Imagine\Imagick\Imagine;
+use Imagine\Image\Box;
+use Imagine\Image\ImageInterface;
+use Imagine\Image\Metadata\ExifMetadataReader;
+
 class Updater
 {
 	const UPDATE_TIMEOUT = 30;
+	const FILE_CHMOD = 0664;
+	const DIR_CHMOD = 0775;
 
-	public $updates = array();
+	public $updates = [];
 	public $key;
 
 	protected $cache;
-
 	protected $prefix;
-	protected $dir_chmod;
+	protected $imagine;
 
 	/**
 	 * Make sure we're unique
-	 *
-	 * @param  string  key
 	 */
-	public function __construct($key = null)
+	public function __construct($key = null, $prefix = "__")
 	{
-		$this->key = $key;
-		$this->cache = Cache::instance();
+		$this->prefix = $prefix;
+		$this->cache = new FilesystemAdapter('updater');
+		$this->imagine = new Imagine();
 
-		// check lock
-		$update = $this->cache->get('update_underway');
+		// get lock or create new
+		$updateKey = $this->cache->get('update_underway', function(ItemInterface $item) {
+			$item->expiresAfter(self::UPDATE_TIMEOUT);
+			return md5(time());
+		});
 
-		if ($update === null) {
-			// if first update, set lock
-			$this->key = md5(time());
-		} else if ($update !== $key) {
+		if ($key && $key !== $updateKey) {
 			// locks don't match
 			throw new Exception('Another update is underway!');
 		}
 
-		// set or refresh lock timeout
-		$this->cache->set('update_underway', $this->key, self::UPDATE_TIMEOUT);
+		$this->key = $updateKey;
+
+		// refresh timeout
+		$this->cache->delete('update_underway');
+		$this->cache->get('update_underway', function(ItemInterface $item) {
+			$item->expiresAfter(self::UPDATE_TIMEOUT);
+			return $this->key;
+		});
 	}
 
 	/**
 	 * Create missing directories and cache unprocessed files
-	 *
-	 * @param  Config_Group  settings
-	 * @param  string        source directory
-	 * @param  string        destination directory
 	 */
-	public function update_dirs(Config_Group $settings, $source, $destination)
+	public function update_dirs($source, $destination)
 	{
-		$this->prefix    = Arr::get($settings->get('thumb'), 'prefix');
-		$this->dir_chmod = Arr::get($settings->get('chmod'), 'dir');
-
 		$this->recursively_update_dir($source, $destination);
-		$this->cache->set('updates', $this->updates);
+		$this->cache->delete('updates');
+		$this->cache->get('updates', function(ItemInterface $item) { return $this->updates; });
 	}
 
 	/**
@@ -63,14 +72,14 @@ class Updater
 	 */
 	protected function recursively_update_dir($source, $destination)
 	{
-		$src = new Model_Directory($source);
-		$dst = new Model_Directory($destination);
+		$src = new Directory($source);
+		$dst = new Directory($destination);
 
 		// create missing subdirectories
-		foreach ($dst->missing($src, Model_Directory::DIRS) as $missing) {
+		foreach ($dst->missing($src, Directory::DIRS) as $missing) {
 			$file = $destination . '/' . $missing;
 			mkdir($file);
-			chmod($file, $this->dir_chmod);
+			chmod($file, self::DIR_CHMOD);
 		}
 
 		// process subdirectories
@@ -85,17 +94,16 @@ class Updater
 			$src_path = $source . '/' . $src_file;
 
 			// destination image and thumbnail
-			foreach (array(
+			foreach ([
 				'image' => $src_file,
 				'thumb' => $this->prefix . $src_file,
-			) as $type => $dst_file) {
-				$dst_path = $destination . '/' . $dst_file;
-
+			] as $type => $dst_file) {
 				// destination doesn't exist
 				if (! in_array($dst_file, $dst_files)) {
 					// TODO optionally check timestamps:
 					// filectime($dst_file) > filectime($src_path))
 
+					$dst_path = $destination . '/' . $dst_file;
 					$this->updates[$src_path][$type] = $dst_path;
 				}
 			}
@@ -104,48 +112,67 @@ class Updater
 
 	/**
 	 * Update a file; relies on cache from update_dirs()
-	 *
-	 * @param   Config_Group  settings
-	 * @return  array         updated files
 	 */
-	public function update_file(Config_Group $settings)
+	public function update_file()
 	{
-		$file_chmod = Arr::get($settings->get('chmod'), 'file');
-
 		// get list of files to update
-		$updates = $this->cache->get('updates');
-		$orig = key($updates);
+		$this->updates = $this->cache->get('updates', function (ItemInterface $item) { return []; });
 
-		$file = array_shift($updates);
-		$this->cache->set('updates', $updates);
+		$orig = key($this->updates);
+		$file = array_shift($this->updates);
+
+		$this->cache->delete('updates');
+		$this->cache->get('updates', function(ItemInterface $item) { return $this->updates; });
 
 		if (! $file) {
 			// no more file, finish!
 			$this->cache->delete('updates');
 			$this->cache->delete('update_underway');
-			return array();
+			return [];
 		}
 
+		return $this->resize($orig, $file);
+	}
+
+	private function resize($orig, $file)
+	{
 		// create image from original
-		$img = Image::factory($orig);
-		$img->upscale = Arr::get($settings->get('image'), 'upscale');
-		foreach (array('image', 'thumb') as $type) {
-			if (array_key_exists($type, $file)) {
-				$conf = $settings[$type];
-				$method = $conf['method'];
+		$img = $this->imagine
+			->setMetadataReader(new ExifMetadataReader())
+			->open($orig);
 
-				// resize using current method
-				$img->$method(
-					$conf['size'],
-					Arr::get($conf, 'gap', null)
-				);
-
-				// save file and set appropriate access rights
-				$img->save($file[$type], $conf['quality']);
-				chmod($file[$type], $file_chmod);
-			}
+		if (array_key_exists('image', $file)) {
+			$this->resizeTo($img, $file['image'], 3072, 3072);
 		}
 
-		return array_map(array('Debug', 'path'), $file);
+		if (array_key_exists('thumb', $file)) {
+			$this->resizeTo($img, $file['thumb'], 500, 300);
+		}
+
+		return $file;
+	}
+
+	private function resizeTo($img, $file, $width, $height)
+	{
+		$metadata = $img->metadata();
+		$iwidth = $metadata['computed.Width'];
+		$iheight = $metadata['computed.Height'];
+
+		$ratio = $iwidth / $iheight;
+
+		if ($width / $height > $ratio) {
+			$width = $height * $ratio;
+		} else {
+			$height = $width / $ratio;
+		}
+
+		if ($width > $iwidth || $height > $iheight) {
+			$img->save($file);
+		} else {
+			$img->resize(new Box($width, $height), ImageInterface::FILTER_LANCZOS)
+				->save($file);
+		}
+
+		chmod($file, self::FILE_CHMOD);
 	}
 }

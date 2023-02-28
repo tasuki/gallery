@@ -1,3 +1,11 @@
+update:
+    path: /admin/update
+    controller: App\Controller\AdminController::update
+
+update_file:
+    path: /admin/update_file/{key}
+    controller: App\Controller\AdminController::update_file
+
 gallery:
     path: /{dir}
     controller: App\Controller\GalleryController::index

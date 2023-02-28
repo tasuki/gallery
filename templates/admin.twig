@@ -4,3 +4,14 @@
 	"/media/js/jquery-3.3.1.min.js",
 	"/media/js/admin.js",
 ] %}
+
+{% block body %}
+<script type="text/javascript">
+$(document).ready(function(){
+	update("/admin/update_file/{{ key }}");
+});
+</script>
+
+Updating your gallery. Lock: {{ key }}
+<br/>
+{% endblock %}
