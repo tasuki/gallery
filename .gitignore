@@ -1,4 +1,7 @@
 .htaccess
-deploy.ini
 application/config/application.php
 application/config/extra_head.php
+/.env.local
+/.env.local.php
+/var/
+/vendor/
