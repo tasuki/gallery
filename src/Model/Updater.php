@@ -10,6 +10,7 @@ use Imagine\Imagick\Imagine;
 use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\Metadata\ExifMetadataReader;
+use App\Controller\Helpers;
 
 class Updater
 {
@@ -21,15 +22,13 @@ class Updater
 	public $key;
 
 	protected $cache;
-	protected $prefix;
 	protected $imagine;
 
 	/**
 	 * Make sure we're unique
 	 */
-	public function __construct($key = null, $prefix = "__")
+	public function __construct($key = null)
 	{
-		$this->prefix = $prefix;
 		$this->cache = new FilesystemAdapter('updater');
 		$this->imagine = new Imagine();
 
@@ -96,7 +95,7 @@ class Updater
 			// destination image and thumbnail
 			foreach ([
 				'image' => $src_file,
-				'thumb' => $this->prefix . $src_file,
+				'thumb' => Helpers::thumb($src_file),
 			] as $type => $dst_file) {
 				// destination doesn't exist
 				if (! in_array($dst_file, $dst_files)) {
@@ -146,7 +145,7 @@ class Updater
 		}
 
 		if (array_key_exists('thumb', $file)) {
-			$this->resizeTo($img, $file['thumb'], 500, 300);
+			$this->resizeTo($img, $file['thumb'], 600, 300);
 		}
 
 		return $file;

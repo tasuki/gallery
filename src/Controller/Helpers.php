@@ -18,4 +18,9 @@ class Helpers {
 	{
 		return preg_replace('/\....$/', '', preg_replace('/[_-]/', ' ', $text));
 	}
+
+	public static function thumb($img)
+	{
+		return "__" . preg_replace('/\.[^.]*$/', '.webp', $img);
+	}
 }

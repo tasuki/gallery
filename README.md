@@ -25,3 +25,13 @@ I created this gallery because all the other galleries seem way too complicated.
 * Optionally, delete the original pics (which could take up a lot of space)
   from `upload/` - if you want to delete the photos from the gallery, delete
   them from `gallery/`
+
+### Upgrading from 2.x
+
+Regenerate thumbnails larger and in webp:
+
+	for i in `fd --type file -I | grep -v "/__"`; do convert $i -resize 600x300 `echo $i | sed 's/\/\([^\/]*\)$/\/__\1/' | sed 's/\.[^.]*$/.webp/'`; done
+
+After everything's working, remove the original thumbnails:
+
+	fd -I | grep "__.*\.jpg" | xargs rm
