@@ -34,7 +34,7 @@ footer a, footer p { color: #FFF; }
 #calibration { border: 1px solid #808080; float: left; height: 15px; }
 #calibration div { float: left; height: 15px; width: 15px; text-align: center; }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 650px) {
 	body { font-size: 16px; letter-spacing: 0px; }
 	.navigation { font-size: 24px; }
 	#galleries { font-size: 16px; }

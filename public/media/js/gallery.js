@@ -1,5 +1,5 @@
 getRowHeight = function() {
-	if (window.innerWidth < 600) {
+	if (window.innerWidth < 650) {
 		return 100;
 	} else {
 		return 200;
