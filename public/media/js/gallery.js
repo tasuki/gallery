@@ -1,10 +1,22 @@
+getRowHeight = function() {
+	if (window.innerWidth < 600) {
+		return 100;
+	} else {
+		return 200;
+	}
+}
+
 $(document).ready(function() {
 	var base = location.href.replace(/#.*/, '');
 	var images = $('#images a');
 
 	$("#images").justifiedGallery({
-		rowHeight: 150,
+		rowHeight: getRowHeight(),
 		margins: 7,
+	}).on('jg.resize', function(e) {
+		$("#images").justifiedGallery({
+			rowHeight: getRowHeight(),
+		})
 	});
 
 	baguetteBox.run("#images", {
