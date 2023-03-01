@@ -3,7 +3,7 @@
 I created this gallery because all the other galleries seem way too complicated.
 
 ### What you'll need:
-* PHP 7.2+ with ImageMagick
+* PHP 7.2+ with Gd
 * Composer
 * Apache (or other web server)
 

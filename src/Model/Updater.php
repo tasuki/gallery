@@ -6,7 +6,7 @@ use Exception;
 use InvalidArgumentException;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Contracts\Cache\ItemInterface;
-use Imagine\Imagick\Imagine;
+use Imagine\Gd\Imagine;
 use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\Metadata\ExifMetadataReader;
@@ -156,6 +156,7 @@ class Updater
 		$metadata = $img->metadata();
 		$iwidth = $metadata['computed.Width'];
 		$iheight = $metadata['computed.Height'];
+		$saveOptions = [ 'jpeg_quality' => 85, 'webp_quality' => 85 ];
 
 		$ratio = $iwidth / $iheight;
 
@@ -166,10 +167,10 @@ class Updater
 		}
 
 		if ($width > $iwidth || $height > $iheight) {
-			$img->save($file);
+			$img->save($file, $saveOptions);
 		} else {
 			$img->resize(new Box($width, $height), ImageInterface::FILTER_LANCZOS)
-				->save($file);
+				->save($file, $saveOptions);
 		}
 
 		chmod($file, self::FILE_CHMOD);
