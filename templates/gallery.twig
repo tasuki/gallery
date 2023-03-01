@@ -22,9 +22,7 @@
 
 	{% if galleries %}
 	<div id="galleries">
-	{% for url, title in galleries %}
-	<a href="{{ url }}" class="box">{{ title }}</a>
-	{% endfor %}
+	{% for url, title in galleries %}<a href="{{ url }}" class="box">{{ title }}</a>{% endfor %}
 	</div>
 	{% endif %}
 

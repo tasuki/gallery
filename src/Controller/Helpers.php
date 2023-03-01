@@ -8,7 +8,11 @@ class Helpers {
 	 */
 	public static function title(string $url): string
 	{
-		return self::displayify($url) . " – ";
+		if ($url) {
+			return self::displayify($url) . " – ";
+		} else {
+			return "";
+		}
 	}
 
 	/**
