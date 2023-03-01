@@ -1,3 +1,14 @@
+/* fonts */
+@font-face {
+	font-family: 'Bitter'; font-style: normal; font-weight: 400; font-display: swap;
+	src: url('../fonts/bitter-v32-latin-400.woff2') format('woff2');
+}
+@font-face {
+	font-family: 'Bitter'; font-style: normal; font-weight: 700; font-display: swap;
+	src: url('../fonts/bitter-v32-latin-700.woff2') format('woff2');
+}
+
+/* styles */
 * { margin: 0; padding: 0; }
 .clear { clear: both; }
 a, p { color: #000; }
