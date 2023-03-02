@@ -35,7 +35,8 @@ class Updater
 	 */
 	public function update_dirs($source, $destination)
 	{
-		return $this->cache->get('updates', function(ItemInterface $item) use ($source, $destination) {
+		return $this->cache->get('updates', function(ItemInterface $cacheItem) use ($source, $destination) {
+			$cacheItem->expiresAfter(self::UPDATE_TIMEOUT);
 			return $this->recursively_update_dir($source, $destination);
 		});
 	}
@@ -93,7 +94,8 @@ class Updater
 	public function update_file()
 	{
 		// get list of files to update
-		$updates = $this->cache->get('updates', function (ItemInterface $item) { return []; });
+		$cacheItem = $this->cache->getItem('updates');
+		$updates = $cacheItem->get() ?? [];
 
 		$orig = key($updates);
 		$file = array_shift($updates);
@@ -104,8 +106,8 @@ class Updater
 			return [];
 		}
 
-		$this->cache->delete('updates');
-		$this->cache->get('updates', function(ItemInterface $item) use ($updates) { return $updates; });
+		$cacheItem->set($updates)->expiresAfter(self::UPDATE_TIMEOUT);
+		$this->cache->save($cacheItem);
 
 		return $this->resize($orig, $file);
 	}
