@@ -17,8 +17,8 @@ class AdminController extends AbstractController
 		// recursively update directories
 		$updater = new Updater();
 		$files = $updater->update_dirs(
-			$this->getParameter('kernel.project_dir') . '/upload/',
-			$this->getParameter('kernel.project_dir') . '/public/gallery/',
+			$this->getParameter('upload_dir'),
+			$this->getParameter('gallery_dir'),
 		);
 
 		// update view, with url to call to update files

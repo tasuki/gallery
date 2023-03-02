@@ -1,6 +1,8 @@
 parameters:
     title: '%env(APP_TITLE)%'
     thumb_prefix: '__'
+    upload_dir: '%kernel.project_dir%/upload'
+    gallery_dir: '%kernel.project_dir%/public/gallery'
 
 services:
     _defaults:

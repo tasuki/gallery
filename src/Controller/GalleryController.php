@@ -13,7 +13,7 @@ class GalleryController extends AbstractController
 	{
 		$dirs = explode('/', $dir);
 		try {
-			$directory = new Directory($this->getParameter('kernel.project_dir') . "/public/gallery/$dir");
+			$directory = new Directory($this->getParameter('gallery_dir') . "/$dir");
 		} catch (UnexpectedValueException $e) {
 			$title = "404: Not Found";
 			return $this->render("gallery.twig", [
@@ -56,7 +56,7 @@ class GalleryController extends AbstractController
 		foreach ($directory->get_files([$prefix]) as $file) {
 			$thumb = Helpers::thumb($file);
 			list($iwidth, $iheight) =
-				getimagesize($this->getParameter('kernel.project_dir') . "/public/gallery/$dir/$thumb");
+				getimagesize($this->getParameter('gallery_dir') . "/$dir/$thumb");
 
 			$images[] = array(
 				'link'   => "/gallery/$dir/$file",
