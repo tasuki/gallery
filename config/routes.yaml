@@ -3,7 +3,7 @@ update:
     controller: App\Controller\AdminController::update
 
 update_file:
-    path: /admin/update_file/{key}
+    path: /admin/update_file
     controller: App\Controller\AdminController::update_file
 
 gallery:

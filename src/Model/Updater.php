@@ -18,39 +18,16 @@ class Updater
 	const FILE_CHMOD = 0664;
 	const DIR_CHMOD = 0775;
 
-	public $updates = [];
-	public $key;
-
 	protected $cache;
 	protected $imagine;
 
 	/**
 	 * Make sure we're unique
 	 */
-	public function __construct($key = null)
+	public function __construct()
 	{
 		$this->cache = new FilesystemAdapter('updater');
 		$this->imagine = new Imagine();
-
-		// get lock or create new
-		$updateKey = $this->cache->get('update_underway', function(ItemInterface $item) {
-			$item->expiresAfter(self::UPDATE_TIMEOUT);
-			return md5(time());
-		});
-
-		if ($key && $key !== $updateKey) {
-			// locks don't match
-			throw new Exception('Another update is underway!');
-		}
-
-		$this->key = $updateKey;
-
-		// refresh timeout
-		$this->cache->delete('update_underway');
-		$this->cache->get('update_underway', function(ItemInterface $item) {
-			$item->expiresAfter(self::UPDATE_TIMEOUT);
-			return $this->key;
-		});
 	}
 
 	/**
@@ -58,19 +35,18 @@ class Updater
 	 */
 	public function update_dirs($source, $destination)
 	{
-		$this->recursively_update_dir($source, $destination);
-		$this->cache->delete('updates');
-		$this->cache->get('updates', function(ItemInterface $item) { return $this->updates; });
+		return $this->cache->get('updates', function(ItemInterface $item) use ($source, $destination) {
+			return $this->recursively_update_dir($source, $destination);
+		});
 	}
 
 	/**
-	 * Recursively create missing directories and save unprocessed files
-	 *
-	 * @param  string  source directory
-	 * @param  string  destination directory
+	 * Recursively create missing directories and return unprocessed files
 	 */
 	protected function recursively_update_dir($source, $destination)
 	{
+		$updates = [];
+
 		$src = new Directory($source);
 		$dst = new Directory($destination);
 
@@ -83,7 +59,7 @@ class Updater
 
 		// process subdirectories
 		foreach ($src->get_dirs() as $dir) {
-			$this->recursively_update_dir("$source/$dir", "$destination/$dir");
+			$updates += $this->recursively_update_dir("$source/$dir", "$destination/$dir");
 		}
 
 		// check directories for missing images and thumbnails
@@ -103,10 +79,12 @@ class Updater
 					// filectime($dst_file) > filectime($src_path))
 
 					$dst_path = $destination . '/' . $dst_file;
-					$this->updates[$src_path][$type] = $dst_path;
+					$updates[$src_path][$type] = $dst_path;
 				}
 			}
 		}
+
+		return $updates;
 	}
 
 	/**
@@ -115,20 +93,19 @@ class Updater
 	public function update_file()
 	{
 		// get list of files to update
-		$this->updates = $this->cache->get('updates', function (ItemInterface $item) { return []; });
+		$updates = $this->cache->get('updates', function (ItemInterface $item) { return []; });
 
-		$orig = key($this->updates);
-		$file = array_shift($this->updates);
-
-		$this->cache->delete('updates');
-		$this->cache->get('updates', function(ItemInterface $item) { return $this->updates; });
+		$orig = key($updates);
+		$file = array_shift($updates);
 
 		if (! $file) {
 			// no more file, finish!
 			$this->cache->delete('updates');
-			$this->cache->delete('update_underway');
 			return [];
 		}
+
+		$this->cache->delete('updates');
+		$this->cache->get('updates', function(ItemInterface $item) use ($updates) { return $updates; });
 
 		return $this->resize($orig, $file);
 	}

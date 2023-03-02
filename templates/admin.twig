@@ -8,10 +8,10 @@
 {% block body %}
 <script type="text/javascript">
 $(document).ready(function(){
-	update("/admin/update_file/{{ key }}");
+	update("/admin/update_file");
 });
 </script>
 
-Updating your gallery. Lock: {{ key }}
+Updating your gallery. Files to process: {{ files }}
 <br/>
 {% endblock %}

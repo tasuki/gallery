@@ -36,7 +36,7 @@ function update(url) {
 		} else {
 			print_finished(errors);
 		}
-	}).error(function() {
+	}).fail(function() {
 		errors += 1;
 		print_message('fatal', 'ajax call failed');
 		print_finished(errors);
