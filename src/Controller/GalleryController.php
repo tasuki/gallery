@@ -17,9 +17,10 @@ class GalleryController extends AbstractController
 			$directory = new Directory($this->getParameter('gallery_dir') . "/$dir");
 		} catch (UnexpectedValueException $e) {
 			$title = "404: Not Found";
-			return $this->render("gallery.twig", [
-				"title" => Helpers::title($title) . $this->getParameter("title"),
-				"crumbs" => $this->get_crumbs([$title]),
+			$response = $this->render("gallery.twig", [
+				"title" => Helpers::title($dir) . $this->getParameter("title"),
+				"crumbs" => $this->get_crumbs($dirs),
+				"error" => "404: This gallery could not be found!",
 				"galleries" => [],
 				"images" => [],
 				"neighbors" => [],
@@ -27,11 +28,16 @@ class GalleryController extends AbstractController
 				"license_name" => $this->getParameter("license_name"),
 				"calibration" => self::get_calibration(),
 			]);
+
+			$response->setStatusCode(404);
+			return $response;
+
 		}
 
 		return $this->render("gallery.twig", [
 			"title" => Helpers::title($dir) . $this->getParameter("title"),
 			"crumbs" => $this->get_crumbs($dirs),
+			"error" => "",
 			"galleries" => $this->get_galleries($dirs, $directory),
 			"images" => $this->get_images($dir, $directory),
 			"neighbors" => $this->get_neighbors($dir, $directory),

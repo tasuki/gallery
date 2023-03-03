@@ -20,6 +20,10 @@
 		<div class="clear"></div>
 	</div>
 
+	{% if error %}
+	<div class="error">{{ error }}</div>
+	{% endif %}
+
 	{% if galleries %}
 	<div id="galleries">
 	{% for url, title in galleries %}<a href="{{ url }}" class="box">{{ title }}</a>{% endfor %}

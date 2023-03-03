@@ -3,7 +3,6 @@
 	--dark: #141412;
 	--lessdark: #33332E;
 	--main: #CB4B16;
-	--error: #DC322F;
 	--light: #FFF;
 }
 
@@ -21,7 +20,8 @@
 * { margin: 0; padding: 0; }
 .clear { clear: both; }
 
-.error, .fatal { color: var(--error); }
+.info, .error { margin: 10px; }
+.error { color: var(--main); }
 
 html { height: 100%; }
 body { background: var(--light); color: var(--dark); display: flex; flex-direction: column; font-family: "Bitter", sans-serif; font-weight: bold; font-size: 20px; height: 100%; letter-spacing: -1px; }

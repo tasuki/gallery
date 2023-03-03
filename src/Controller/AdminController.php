@@ -42,7 +42,7 @@ class AdminController extends AbstractController
 				$reload = false;
 			}
 		} catch (Exception $e) {
-			$results = array('fatal' => $e->getMessage());
+			$results = array('error' => $e->getMessage());
 			$reload = false;
 		}
 

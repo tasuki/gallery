@@ -1,7 +1,19 @@
+function type_class(type) {
+	switch (type) {
+		case "image":
+			return "info";
+		case "thumb":
+			return "info";
+		default:
+			return type;
+	}
+}
+
 function print_message(type, message) {
-	$('body').append($(document.createElement('p'))
+	$('#content').append($(document.createElement('p'))
 		.text(type + ': ' + message)
-		.addClass(type));
+		.addClass(type_class(type))
+	);
 }
 
 function print_finished(errors) {
@@ -26,7 +38,7 @@ function update(url) {
 	$.getJSON(url, function(data) {
 		for (type in data['results']) {
 			print_message(type, data['results'][type]);
-			if (type == 'error' || type == 'fatal') {
+			if (type == 'error') {
 				errors += 1;
 			}
 		}
@@ -38,7 +50,7 @@ function update(url) {
 		}
 	}).fail(function() {
 		errors += 1;
-		print_message('fatal', 'ajax call failed');
+		print_message('error', 'ajax call failed');
 		print_finished(errors);
 	});
 }
