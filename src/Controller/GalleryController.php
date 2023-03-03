@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
+use UnexpectedValueException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use App\Model\Directory;
-use UnexpectedValueException;
+use App\Model\Helpers;
 
 class GalleryController extends AbstractController
 {
@@ -36,7 +37,7 @@ class GalleryController extends AbstractController
 		]);
 	}
 
-	protected function get_galleries($dirs, $directory)
+	private function get_galleries($dirs, $directory)
 	{
 		$galleries = [];
 
@@ -48,7 +49,7 @@ class GalleryController extends AbstractController
 		return $galleries;
 	}
 
-	protected function get_images($dir, $directory)
+	private function get_images($dir, $directory)
 	{
 		$prefix = $this->getParameter("thumb_prefix");
 		$images = [];
@@ -71,7 +72,7 @@ class GalleryController extends AbstractController
 		return $images;
 	}
 
-	protected function get_neighbors($dir, $directory)
+	private function get_neighbors($dir, $directory)
 	{
 		$neighbors = [];
 
@@ -96,7 +97,7 @@ class GalleryController extends AbstractController
 	 * @param   array string  url to get the crumbs from
 	 * @return  array   link => title
 	 */
-	protected function get_crumbs($dirs)
+	private function get_crumbs($dirs)
 	{
 		// set home crumb
 		$crumbs = ['/' => $this->getParameter("title")];
@@ -117,7 +118,7 @@ class GalleryController extends AbstractController
 	/**
 	 * Get steps for calibration
 	 */
-	protected static function get_calibration($min = 0, $max = 255, $items = 30)
+	private static function get_calibration($min = 0, $max = 255, $items = 30)
 	{
 		$colors = [];
 		$step = ($max - $min) / $items;

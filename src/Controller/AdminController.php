@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use App\Model\Directory;
 use App\Model\Updater;
 
 class AdminController extends AbstractController
@@ -33,9 +32,10 @@ class AdminController extends AbstractController
 	 */
 	public function update_file()
 	{
+		$updater = new Updater();
 		$reload = true;
+
 		try {
-			$updater = new Updater();
 			$results = $updater->update_file();
 
 			if (count($results) === 0) {

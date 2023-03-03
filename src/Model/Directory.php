@@ -14,7 +14,7 @@ class Directory
 	/**
 	 * @var  DirectoryIterator  The current directory
 	 */
-	protected $dir;
+	private $dir;
 
 	/**
 	 * Create directory model

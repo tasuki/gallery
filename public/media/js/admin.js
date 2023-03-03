@@ -42,3 +42,7 @@ function update(url) {
 		print_finished(errors);
 	});
 }
+
+$(document).ready(function(){
+	update("/admin/update_file");
+});
