@@ -53,15 +53,12 @@
 		<div class="clear"></div>
 	</div>
 
-	<div id="bottom">
-		<p id="byncsa">These photos are licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-Noncommercial-Share Alike 3.0 License</a>.</p>
+	<div id="byncsa">These photos are licensed under the <a rel="license" href="{{ license_link }}">{{ license_name }}</a>.</div>
 
-		<div id="calibration">
-			{% for color in calibration %}
-			<div style="background: {{ color }}"></div>
-			{% endfor %}
-			<div class="clear"></div>
-		</div>
+	<div id="calibration">
+		{% for color in calibration %}
+		<div class="cal-item" style="background: {{ color }}"></div>
+		{% endfor %}
 		<div class="clear"></div>
 	</div>
 </footer>

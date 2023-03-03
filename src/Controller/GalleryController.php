@@ -23,6 +23,8 @@ class GalleryController extends AbstractController
 				"galleries" => [],
 				"images" => [],
 				"neighbors" => [],
+				"license_link" => $this->getParameter("license_link"),
+				"license_name" => $this->getParameter("license_name"),
 				"calibration" => self::get_calibration(),
 			]);
 		}
@@ -33,6 +35,8 @@ class GalleryController extends AbstractController
 			"galleries" => $this->get_galleries($dirs, $directory),
 			"images" => $this->get_images($dir, $directory),
 			"neighbors" => $this->get_neighbors($dir, $directory),
+			"license_link" => $this->getParameter("license_link"),
+			"license_name" => $this->getParameter("license_name"),
 			"calibration" => self::get_calibration(),
 		]);
 	}

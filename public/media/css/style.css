@@ -11,7 +11,6 @@
 /* styles */
 * { margin: 0; padding: 0; }
 .clear { clear: both; }
-a, p { color: #000; }
 
 .error, .fatal { color: #900; }
 
@@ -20,30 +19,27 @@ body { background: #FFF; color: #141412; display: flex; flex-direction: column; 
 
 #content { flex: 1 0 auto; }
 
-.navigation { background: #CA3C08; font-size: 40px; padding: 10px; }
+.navigation { background: #CB4B16; font-size: 40px; padding: 10px; }
 .navigation a, .navigation .crumb { color: #FFF; text-decoration: none; text-shadow: 1px 1px 1px #141412; }
 .navigation a:hover { color: #141412; text-shadow: 1px 1px 1px #FFF; }
 .navigation #prev { display: block; float: left; }
 .navigation #next { display: block; float: right; }
 
 #galleries { font-size: 30px; padding: 0 7px 7px 0; }
+#galleries a.box { background: #333; color: #FFF; display: inline-block; margin: 7px 0 0 7px; padding: 10px 20px; text-decoration: none; }
+#galleries a.box:hover { background: #CB4B16; }
 
-a.box { background: #333; color: #FFF; display: inline-block; margin: 7px 0 0 7px; padding: 10px 20px; text-decoration: none; }
-a.box:hover { background: #CA3C08; }
-
-.justified-gallery > div > .jg-caption { font-family: inherit; font-weight: normal; font-size: 14px; letter-spacing: 0px; }
+#images.justified-gallery > div > .jg-caption { font-family: inherit; font-weight: normal; font-size: 14px; letter-spacing: 0px; }
 
 #baguetteBox-overlay .full-image figcaption { background: transparent; color: #FFF; font-family: inherit; font-size: 30px; left: 10px; text-align: left; text-shadow: #333 2px 2px 1px; width: auto; }
 
-footer { background: #CA3C08; flex-shrink: 0; }
-footer a, footer p { color: #FFF; }
-#bottom { font-weight: normal; padding: 10px 0px; }
-#bottom a:hover { text-decoration: none; }
+footer { background: #CB4B16; color: #FFF; flex-shrink: 0; }
 
-#byncsa, #calibration { margin: 5px 10px; }
+footer #byncsa, footer #calibration { font-weight: normal; padding: 0 10px 10px 10px; }
+footer #byncsa a { color: #FFF; }
+footer #byncsa a:hover { color: #141412; }
 
-#calibration { border: 1px solid #808080; float: left; height: 15px; }
-#calibration div { float: left; height: 15px; width: 15px; text-align: center; }
+footer #calibration .cal-item { float: left; height: 15px; width: 15px; }
 
 @media screen and (max-width: 650px) {
 	body { font-size: 16px; letter-spacing: 0px; }
@@ -51,4 +47,5 @@ footer a, footer p { color: #FFF; }
 	#galleries { font-size: 16px; }
 	.justified-gallery > div > .jg-caption { font-size: 12px; }
 	#baguetteBox-overlay .full-image figcaption { font-size: 20px; }
+	footer #calibration .cal-item { height: 10px; width: 10px; }
 }

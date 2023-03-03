@@ -3,6 +3,8 @@ parameters:
     thumb_prefix: '__'
     upload_dir: '%kernel.project_dir%/upload'
     gallery_dir: '%kernel.project_dir%/public/gallery'
+    license_link: '%env(LICENSE_LINK)%'
+    license_name: '%env(LICENSE_NAME)%'
 
 services:
     _defaults:
