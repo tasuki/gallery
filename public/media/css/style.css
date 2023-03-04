@@ -51,9 +51,9 @@ footer #byncsa a:hover { color: var(--dark); }
 footer #calibration .cal-item { float: left; height: 15px; width: 15px; }
 
 @media screen and (max-width: 650px) {
-	body { font-size: 16px; letter-spacing: 0px; }
+	body { font-size: 14px; letter-spacing: 0px; }
 	.navigation { font-size: 24px; }
-	#galleries { font-size: 16px; }
+	#galleries { font-size: 20px; }
 	.justified-gallery > div > .jg-caption { font-size: 12px; }
 	#baguetteBox-overlay .full-image figcaption { font-size: 20px; }
 	footer #calibration .cal-item { height: 10px; width: 10px; }
