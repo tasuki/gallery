@@ -1,13 +1,19 @@
-## (Simple, web-based) Gallery
+# (Simple, web-based) Gallery
 
 I created this gallery because all the other galleries seem too complicated.
 
-### What you'll need
+## What you'll need
 
 * [PHP 7.2+](https://www.php.net/) with Gd
 * [Composer 2](https://getcomposer.org/)
 
-### Install
+### On Debian 12
+
+```
+sudo apt install imagemagick composer php-mbstring php-xml php-gd
+```
+
+## Install
 
 * Grab a copy: `git clone git://github.com/tasuki/gallery.git`
 * Install dependencies: `composer install`
@@ -21,7 +27,7 @@ I created this gallery because all the other galleries seem too complicated.
 	* Set license link: `LICENSE_LINK="https://example.com/license"`
 	* Set license name: `LICENSE_NAME="Example License"`
 
-### Use
+## Use
 
 * Upload your intended directory structure with picture files to `upload/`.
 * Visit `/admin/update` url (currently everyone can do that, but it's harmless).
@@ -30,7 +36,7 @@ I created this gallery because all the other galleries seem too complicated.
   from `upload/` - if you want to delete the photos from the gallery, delete
   them from `public/gallery/`.
 
-### Upgrading from 2.x
+## Upgrading from 2.x
 
 Regenerate thumbnails larger and in webp:
 
