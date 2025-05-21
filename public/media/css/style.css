@@ -5,6 +5,14 @@
 	--light: #FFF;
 }
 
+@media (prefers-color-scheme: dark) {
+	:root {
+		--dark: #DDD;
+		--main: #C60;
+		--light: #210;
+	}
+}
+
 /* fonts */
 @font-face {
 	font-family: 'Bitter'; font-style: normal; font-weight: 400; font-display: swap;
