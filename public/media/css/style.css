@@ -1,15 +1,15 @@
 /* variables */
 :root {
-	--dark: #210;
+	--back: #FFF;
+	--text: #210;
 	--main: #C60;
-	--light: #FFF;
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--dark: #DDD;
-		--main: #C60;
-		--light: #210;
+		--back: #210;
+		--text: #DDD;
+		--main: #F80;
 	}
 }
 
@@ -31,29 +31,29 @@
 .error { color: var(--main); }
 
 html { height: 100%; }
-body { background: var(--light); color: var(--dark); display: flex; flex-direction: column; font-family: "Bitter", sans-serif; font-weight: bold; font-size: 20px; height: 100%; letter-spacing: -1px; }
+body { background: var(--back); color: var(--text); display: flex; flex-direction: column; font-family: "Bitter", sans-serif; font-weight: bold; font-size: 20px; height: 100%; letter-spacing: -1px; }
 
 #content { flex: 1 0 auto; }
 
 .navigation { background: var(--main); font-size: 40px; padding: 10px; }
-.navigation a, .navigation .crumb { color: var(--light); text-decoration: none; text-shadow: 1px 1px 1px var(--dark); }
-.navigation a:hover { color: var(--dark); text-shadow: 1px 1px 1px var(--light); }
+.navigation a, .navigation .crumb { color: var(--back); text-decoration: none; text-shadow: 1px 1px 1px var(--text); }
+.navigation a:hover { color: var(--text); text-shadow: 1px 1px 1px var(--back); }
 .navigation #prev { display: block; float: left; }
 .navigation #next { display: block; float: right; }
 
 #galleries { font-size: 30px; padding: 0 7px 7px 0; }
-#galleries a.box { background: var(--dark); color: var(--light); display: inline-block; margin: 7px 0 0 7px; padding: 10px 20px; text-decoration: none; }
+#galleries a.box { background: var(--text); color: var(--back); display: inline-block; margin: 7px 0 0 7px; padding: 10px 20px; text-decoration: none; }
 #galleries a.box:hover { background: var(--main); }
 
 #images.justified-gallery > div > .jg-caption { font-family: inherit; font-weight: normal; font-size: 14px; letter-spacing: 0px; }
 
-#baguetteBox-overlay .full-image figcaption { background: transparent; color: var(--light); font-family: inherit; font-size: 30px; left: 10px; text-align: left; text-shadow: var(--lessdark) 2px 2px 1px; width: auto; }
+#baguetteBox-overlay .full-image figcaption { background: transparent; color: var(--back); font-family: inherit; font-size: 30px; left: 10px; text-align: left; text-shadow: var(--lessdark) 2px 2px 1px; width: auto; }
 
-footer { background: var(--main); color: var(--light); flex-shrink: 0; }
+footer { background: var(--main); color: var(--back); flex-shrink: 0; }
 
 footer #byncsa, footer #calibration { font-weight: normal; padding: 0 10px 10px 10px; }
-footer #byncsa a { color: var(--light); }
-footer #byncsa a:hover { color: var(--dark); }
+footer #byncsa a { color: var(--back); }
+footer #byncsa a:hover { color: var(--text); }
 
 footer #calibration .cal-item { float: left; height: 15px; width: 15px; }
 
