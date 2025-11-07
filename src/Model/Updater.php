@@ -57,16 +57,22 @@ class Updater
 			// source file
 			$src_path = "$source/$src_file";
 
-			// destination image and thumbnail
-			foreach ([
-				'image' => $src_file,
-				'thumb' => Helpers::thumb($src_file),
-			] as $type => $dst_file) {
+			if (str_ends_with($src_path, '.txt')) {
+				$to_process = [
+					'copy' => $src_file,
+				];
+			} else {
+				$to_process = [
+					'image' => $src_file,
+					'thumb' => Helpers::thumb($src_file),
+				];
+			}
+
+			foreach ($to_process as $type => $dst_file) {
 				// destination doesn't exist
 				if (! in_array($dst_file, $dst_files)) {
 					// TODO optionally check timestamps:
 					// filectime($dst_file) > filectime($src_path))
-
 					$dst_path = $destination . '/' . $dst_file;
 					$updates[$src_path][$type] = $dst_path;
 				}
@@ -96,6 +102,11 @@ class Updater
 		$cacheItem->set($updates)->expiresAfter(self::UPDATE_TIMEOUT);
 		$this->cache->save($cacheItem);
 
-		return $this->image->generate($orig, $file);
+		if (array_key_exists('copy', $file)) {
+			copy($orig, $file['copy']);
+			return $file;
+		} else {
+			return $this->image->generate($orig, $file);
+		}
 	}
 }

@@ -4,6 +4,8 @@ function type_class(type) {
 			return "info";
 		case "thumb":
 			return "info";
+		case "copy":
+			return "info";
 		default:
 			return type;
 	}
