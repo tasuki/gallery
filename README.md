@@ -36,6 +36,13 @@ sudo apt install imagemagick composer php-mbstring php-xml php-gd
   from `upload/` - if you want to delete the photos from the gallery, delete
   them from `public/gallery/`.
 
+### Password protection
+
+To protect a gallery with a password, drop a `pass.txt` with a password into
+its directory. Make sure the file isn't readable on the web, eg on Apache:
+
+	RewriteRule pass\.txt$ - [F,L]
+
 ## Upgrading from 2.x
 
 Regenerate thumbnails larger and in webp:

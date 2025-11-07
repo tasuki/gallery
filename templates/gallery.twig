@@ -24,6 +24,13 @@
 	<div class="error">{{ error }}</div>
 	{% endif %}
 
+	{% if auth %}
+	<form method="POST">
+		<div class="info"><input name="password" /></div>
+		<div class="info"><button type="submit">Submit</button></div>
+	</form>
+	{% endif %}
+
 	{% if galleries %}
 	<div id="galleries">
 	{% for url, title in galleries %}<a href="{{ url }}" class="box">{{ title }}</a>{% endfor %}

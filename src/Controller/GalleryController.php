@@ -2,49 +2,70 @@
 
 namespace App\Controller;
 
-use UnexpectedValueException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use App\Model\Directory;
 use App\Model\Helpers;
 
 class GalleryController extends AbstractController
 {
-	public function index(string $dir): Response
+	public function index(Request $request, string $dir): Response
 	{
 		$dirs = explode('/', $dir);
-		try {
-			$directory = new Directory($this->getParameter('gallery_dir') . "/$dir");
-		} catch (UnexpectedValueException $e) {
-			$title = "404: Not Found";
-			$response = $this->render("gallery.twig", [
-				"title" => Helpers::title($dir) . $this->getParameter("title"),
-				"crumbs" => $this->get_crumbs($dirs),
-				"error" => "404: This gallery could not be found!",
-				"galleries" => [],
-				"images" => [],
-				"neighbors" => [],
-				"license_link" => $this->getParameter("license_link"),
-				"license_name" => $this->getParameter("license_name"),
-				"calibration" => self::get_calibration(),
-			]);
-
-			$response->setStatusCode(404);
-			return $response;
-
-		}
-
-		return $this->render("gallery.twig", [
+		$defaults = [
 			"title" => Helpers::title($dir) . $this->getParameter("title"),
 			"crumbs" => $this->get_crumbs($dirs),
+			"auth" => false,
 			"error" => "",
-			"galleries" => $this->get_galleries($dirs, $directory),
-			"images" => $this->get_images($dir, $directory),
-			"neighbors" => $this->get_neighbors($dir, $directory),
+			"galleries" => [],
+			"images" => [],
+			"neighbors" => [],
 			"license_link" => $this->getParameter("license_link"),
 			"license_name" => $this->getParameter("license_name"),
 			"calibration" => self::get_calibration(),
-		]);
+		];
+
+		try {
+			$directory = new Directory($this->getParameter('gallery_dir') . "/$dir");
+		} catch (\UnexpectedValueException $e) {
+			$response = $this->render("gallery.twig", array_replace($defaults, [
+				"title" => "404: Not Found",
+				"error" => "404: This gallery could not be found!",
+			]));
+			$response->setStatusCode(404);
+			return $response;
+		}
+
+		if ($directory->is_protected()) {
+			$session = $request->getSession();
+			$unlocked_dirs = $session->get('unlocked_dirs', []);
+			if ($request->request->has('password')) {
+				$submitted_pass = $request->request->get('password');
+				$actual_pass = $directory->get_password();
+				if ($submitted_pass === $actual_pass) {
+					$unlocked_dirs[$dir] = true;
+					$session->set('unlocked_dirs', $unlocked_dirs);
+				}
+			}
+
+			if (! array_key_exists($dir, $unlocked_dirs)) {
+				$response = $this->render("gallery.twig", array_replace($defaults, [
+					"auth" => true,
+					"title" => "401: Not Authenticated",
+					"error" => "401: Please provide the password to access this gallery",
+					"neighbors" => $this->get_neighbors($dir, $directory),
+				]));
+				$response->setStatusCode(401);
+				return $response;
+			}
+		}
+
+		return $this->render("gallery.twig", array_replace($defaults, [
+			"galleries" => $this->get_galleries($dirs, $directory),
+			"images" => $this->get_images($dir, $directory),
+			"neighbors" => $this->get_neighbors($dir, $directory),
+		]));
 	}
 
 	private function get_galleries($dirs, $directory)
@@ -66,17 +87,21 @@ class GalleryController extends AbstractController
 
 		foreach ($directory->get_files([$prefix]) as $file) {
 			$thumb = Helpers::thumb($file);
-			list($iwidth, $iheight) =
-				getimagesize($this->getParameter('gallery_dir') . "/$dir/$thumb");
+			try {
+				list($iwidth, $iheight) =
+					getimagesize($this->getParameter('gallery_dir') . "/$dir/$thumb");
 
-			$images[] = array(
-				'link'   => "/gallery/$dir/$file",
-				'src'    => "/gallery/$dir/$thumb",
-				'title'  => Helpers::displayify($file),
-				'file'   => $file,
-				'width'  => $iwidth,
-				'height' => $iheight,
-			);
+				$images[] = array(
+					'link'   => "/gallery/$dir/$file",
+					'src'    => "/gallery/$dir/$thumb",
+					'title'  => Helpers::displayify($file),
+					'file'   => $file,
+					'width'  => $iwidth,
+					'height' => $iheight,
+				);
+			} catch (\ErrorException $e) {
+				// skip if no thumb
+			}
 		}
 
 		return $images;

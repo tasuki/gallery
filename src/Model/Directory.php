@@ -15,6 +15,7 @@ class Directory
 	 * @var  DirectoryIterator  The current directory
 	 */
 	private $dir;
+	private $pass_file;
 
 	/**
 	 * Create directory model
@@ -24,6 +25,7 @@ class Directory
 	public function __construct($directory)
 	{
 		$this->dir = new DirectoryIterator($directory);
+		$this->pass_file = $this->dir->getPath() . '/pass.txt';
 	}
 
 	/**
@@ -119,5 +121,15 @@ class Directory
 	public function missing(self $dir, $type)
 	{
 		return array_diff($dir->get_items($type), $this->get_items($type));
+	}
+
+	public function is_protected()
+	{
+		return file_exists($this->pass_file);
+	}
+
+	public function get_password()
+	{
+		return trim(file_get_contents($this->pass_file));
 	}
 }

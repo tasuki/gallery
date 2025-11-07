@@ -5,3 +5,7 @@ framework:
 
     php_errors:
         log: true
+
+    session:
+        enabled: true
+        cookie_lifetime: 2592000  # 60 * 60 * 24 * 30
