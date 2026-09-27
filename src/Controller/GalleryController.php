@@ -159,7 +159,7 @@ class GalleryController extends AbstractController
 		$step = ($max - $min) / $items;
 
 		for ($i = $min; $i <= $max; $i += $step) {
-			$x = dechex($i);
+			$x = dechex((int) $i);
 			if (strlen($x) == 1)
 				$x = "0$x";
 

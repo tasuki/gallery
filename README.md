@@ -4,7 +4,7 @@ I created this gallery because all the other galleries seem too complicated.
 
 ## What you'll need
 
-* [PHP 7.2+](https://www.php.net/) with Gd
+* [PHP 8.1+](https://www.php.net/) with Gd
 * [Composer 2](https://getcomposer.org/)
 
 ### On Debian 12
